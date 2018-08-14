@@ -21,6 +21,12 @@ class HomePageState extends State<HomePage> {
   int _currentIndex = 0;
 
   @override
+  void initState() {
+    widget.bloc.moviesType.add(MovieType.Popular);
+    super.initState();
+  }
+
+  @override
   void dispose() {
     widget.bloc.dispose();
     super.dispose();

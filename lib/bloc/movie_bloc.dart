@@ -23,10 +23,6 @@ class MovieBloc {
   final _isLoadingSubject = BehaviorSubject<bool>();
 
   MovieBloc(MovieRepository movieRepository) {
-    //Initially load MovieType.popular
-    //which is the first displayed BottomNavBarItem content
-    _getMoviesAndUpdate(MovieType.Popular, movieRepository);
-
     //Listen movieType changes and update movies stream
     _movieTypeController.stream.listen((movieType) {
       _getMoviesAndUpdate(movieType, movieRepository);

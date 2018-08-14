@@ -12,13 +12,13 @@ class MovieRepository {
         this._moviesCache = moviesCache ?? MoviesCache();
 
   Future<MovieResponse> getMovies(MovieType movieType) async {
-    if (_moviesCache.moviesCache.containsKey(movieType)) {
+    if (_moviesCache.contains(movieType)) {
       print("$movieType coming from cache");
-      return _moviesCache.moviesCache[movieType];
+      return _moviesCache.get(movieType);
     } else {
       MovieResponse movieResponse = await _tmdbApi.fetchMovies(movieType);
       print("$movieType is fetched from api");
-      _moviesCache.addMoviesCache(movieType, movieResponse);
+      _moviesCache.add(movieType, movieResponse);
       return movieResponse;
     }
   }
@@ -32,7 +32,15 @@ class MoviesCache {
 
   Map<MovieType, MovieResponse> get moviesCache => _moviesCache;
 
-  void addMoviesCache(MovieType type, MovieResponse movieResponse) {
+  bool contains(MovieType movieType) {
+    return _moviesCache.containsKey(movieType);
+  }
+
+  void add(MovieType type, MovieResponse movieResponse) {
     _moviesCache[type] = movieResponse;
+  }
+
+  MovieResponse get(MovieType movieType) {
+    return _moviesCache[movieType];
   }
 }

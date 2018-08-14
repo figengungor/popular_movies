@@ -3,18 +3,21 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:popular_movies/model/movie_response.dart';
 import 'package:popular_movies/model/movie_type.dart';
-import 'api_key.dart';
+import 'api_key.dart' as config;
 import 'api_constants.dart' as apiConstants;
 
 class TmdbApi {
-  final String baseUrl;
-  final http.Client client;
+  final String _baseUrl;
+  final String _apiKey;
+  final http.Client _client;
 
-  TmdbApi({this.baseUrl = apiConstants.baseUrl, HttpClient client})
-      : this.client = client ?? http.Client();
+  TmdbApi({String baseUrl, String apiKey, HttpClient client})
+      : this._baseUrl = baseUrl ?? apiConstants.baseUrl,
+        this._apiKey = apiKey ?? config.apiKey,
+        this._client = client ?? http.Client();
 
   Future<MovieResponse> fetchMovies(MovieType movieType) async {
-    Uri uri = Uri.https(baseUrl, "/3/movie/${getMovieType(movieType)}");
+    Uri uri = Uri.https(_baseUrl, "/3/movie/${getMovieType(movieType)}");
     final response = await _getWithAuthorization(uri);
     final results = MovieResponse.fromJson(response.body);
     return results;
@@ -24,10 +27,10 @@ class TmdbApi {
     final uriWithApiKey = uri
         .replace(
           queryParameters: new Map<String, String>.from(uri.queryParameters)
-            ..putIfAbsent('api_key', () => apiKey),
+            ..putIfAbsent('api_key', () => _apiKey),
         )
         .toString();
-    final response = await client.get(uriWithApiKey);
+    final response = await _client.get(uriWithApiKey);
     print(uriWithApiKey);
 
     if (response.statusCode == 200) {
