@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:meta/meta.dart';
 import 'package:popular_movies/data/tmdb_api.dart';
 import 'package:popular_movies/model/movie_response.dart';
 import 'package:popular_movies/model/movie_type.dart';
@@ -6,41 +7,52 @@ import 'package:popular_movies/model/movie_type.dart';
 class MovieRepository {
   final TmdbApi _tmdbApi;
   final MoviesCache _moviesCache;
+  final MovieType _movieType;
 
-  MovieRepository({tmdbApi, moviesCache})
+  MovieRepository({tmdbApi, moviesCache, @required movieType})
       : this._tmdbApi = tmdbApi ?? TmdbApi(),
-        this._moviesCache = moviesCache ?? MoviesCache();
+        this._moviesCache = moviesCache ?? MoviesCache(),
+        this._movieType = movieType;
 
-  Future<MovieResponse> getMovies(MovieType movieType) async {
-    if (_moviesCache.contains(movieType)) {
-      print("$movieType coming from cache");
-      return _moviesCache.get(movieType);
+  Future<MovieResponse> getMovies(int page) async {
+    if (_moviesCache.contains(page)) {
+      print("$_movieType coming from cache");
+      return _moviesCache.get(page);
     } else {
-      MovieResponse movieResponse = await _tmdbApi.fetchMovies(movieType);
-      print("$movieType is fetched from api");
-      _moviesCache.add(movieType, movieResponse);
+      MovieResponse movieResponse =
+          await _tmdbApi.fetchMovies(_movieType, page);
+      print("$_movieType is fetched from api");
+      _moviesCache.add(page, movieResponse);
       return movieResponse;
     }
+  }
+
+  void clearCache() {
+    _moviesCache.clear();
   }
 }
 
 class MoviesCache {
-  final Map<MovieType, MovieResponse> _moviesCache;
+  final Map<int, MovieResponse> _moviesCache;
 
-  MoviesCache({Map<MovieType, MovieResponse> moviesCache})
-      : this._moviesCache = moviesCache ?? <MovieType, MovieResponse>{};
+  MoviesCache({Map<int, MovieResponse> moviesCache})
+      : this._moviesCache = moviesCache ?? <int, MovieResponse>{};
 
-  Map<MovieType, MovieResponse> get moviesCache => _moviesCache;
+  Map<int, MovieResponse> get moviesCache => _moviesCache;
 
-  bool contains(MovieType movieType) {
-    return _moviesCache.containsKey(movieType);
+  bool contains(int page) {
+    return _moviesCache.containsKey(page);
   }
 
-  void add(MovieType type, MovieResponse movieResponse) {
-    _moviesCache[type] = movieResponse;
+  void add(int page, MovieResponse movieResponse) {
+    _moviesCache[page] = movieResponse;
   }
 
-  MovieResponse get(MovieType movieType) {
-    return _moviesCache[movieType];
+  MovieResponse get(int page) {
+    return _moviesCache[page];
+  }
+
+  void clear() {
+    _moviesCache.clear();
   }
 }

@@ -1,7 +1,5 @@
-import 'dart:async';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:popular_movies/utils/error_utils.dart';
 
 class ErrorMessage extends StatelessWidget {
   final dynamic error;
@@ -18,7 +16,7 @@ class ErrorMessage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              _getFriendlyErrorMessage(error),
+              ErrorUtils.getFriendlyNetworkErrorMessage(error),
               textAlign: TextAlign.center,
             ),
             onRetry != null
@@ -32,16 +30,5 @@ class ErrorMessage extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  String _getFriendlyErrorMessage(error) {
-    switch (error.runtimeType) {
-      case TimeoutException:
-        return "Connection timeout.";
-      case SocketException:
-        return "No Internet. Open your Internet connection.";
-      default:
-        return error.toString();
-    }
   }
 }

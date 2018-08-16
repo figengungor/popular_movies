@@ -4,13 +4,11 @@ import 'package:popular_movies/bloc/movie_repository.dart';
 import 'package:popular_movies/pages/home/home_page.dart';
 
 void main() {
-  final MovieBloc bloc = MovieBloc(MovieRepository());
-  runApp(MyApp(bloc: bloc));
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final MovieBloc bloc;
-  MyApp({this.bloc});
+  MyApp();
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +20,7 @@ class MyApp extends StatelessWidget {
         buttonColor: Colors.pink,
       ),
       routes: {
-        '/': (context) => HomePage(bloc: bloc),
+        '/': (context) => HomePage(),
       },
     );
   }

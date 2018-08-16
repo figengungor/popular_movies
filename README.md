@@ -21,8 +21,10 @@ Home           |  Movie List Error
 
 ## To-do
 
-* InheritedWidget for blocs
-* Pagination
+- [ ] InheritedWidget for blocs
+- [x] Pagination
+- [x] Error Handling
+- [x] RefreshIndicator(Pull-to-refresh)
 
 
 ## Credits
@@ -31,6 +33,11 @@ Home           |  Movie List Error
 
 [The Boring Flutter Development Show](https://www.youtube.com/watch?v=yr8F2S3Amas&list=PLOU2XLYxmsIK0r_D-zWcmJ1plIcDNnRkK)
 
+[mvi_sealed_unions](https://github.com/brianegan/mvi_sealed_unions)
+
+[giphy_client](https://github.com/brianegan/giphy_client)
+
+[Infitine Dynamic ListView](https://marcinszalek.pl/flutter/infinite-dynamic-listview/)
 
 ## Getting Started
 

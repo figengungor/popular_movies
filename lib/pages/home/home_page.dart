@@ -1,16 +1,10 @@
-import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:popular_movies/bloc/movie_bloc.dart';
-import 'package:popular_movies/model/movie.dart';
+import 'package:popular_movies/bloc/movie_repository.dart';
 import 'package:popular_movies/model/movie_type.dart';
-import 'package:popular_movies/pages/common/error_message.dart';
-import 'package:popular_movies/pages/home/movie_list.dart';
+import 'package:popular_movies/pages/home/movie_page.dart';
 
 class HomePage extends StatefulWidget {
-  final MovieBloc bloc;
-
-  HomePage({this.bloc});
-
   @override
   HomePageState createState() {
     return new HomePageState();
@@ -19,31 +13,35 @@ class HomePage extends StatefulWidget {
 
 class HomePageState extends State<HomePage> {
   int _currentIndex = 0;
+  MovieBloc _popularBloc;
+  MovieBloc _topRatedBloc;
+  MovieBloc _nowPlayingBloc;
 
   @override
   void initState() {
-    widget.bloc.moviesType.add(MovieType.Popular);
+    _popularBloc = MovieBloc(MovieRepository(movieType: MovieType.Popular));
+    _topRatedBloc = MovieBloc(MovieRepository(movieType: MovieType.TopRated));
+    _nowPlayingBloc =
+        MovieBloc(MovieRepository(movieType: MovieType.NowPlaying));
     super.initState();
   }
 
   @override
   void dispose() {
-    widget.bloc.dispose();
+    _popularBloc.dispose();
+    _topRatedBloc.dispose();
+    _nowPlayingBloc.dispose();
     super.dispose();
   }
 
-  void _loadBottomNavigationBarItemContent(int index) {
+  Widget _loadBottomNavigationBarItemContent(int index) {
     if (index == 0) {
-      widget.bloc.moviesType.add(MovieType.Popular);
+      return MoviePage(_popularBloc, key: Key("1"));
     } else if (index == 1) {
-      widget.bloc.moviesType.add(MovieType.TopRated);
+      return MoviePage(_topRatedBloc, key: Key("2"));
     } else {
-      widget.bloc.moviesType.add(MovieType.NowPlaying);
+      return MoviePage(_nowPlayingBloc, key: Key("3"));
     }
-  }
-
-  void _onRetry() {
-    _loadBottomNavigationBarItemContent(_currentIndex);
   }
 
   @override
@@ -69,32 +67,7 @@ class HomePageState extends State<HomePage> {
               icon: Icon(Icons.play_arrow), title: Text('Now Playing')),
         ],
       ),
-      body: Stack(
-        children: <Widget>[
-          StreamBuilder<UnmodifiableListView<Movie>>(
-              initialData: UnmodifiableListView<Movie>([]),
-              stream: widget.bloc.movies,
-              builder: (BuildContext context,
-                  AsyncSnapshot<UnmodifiableListView<Movie>> snapshot) {
-                if (snapshot.hasData) {
-                  return MovieList(snapshot.data);
-                } else if (snapshot.hasError) {
-                  return ErrorMessage(
-                    snapshot.error,
-                    onRetry: _onRetry,
-                  );
-                }
-              }),
-          StreamBuilder(
-              initialData: false,
-              stream: widget.bloc.isLoading,
-              builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-                return snapshot.data
-                    ? Center(child: CircularProgressIndicator())
-                    : Container();
-              }),
-        ],
-      ),
+      body: _loadBottomNavigationBarItemContent(_currentIndex),
     );
   }
 }

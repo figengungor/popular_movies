@@ -16,8 +16,9 @@ class TmdbApi {
         this._apiKey = apiKey ?? config.apiKey,
         this._client = client ?? http.Client();
 
-  Future<MovieResponse> fetchMovies(MovieType movieType) async {
-    Uri uri = Uri.https(_baseUrl, "/3/movie/${getMovieType(movieType)}");
+  Future<MovieResponse> fetchMovies(MovieType movieType, int page) async {
+    Uri uri = Uri.https(_baseUrl, "/3/movie/${getMovieType(movieType)}",
+        {"page": page.toString()});
     final response = await _getWithAuthorization(uri);
     final results = MovieResponse.fromJson(response.body);
     return results;
