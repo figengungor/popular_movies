@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:popular_movies/bloc/movie_bloc.dart';
-import 'package:popular_movies/bloc/movie_repository.dart';
+import 'package:popular_movies/bloc/movie_bloc/movie_bloc.dart';
+import 'package:popular_movies/bloc/movie_bloc/movie_repository.dart';
 import 'package:popular_movies/model/movie_type.dart';
 import 'package:popular_movies/pages/home/movie_page.dart';
 

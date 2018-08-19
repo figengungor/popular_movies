@@ -9,7 +9,8 @@ class MovieRepository {
   final MoviesCache _moviesCache;
   final MovieType _movieType;
 
-  MovieRepository({tmdbApi, moviesCache, @required movieType})
+  MovieRepository(
+      {TmdbApi tmdbApi, MoviesCache moviesCache, @required MovieType movieType})
       : this._tmdbApi = tmdbApi ?? TmdbApi(),
         this._moviesCache = moviesCache ?? MoviesCache(),
         this._movieType = movieType;

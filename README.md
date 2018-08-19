@@ -15,9 +15,9 @@ I'll be very happy to get it.
 
 ## Screenshots
 
-Home           |  Movie List Error
-:-------------------------:|:-------------------------:
-![](art/home.png)  |  ![](art/error.png)
+Home           |  Movie List Error|  Movie Detail
+:-------------------------:|:-------------------------:|:-------------------------:
+![](art/home.png)  |  ![](art/error.png) |  ![](art/movie_detail.png)
 
 ## To-do
 
@@ -25,6 +25,7 @@ Home           |  Movie List Error
 - [x] Pagination
 - [x] Error Handling
 - [x] RefreshIndicator(Pull-to-refresh)
+- [x] Movie Detail Page
 
 
 ## Credits

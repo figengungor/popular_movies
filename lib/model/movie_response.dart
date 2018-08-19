@@ -18,12 +18,16 @@ abstract class MovieResponse
 
   @BuiltValueField(wireName: 'page')
   int get page;
+
   @BuiltValueField(wireName: 'total_results')
   int get totalResults;
+
   @BuiltValueField(wireName: 'total_pages')
   int get totalPages;
+
   @BuiltValueField(wireName: 'results')
   BuiltList<Movie> get movie;
+
   String toJson() {
     return json.encode(
         standardSerializers.serializeWith(MovieResponse.serializer, this));

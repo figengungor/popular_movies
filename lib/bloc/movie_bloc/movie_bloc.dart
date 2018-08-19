@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:collection';
-import 'package:popular_movies/bloc/list_item.dart';
-import 'package:popular_movies/bloc/movie_repository.dart';
+import 'package:popular_movies/bloc/movie_bloc/list_item.dart';
+import 'package:popular_movies/bloc/movie_bloc/movie_repository.dart';
 import 'package:popular_movies/model/movie_response.dart';
 import 'package:rxdart/rxdart.dart';
 

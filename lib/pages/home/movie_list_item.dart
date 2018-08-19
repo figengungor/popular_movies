@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:popular_movies/bloc/list_item.dart';
+import 'package:popular_movies/bloc/movie_bloc/list_item.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:popular_movies/data/api_constants.dart';
+import 'package:popular_movies/model/movie.dart';
+import 'package:popular_movies/pages/movie_detail/movie_detail_page.dart';
 import 'package:popular_movies/utils/error_utils.dart';
 
 class MovieListItem extends StatelessWidget {
@@ -52,27 +54,38 @@ class MovieListItem extends StatelessWidget {
   Widget _getMovieItem(BuildContext context, MovieItem movieItem) {
     String url = "$imageUrl$pathPosterW342${movieItem.movie.posterPath}";
     double imageWidth = MediaQuery.of(context).size.width / 2;
-    return Tooltip(
-      message: movieItem.movie.title,
-      child: CachedNetworkImage(
-        placeholder: Image.asset('assets/images/placeholder_poster.png'),
-        errorWidget: Stack(
-          children: <Widget>[
-            Image.asset('assets/images/error_poster.png'),
-            Container(
-              padding: EdgeInsets.all(8.0),
-              alignment: Alignment.bottomCenter,
-              child: Text(
-                movieItem.movie.title,
-                textAlign: TextAlign.center,
-              ),
-            )
-          ],
+    return GestureDetector(
+      onTap: () {
+        _openMovieDetailPage(context, movieItem.movie);
+      },
+      child: Tooltip(
+        message: movieItem.movie.title,
+        child: CachedNetworkImage(
+          placeholder: Image.asset('assets/images/placeholder_poster.png'),
+          errorWidget: Stack(
+            children: <Widget>[
+              Image.asset('assets/images/error_poster.png'),
+              Container(
+                padding: EdgeInsets.all(8.0),
+                alignment: Alignment.bottomCenter,
+                child: Text(
+                  movieItem.movie.title,
+                  textAlign: TextAlign.center,
+                ),
+              )
+            ],
+          ),
+          imageUrl: url,
+          width: imageWidth,
+          fit: BoxFit.cover,
         ),
-        imageUrl: url,
-        width: imageWidth,
-        fit: BoxFit.cover,
       ),
     );
+  }
+
+  void _openMovieDetailPage(BuildContext context, Movie movie) {
+    Navigator.push(context, MaterialPageRoute(builder: (_) {
+      return MovieDetailPage(movie);
+    }));
   }
 }

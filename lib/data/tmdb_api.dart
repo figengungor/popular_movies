@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:popular_movies/model/movie_detail.dart';
 import 'package:popular_movies/model/movie_response.dart';
 import 'package:popular_movies/model/movie_type.dart';
 import 'api_key.dart' as config;
@@ -24,10 +25,18 @@ class TmdbApi {
     return results;
   }
 
+  Future<MovieDetail> fetchMovieDetail(int movieId) async {
+    Uri uri = Uri.https(_baseUrl, "/3/movie/$movieId",
+        {'append_to_response': 'videos,reviews,credits,similar'});
+    final response = await _getWithAuthorization(uri);
+    final results = MovieDetail.fromJson(response.body);
+    return results;
+  }
+
   Future<http.Response> _getWithAuthorization(Uri uri) async {
     final uriWithApiKey = uri
         .replace(
-          queryParameters: new Map<String, String>.from(uri.queryParameters)
+          queryParameters: Map<String, String>.from(uri.queryParameters)
             ..putIfAbsent('api_key', () => _apiKey),
         )
         .toString();

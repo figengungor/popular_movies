@@ -7,8 +7,22 @@ library serializers;
 import 'package:built_value/serializer.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/standard_json_plugin.dart';
+import 'package:popular_movies/model/belongs_to_collection.dart';
+import 'package:popular_movies/model/cast.dart';
+import 'package:popular_movies/model/credits.dart';
+import 'package:popular_movies/model/crew.dart';
+import 'package:popular_movies/model/genres.dart';
 import 'package:popular_movies/model/movie.dart';
+import 'package:popular_movies/model/movie_detail.dart';
 import 'package:popular_movies/model/movie_response.dart';
+import 'package:popular_movies/model/production_companies.dart';
+import 'package:popular_movies/model/production_countries.dart';
+import 'package:popular_movies/model/review.dart';
+import 'package:popular_movies/model/reviews.dart';
+import 'package:popular_movies/model/similar.dart';
+import 'package:popular_movies/model/spoken_languages.dart';
+import 'package:popular_movies/model/video.dart';
+import 'package:popular_movies/model/videos.dart';
 
 part 'serializers.g.dart';
 
@@ -26,6 +40,20 @@ part 'serializers.g.dart';
 @SerializersFor(const [
   MovieResponse,
   Movie,
+  MovieDetail,
+  BelongsToCollection,
+  Genres,
+  ProductionCompanies,
+  ProductionCountries,
+  SpokenLanguages,
+  Videos,
+  Video,
+  Reviews,
+  Review,
+  Credits,
+  Cast,
+  Crew,
+  Similar,
 ])
 Serializers serializers = _$serializers;
 

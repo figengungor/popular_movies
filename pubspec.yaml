@@ -10,6 +10,7 @@ dependencies:
   http: ^0.11.3
   rxdart: ^0.18.1
   cached_network_image: ^0.4.1+1
+  url_launcher: ^3.0.3
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -37,6 +38,8 @@ flutter:
   assets:
     - assets/images/placeholder_poster.png
     - assets/images/error_poster.png
+    - assets/images/placeholder_backdrop.png
+    - assets/images/error_backdrop.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
