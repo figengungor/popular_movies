@@ -25,10 +25,11 @@ class _MovieListState extends State<MovieList> {
   @override
   void initState() {
     print("------initState: MovieList");
-    //_scrollController = ScrollController(keepScrollOffset: false);
     _scrollController.addListener(() {
-      if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
+      //Start loading next page when visible content 500 pixels close
+      //to end of the scroll.
+      if (_scrollController.position.extentAfter < 500) {
+        print("${_scrollController.position.extentAfter}");
         widget.bloc.nextPageSink.add(null);
       }
     });
