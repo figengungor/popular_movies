@@ -14,40 +14,31 @@ class MovieListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    switch (listItem.runtimeType) {
-      case MovieItem:
-        {
-          MovieItem item = listItem;
-          return _getMovieItem(context, item);
-        }
-      case LoadingItem:
-        {
-          return Center(child: CircularProgressIndicator());
-        }
-
-      case LoadingFailed:
-        {
-          LoadingFailed item = listItem;
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  ErrorUtils.getFriendlyNetworkErrorMessage(item.error),
-                  textAlign: TextAlign.center,
-                ),
-                FlatButton(
-                  onPressed: onRetry,
-                  child: Text('RETRY'),
-                )
-              ],
+    if (listItem is MovieItem) {
+      MovieItem item = listItem;
+      return _getMovieItem(context, item);
+    } else if (listItem is LoadingItem) {
+      return Center(child: CircularProgressIndicator());
+    } else if (listItem is LoadingFailed) {
+      LoadingFailed item = listItem;
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              ErrorUtils.getFriendlyNetworkErrorMessage(item.error),
+              textAlign: TextAlign.center,
             ),
-          );
-        }
-
-      default:
-        throw Exception("${listItem.runtimeType} isn't supported!");
+            FlatButton(
+              onPressed: onRetry,
+              child: Text('RETRY'),
+            )
+          ],
+        ),
+      );
+    } else {
+      throw Exception('listItem is unknown!');
     }
   }
 
