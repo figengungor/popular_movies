@@ -1,10 +1,10 @@
 import 'dart:collection';
-
+import 'package:confused_travolta_error_view/confused_travolta_error_view.dart';
 import 'package:flutter/material.dart';
 import 'package:popular_movies/bloc/movie_bloc/list_item.dart';
 import 'package:popular_movies/bloc/movie_bloc/movie_bloc.dart';
-import 'package:popular_movies/pages/common/error_message.dart';
 import 'package:popular_movies/pages/home/movie_list.dart';
+import 'package:popular_movies/utils/error_utils.dart';
 
 class MoviePage extends StatefulWidget {
   final MovieBloc bloc;
@@ -36,9 +36,10 @@ class _MoviePageState extends State<MoviePage> {
                 print("Snapshot data ${snapshot.data}  MoviePage");
                 return MovieList(widget.bloc, snapshot.data, key: widget.key);
               } else if (snapshot.hasError) {
-                return ErrorMessage(
-                  snapshot.error,
-                  onRetry: _onRetry,
+                return ConfusedTravoltaErrorView(
+                  errorMessage:
+                      ErrorUtils.getFriendlyNetworkErrorMessage(snapshot.error),
+                  onTapRetryButton: _onRetry,
                 );
               } else {
                 return Container();

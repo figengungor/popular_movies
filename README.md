@@ -17,7 +17,7 @@ I'll be very happy to get it.
 
 Home           |  Movie List Error|  Movie Detail
 :-------------------------:|:-------------------------:|:-------------------------:
-![](art/home.png)  |  ![](art/error.png) |  ![](art/movie_detail.png)
+![](art/home.png)  |  ![](art/error_view.gif) |  ![](art/movie_detail.png)
 
 ## To-do
 

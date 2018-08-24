@@ -8,7 +8,7 @@ class ErrorUtils {
       case TimeoutException:
         return "Connection timeout.";
       case SocketException:
-        return "No Internet. Open your Internet connection.";
+        return "You have no Internet connection.";
       default:
         return error.toString();
     }

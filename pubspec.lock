@@ -120,6 +120,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.14.6"
+  confused_travolta_error_view:
+    dependency: "direct main"
+    description:
+      name: confused_travolta_error_view
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   convert:
     dependency: transitive
     description:
