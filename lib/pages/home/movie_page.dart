@@ -18,7 +18,9 @@ class MoviePage extends StatefulWidget {
 class _MoviePageState extends State<MoviePage> {
   @override
   void initState() {
-    widget.bloc.firstPageSink.add(null);
+    if (widget.bloc.isListEmpty()) {
+      widget.bloc.firstPageSink.add(null);
+    }
     super.initState();
   }
 
@@ -27,17 +29,19 @@ class _MoviePageState extends State<MoviePage> {
     return Stack(
       children: <Widget>[
         StreamBuilder<UnmodifiableListView<ListItem>>(
-            initialData: UnmodifiableListView<ListItem>([]),
             stream: widget.bloc.movies,
             builder: (BuildContext context,
                 AsyncSnapshot<UnmodifiableListView<ListItem>> snapshot) {
               if (snapshot.hasData) {
-                return MovieList(widget.bloc, snapshot.data);
+                print("Snapshot data ${snapshot.data}  MoviePage");
+                return MovieList(widget.bloc, snapshot.data, key: widget.key);
               } else if (snapshot.hasError) {
                 return ErrorMessage(
                   snapshot.error,
                   onRetry: _onRetry,
                 );
+              } else {
+                return Container();
               }
             }),
         StreamBuilder(

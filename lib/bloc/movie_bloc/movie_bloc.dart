@@ -150,8 +150,13 @@ class MovieBloc {
   /// RefreshIndicator should pass this function to its onRefresh property
   /// To know about the completion status
   Future<Null> refresh() {
+    print('Refresh is called');
     final completer = Completer<Null>();
     refreshSink.add(completer);
     return completer.future;
+  }
+
+  bool isListEmpty() {
+    return _listItems.isEmpty;
   }
 }

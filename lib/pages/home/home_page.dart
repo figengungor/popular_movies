@@ -36,11 +36,11 @@ class HomePageState extends State<HomePage> {
 
   Widget _loadBottomNavigationBarItemContent(int index) {
     if (index == 0) {
-      return MoviePage(_popularBloc, key: Key("1"));
+      return MoviePage(_popularBloc, key: PageStorageKey('popularKey'));
     } else if (index == 1) {
-      return MoviePage(_topRatedBloc, key: Key("2"));
+      return MoviePage(_topRatedBloc, key: PageStorageKey("topRatedKey"));
     } else {
-      return MoviePage(_nowPlayingBloc, key: Key("3"));
+      return MoviePage(_nowPlayingBloc, key: PageStorageKey("nowPlayingKey"));
     }
   }
 
