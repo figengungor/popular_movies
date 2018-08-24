@@ -22,19 +22,23 @@ class MovieListItem extends StatelessWidget {
     } else if (listItem is LoadingFailed) {
       LoadingFailed item = listItem;
       return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              ErrorUtils.getFriendlyNetworkErrorMessage(item.error),
-              textAlign: TextAlign.center,
-            ),
-            FlatButton(
-              onPressed: onRetry,
-              child: Text('RETRY'),
-            )
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                ErrorUtils.getFriendlyNetworkErrorMessage(item.error),
+                textAlign: TextAlign.center,
+              ),
+              FlatButton(
+                onPressed: onRetry,
+                child: Text('RETRY'),
+                textColor: Theme.of(context).accentColor,
+              )
+            ],
+          ),
         ),
       );
     } else {
