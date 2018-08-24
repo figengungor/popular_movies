@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:popular_movies/bloc/movie_bloc/movie_bloc.dart';
-import 'package:popular_movies/bloc/movie_bloc/movie_repository.dart';
 import 'package:popular_movies/pages/home/home_page.dart';
 
 void main() {
@@ -14,9 +12,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Popular Movies',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        accentColor: Colors.pink,
         buttonColor: Colors.pink,
       ),
       routes: {
