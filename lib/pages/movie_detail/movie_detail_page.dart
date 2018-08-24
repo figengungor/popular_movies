@@ -140,8 +140,18 @@ class MovieDetailPageState extends State<MovieDetailPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
-          Image.network(
-            posterUrl,
+          CachedNetworkImage(
+            imageUrl: posterUrl,
+            placeholder: Image.asset(
+              'assets/images/placeholder_poster.png',
+              width: 120.0,
+              fit: BoxFit.cover,
+            ),
+            errorWidget: Image.asset(
+              'assets/images/error_poster.png',
+              width: 120.0,
+              fit: BoxFit.cover,
+            ),
             width: 120.0,
             fit: BoxFit.cover,
           ),
