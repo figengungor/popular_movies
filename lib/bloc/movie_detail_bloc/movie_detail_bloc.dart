@@ -23,7 +23,7 @@ class MovieDetailBloc {
   }
 
   dispose() {
-    _movieIdController.sink.close();
+    _movieIdController.close();
   }
 
   void _getMovieDetail(

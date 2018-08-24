@@ -12,6 +12,7 @@ import 'package:popular_movies/pages/movie_detail/genre_tag.dart';
 import 'package:popular_movies/pages/movie_detail/reviews_section.dart';
 import 'package:popular_movies/pages/movie_detail/similar_section.dart';
 import 'package:popular_movies/pages/movie_detail/videos_section.dart';
+import 'package:popular_movies/utils/error_utils.dart';
 
 class MovieDetailPage extends StatefulWidget {
   final Movie movie;
@@ -32,6 +33,12 @@ class MovieDetailPageState extends State<MovieDetailPage> {
     bloc = MovieDetailBloc(MovieDetailRepository());
     bloc.movieIdSink.add(widget.movie.id);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    bloc.dispose();
+    super.dispose();
   }
 
   @override
@@ -94,8 +101,23 @@ class MovieDetailPageState extends State<MovieDetailPage> {
               ),
             );
           } else if (snapshot.hasError) {
-            return Container(
-              child: Text(snapshot.error.toString()),
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Column(
+                children: <Widget>[
+                  Text(
+                    'Movie details couldn\'t be fetched.\n\n'
+                        '${ErrorUtils.getFriendlyNetworkErrorMessage(
+                          snapshot.error)}',
+                    textAlign: TextAlign.center,
+                  ),
+                  FlatButton(
+                    onPressed: _onRetry,
+                    textColor: Theme.of(context).accentColor,
+                    child: Text('RETRY'),
+                  )
+                ],
+              ),
             );
           } else {
             return Container();
@@ -210,5 +232,9 @@ class MovieDetailPageState extends State<MovieDetailPage> {
         ],
       ),
     );
+  }
+
+  void _onRetry() {
+    bloc.movieIdSink.add(widget.movie.id);
   }
 }
