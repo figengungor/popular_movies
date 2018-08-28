@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:popular_movies/bloc/movie_bloc/list_item.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:popular_movies/data/api_constants.dart';
+import 'package:popular_movies/inherited_widgets/favorite_repo_provider.dart';
 import 'package:popular_movies/model/movie.dart';
 import 'package:popular_movies/pages/movie_detail/movie_detail_page.dart';
 import 'package:popular_movies/utils/error_utils.dart';
@@ -80,7 +81,7 @@ class MovieListItem extends StatelessWidget {
 
   void _openMovieDetailPage(BuildContext context, Movie movie) {
     Navigator.push(context, MaterialPageRoute(builder: (_) {
-      return MovieDetailPage(movie);
+      return MovieDetailPage(movie,FavoriteRepoProvider.of(context).favoritesRepository);
     }));
   }
 }

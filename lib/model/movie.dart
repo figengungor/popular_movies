@@ -42,6 +42,7 @@ abstract class Movie implements Built<Movie, MovieBuilder> {
   @BuiltValueField(wireName: 'original_title')
   String get originalTitle;
 
+  @nullable
   @BuiltValueField(wireName: 'genre_ids')
   BuiltList<int> get genreIds;
 
@@ -66,6 +67,41 @@ abstract class Movie implements Built<Movie, MovieBuilder> {
   static Movie fromJson(String jsonString) {
     return standardSerializers.deserializeWith(
         Movie.serializer, json.decode(jsonString));
+  }
+
+  Map<String, dynamic> toDbValues() {
+    return {
+      'id': id,
+      'poster_path': posterPath,
+      'adult': adult ? 1 : 0,
+      'overview': overview,
+      'release_date': releaseDate,
+      'original_title': originalTitle,
+      'original_language': originalLanguage,
+      'title': title,
+      'backdrop_path': backdropPath,
+      'popularity': popularity,
+      'vote_count': voteCount,
+      'video': video ? 1 : 0,
+      'vote_average': voteAverage
+    };
+  }
+
+  static Movie fromDbValues(Map<String, dynamic> map) {
+    return Movie((b) => b
+      ..id = map['id']
+      ..posterPath = map['poster_path']
+      ..adult = map['adult'] == 1 ? true : false
+      ..overview = map['overview']
+      ..releaseDate = map['release_date']
+      ..originalTitle = map['original_title']
+      ..originalLanguage = map['original_language']
+      ..title = map['title']
+      ..backdropPath = map['backdrop_path']
+      ..popularity = map['popularity']
+      ..voteCount = map['vote_count']
+      ..video = map['video']== 1 ? true : false
+      ..voteAverage = map['vote_average']);
   }
 
   static Serializer<Movie> get serializer => _$movieSerializer;

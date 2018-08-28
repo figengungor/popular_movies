@@ -1,6 +1,8 @@
 import 'package:built_collection/src/list.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:popular_movies/bloc/favorite_bloc/favorite_bloc.dart';
+import 'package:popular_movies/bloc/favorite_movies_bloc/favorites_repository.dart';
 import 'package:popular_movies/bloc/movie_detail_bloc/movie_detail_bloc.dart';
 import 'package:popular_movies/bloc/movie_detail_bloc/movie_detail_repository.dart';
 import 'package:popular_movies/model/genres.dart';
@@ -16,8 +18,9 @@ import 'package:popular_movies/utils/error_utils.dart';
 
 class MovieDetailPage extends StatefulWidget {
   final Movie movie;
+  final FavoritesRepository repo;
 
-  MovieDetailPage(this.movie);
+  MovieDetailPage(this.movie, this.repo);
 
   @override
   MovieDetailPageState createState() {
@@ -27,11 +30,15 @@ class MovieDetailPage extends StatefulWidget {
 
 class MovieDetailPageState extends State<MovieDetailPage> {
   MovieDetailBloc bloc;
+  FavoriteBloc favoriteBloc;
 
   @override
   void initState() {
     bloc = MovieDetailBloc(MovieDetailRepository());
     bloc.movieIdSink.add(widget.movie.id);
+    favoriteBloc = FavoriteBloc(widget.repo, widget.movie);
+    favoriteBloc.checkStatusSink.add(null);
+
     super.initState();
   }
 
@@ -53,6 +60,7 @@ class MovieDetailPageState extends State<MovieDetailPage> {
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
               background: CachedNetworkImage(
+                fadeInDuration: Duration(milliseconds: 0),
                 fit: BoxFit.cover,
                 imageUrl: backdropUrl,
                 placeholder: Image.asset(
@@ -108,7 +116,7 @@ class MovieDetailPageState extends State<MovieDetailPage> {
                   Text(
                     'Movie details couldn\'t be fetched.\n\n'
                         '${ErrorUtils.getFriendlyNetworkErrorMessage(
-                          snapshot.error)}',
+                        snapshot.error)}',
                     textAlign: TextAlign.center,
                   ),
                   FlatButton(
@@ -224,7 +232,11 @@ class MovieDetailPageState extends State<MovieDetailPage> {
                         ),
                       ),
                     ],
-                  )
+                  ),
+                  SizedBox(
+                    height: 16.0,
+                  ),
+                  _buildFavoriteButton(),
                 ],
               ),
             ),
@@ -236,5 +248,19 @@ class MovieDetailPageState extends State<MovieDetailPage> {
 
   void _onRetry() {
     bloc.movieIdSink.add(widget.movie.id);
+  }
+
+  _buildFavoriteButton() {
+    return StreamBuilder(
+        initialData: false,
+        stream: favoriteBloc.status,
+        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+          return FloatingActionButton(
+            onPressed: () {
+              favoriteBloc.updateStatusSink.add(null);
+            },
+            child: Icon(snapshot.data ? Icons.favorite : Icons.favorite_border),
+          );
+        });
   }
 }
