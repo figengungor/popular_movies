@@ -9,11 +9,7 @@ class FavoritesRepository {
   final MovieDatabase _movieDatabase;
 
   FavoritesRepository({MovieDatabase movieDatabase})
-      : _movieDatabase = movieDatabase ?? MovieDatabase() {
-    _updateMoviesController.stream.listen((isUpdated) {
-      _updateSubject.add(isUpdated);
-    });
-  }
+      : _movieDatabase = movieDatabase ?? MovieDatabase();
 
   Future<List<Movie>> getFavoriteMovies() async {
     return _movieDatabase.getFavorites();
@@ -25,13 +21,13 @@ class FavoritesRepository {
 
   Future<int> removeFavorite(int movieId) async {
     int row = await _movieDatabase.deleteFavorite(movieId);
-    _updateMoviesController.sink.add(true);
+    _updateSubject.add(true);
     return row;
   }
 
   Future<int> addFavorite(Movie movie) async {
     int id = await _movieDatabase.saveFavorite(movie);
-    _updateMoviesController.sink.add(true);
+    _updateSubject.add(true);
     return id;
   }
 
@@ -39,5 +35,5 @@ class FavoritesRepository {
   Stream<bool> get isUpdated => _updateSubject.stream;
 
   final _updateSubject = BehaviorSubject<bool>(seedValue: false);
-  final _updateMoviesController = StreamController<bool>();
+
 }
