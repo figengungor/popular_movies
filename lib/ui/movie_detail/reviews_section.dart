@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:popular_movies/model/review.dart';
 import 'package:popular_movies/model/reviews.dart';
-import 'package:popular_movies/pages/movie_detail/review_item.dart';
-import 'package:popular_movies/pages/movie_detail/section_header.dart';
+import 'package:popular_movies/ui/movie_detail/review_item.dart';
+import 'package:popular_movies/ui/movie_detail/section_header.dart';
 
 class ReviewsSection extends StatelessWidget {
   final Reviews reviews;

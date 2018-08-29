@@ -4,7 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:popular_movies/data/api_constants.dart';
 import 'package:popular_movies/provider/favorite_repo_provider.dart';
 import 'package:popular_movies/model/movie.dart';
-import 'package:popular_movies/pages/movie_detail/movie_detail_page.dart';
+import 'package:popular_movies/ui/movie_detail/movie_detail_page.dart';
 import 'package:popular_movies/utils/error_utils.dart';
 
 class MovieListItem extends StatelessWidget {

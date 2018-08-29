@@ -31,9 +31,14 @@ class FavoritesRepository {
     return id;
   }
 
-  //Output
+
+  ///All FavoritesRepository users should listen to this stream
+  ///to be notified when an update happened in favorites
+  ///so they can update their UIs
+  //Output Stream
   Stream<bool> get isUpdated => _updateSubject.stream;
 
+  //StreamController
   final _updateSubject = BehaviorSubject<bool>(seedValue: false);
 
 }

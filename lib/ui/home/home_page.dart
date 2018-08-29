@@ -4,8 +4,8 @@ import 'package:popular_movies/bloc/favorite_movies_bloc/favorites_repository.da
 import 'package:popular_movies/bloc/movie_bloc/movie_bloc.dart';
 import 'package:popular_movies/bloc/movie_bloc/movie_repository.dart';
 import 'package:popular_movies/model/movie_type.dart';
-import 'package:popular_movies/pages/home/favorites_page.dart';
-import 'package:popular_movies/pages/home/movie_page.dart';
+import 'package:popular_movies/ui/home/favorites_page.dart';
+import 'package:popular_movies/ui/home/movie_page.dart';
 
 class HomePage extends StatefulWidget {
   final FavoritesRepository repo;

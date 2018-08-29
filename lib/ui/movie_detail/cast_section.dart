@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:popular_movies/model/cast.dart';
 import 'package:popular_movies/model/credits.dart';
 import 'package:popular_movies/model/crew.dart';
-import 'package:popular_movies/pages/movie_detail/section_header.dart';
+import 'package:popular_movies/ui/movie_detail/section_header.dart';
 import 'package:popular_movies/data/api_constants.dart';
 
 class CastSection extends StatelessWidget {

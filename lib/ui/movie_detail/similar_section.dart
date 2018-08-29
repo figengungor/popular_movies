@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:popular_movies/provider/favorite_repo_provider.dart';
 import 'package:popular_movies/model/movie.dart';
 import 'package:popular_movies/model/similar.dart';
-import 'package:popular_movies/pages/movie_detail/movie_detail_page.dart';
-import 'package:popular_movies/pages/movie_detail/section_header.dart';
+import 'package:popular_movies/ui/movie_detail/movie_detail_page.dart';
+import 'package:popular_movies/ui/movie_detail/section_header.dart';
 import 'package:popular_movies/data/api_constants.dart';
 
 class SimilarSection extends StatelessWidget {

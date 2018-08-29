@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:popular_movies/bloc/favorite_movies_bloc/favorites_repository.dart';
 import 'package:popular_movies/provider/favorite_repo_provider.dart';
-import 'package:popular_movies/pages/home/home_page.dart';
+import 'package:popular_movies/ui/home/home_page.dart';
 
 void main() {
   runApp(

@@ -2,11 +2,8 @@ import 'dart:collection';
 import 'package:confused_travolta_error_view/confused_travolta_error_view.dart';
 import 'package:flutter/material.dart';
 import 'package:popular_movies/bloc/favorite_movies_bloc/favorites_bloc.dart';
-import 'package:popular_movies/bloc/movie_bloc/list_item.dart';
-import 'package:popular_movies/bloc/movie_bloc/movie_bloc.dart';
 import 'package:popular_movies/model/movie.dart';
-import 'package:popular_movies/pages/home/favorite_list.dart';
-import 'package:popular_movies/pages/home/movie_list.dart';
+import 'package:popular_movies/ui/home/favorite_list.dart';
 import 'package:popular_movies/utils/error_utils.dart';
 
 class FavoritesPage extends StatefulWidget {

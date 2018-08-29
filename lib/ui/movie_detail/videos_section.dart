@@ -4,7 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:popular_movies/model/video.dart';
 import 'package:popular_movies/model/videos.dart';
-import 'package:popular_movies/pages/movie_detail/section_header.dart';
+import 'package:popular_movies/ui/movie_detail/section_header.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class VideosSection extends StatelessWidget {

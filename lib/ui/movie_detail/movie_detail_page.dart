@@ -9,11 +9,11 @@ import 'package:popular_movies/model/genres.dart';
 import 'package:popular_movies/model/movie.dart';
 import 'package:popular_movies/data/api_constants.dart';
 import 'package:popular_movies/model/movie_detail.dart';
-import 'package:popular_movies/pages/movie_detail/cast_section.dart';
-import 'package:popular_movies/pages/movie_detail/genre_tag.dart';
-import 'package:popular_movies/pages/movie_detail/reviews_section.dart';
-import 'package:popular_movies/pages/movie_detail/similar_section.dart';
-import 'package:popular_movies/pages/movie_detail/videos_section.dart';
+import 'package:popular_movies/ui/movie_detail/cast_section.dart';
+import 'package:popular_movies/ui/movie_detail/genre_tag.dart';
+import 'package:popular_movies/ui/movie_detail/reviews_section.dart';
+import 'package:popular_movies/ui/movie_detail/similar_section.dart';
+import 'package:popular_movies/ui/movie_detail/videos_section.dart';
 import 'package:popular_movies/utils/error_utils.dart';
 
 class MovieDetailPage extends StatefulWidget {

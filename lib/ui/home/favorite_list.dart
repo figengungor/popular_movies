@@ -4,7 +4,7 @@ import 'package:popular_movies/bloc/favorite_movies_bloc/favorites_bloc.dart';
 import 'package:popular_movies/provider/favorite_repo_provider.dart';
 import 'package:popular_movies/model/movie.dart';
 import 'package:popular_movies/data/api_constants.dart';
-import 'package:popular_movies/pages/movie_detail/movie_detail_page.dart';
+import 'package:popular_movies/ui/movie_detail/movie_detail_page.dart';
 
 
 class FavoriteList extends StatefulWidget {

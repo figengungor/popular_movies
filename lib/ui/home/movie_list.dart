@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:popular_movies/bloc/movie_bloc/list_item.dart';
 import 'package:popular_movies/bloc/movie_bloc/movie_bloc.dart';
-import 'package:popular_movies/pages/home/movie_list_item.dart';
+import 'package:popular_movies/ui/home/movie_list_item.dart';
 
 class MovieList extends StatefulWidget {
   final MovieBloc bloc;
