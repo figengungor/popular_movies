@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:popular_movies/bloc/favorite_movies_bloc/favorites_repository.dart';
 
-class FavoriteRepoProvider extends StatefulWidget {
+class FavoriteRepoProvider extends StatelessWidget {
 
   final FavoritesRepository favoritesRepository;
 
@@ -12,34 +12,20 @@ class FavoriteRepoProvider extends StatefulWidget {
     this.favoritesRepository
   });
 
-  static _FavoriteRepoProviderState of(BuildContext context) {
+  static FavoriteRepoProvider of(BuildContext context) {
     return (context.inheritFromWidgetOfExactType(
         _InheritedFavoriteRepoProvider) as _InheritedFavoriteRepoProvider).data;
   }
 
   @override
-  _FavoriteRepoProviderState createState() => _FavoriteRepoProviderState();
-}
-
-class _FavoriteRepoProviderState extends State<FavoriteRepoProvider> {
-
-  FavoritesRepository favoritesRepository;
-
-
-  @override
-  void initState() {
-    favoritesRepository = widget.favoritesRepository;
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return _InheritedFavoriteRepoProvider(data: this, child: widget.child);
+    return _InheritedFavoriteRepoProvider(data: this, child: child);
   }
 }
+
 
 class _InheritedFavoriteRepoProvider extends InheritedWidget {
-  final _FavoriteRepoProviderState data;
+  final FavoriteRepoProvider data;
 
   _InheritedFavoriteRepoProvider({
     Key key,
