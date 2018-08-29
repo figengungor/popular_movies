@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:popular_movies/inherited_widgets/favorite_repo_provider.dart';
+import 'package:popular_movies/provider/favorite_repo_provider.dart';
 import 'package:popular_movies/model/movie.dart';
 import 'package:popular_movies/model/similar.dart';
 import 'package:popular_movies/pages/movie_detail/movie_detail_page.dart';

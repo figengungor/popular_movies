@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:popular_movies/bloc/movie_bloc/list_item.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:popular_movies/data/api_constants.dart';
-import 'package:popular_movies/inherited_widgets/favorite_repo_provider.dart';
+import 'package:popular_movies/provider/favorite_repo_provider.dart';
 import 'package:popular_movies/model/movie.dart';
 import 'package:popular_movies/pages/movie_detail/movie_detail_page.dart';
 import 'package:popular_movies/utils/error_utils.dart';

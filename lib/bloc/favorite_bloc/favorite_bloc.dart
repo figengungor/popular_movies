@@ -4,6 +4,7 @@ import 'package:popular_movies/model/movie.dart';
 import 'package:rxdart/rxdart.dart';
 
 class FavoriteBloc {
+
   final FavoritesRepository favoritesRepository;
   final Movie movie;
   bool isFavorite;
@@ -29,11 +30,9 @@ class FavoriteBloc {
 
   //InputStream
   Sink<void> get updateStatusSink => _updateStatusController.sink;
-
   Sink<void> get checkStatusSink => _checkStatusController.sink;
 
   //StreamControllers
-
   final _statusSubject = BehaviorSubject<bool>(seedValue: false);
   final _updateStatusController = StreamController<void>();
   final _checkStatusController = StreamController<void>();
@@ -56,6 +55,7 @@ class FavoriteBloc {
 
   void dispose() {
     _updateStatusController.close();
+    _checkStatusController.close();
   }
 
   void _removeFavorite() async {

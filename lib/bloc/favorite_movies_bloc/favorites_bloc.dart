@@ -7,7 +7,7 @@ import 'package:rxdart/rxdart.dart';
 
 class FavoritesBloc {
 
-  FavoritesRepository favoritesRepository;
+  final FavoritesRepository favoritesRepository;
 
   FavoritesBloc(this.favoritesRepository) {
     _updateMoviesController.stream.listen((_) {
@@ -23,7 +23,7 @@ class FavoritesBloc {
   //Output Streams
   Stream<UnmodifiableListView<Movie>> get movies => _moviesSubject.stream;
 
-  //InputStream
+  //Input Streams
   Sink<void> get updateMoviesSink => _updateMoviesController.sink;
 
   //StreamControllers
