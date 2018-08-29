@@ -17,15 +17,16 @@ I'll be very happy to get it.
 
 Home           |  Movie List Error|  Movie Detail
 :-------------------------:|:-------------------------:|:-------------------------:
-![](art/home.png)  |  ![](art/error_view.gif) |  ![](art/movie_detail.png)
+![](art/home.png)  |  ![](art/error_view.png) |  ![](art/movie_detail.png)
 
 ## To-do
 
-- [ ] InheritedWidget for blocs
+- [X] InheritedWidget
 - [x] Pagination
 - [x] Error Handling
 - [x] RefreshIndicator(Pull-to-refresh)
 - [x] Movie Detail Page
+- [x] Favorites Feature
 
 
 ## Credits
