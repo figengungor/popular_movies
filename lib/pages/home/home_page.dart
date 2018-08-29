@@ -74,13 +74,13 @@ class HomePageState extends State<HomePage> {
         currentIndex: _currentIndex,
         items: [
           BottomNavigationBarItem(
-              icon: Icon(Icons.favorite), title: Text('Popular')),
+              icon: Icon(Icons.trending_up), title: Text('Popular')),
           BottomNavigationBarItem(
               icon: Icon(Icons.star), title: Text('Top Rated')),
           BottomNavigationBarItem(
               icon: Icon(Icons.play_arrow), title: Text('Now Playing')),
           BottomNavigationBarItem(
-              icon: Icon(Icons.favorite_border), title: Text('Favorites')),
+              icon: Icon(Icons.favorite), title: Text('Favorites')),
         ],
       ),
       body: _loadBottomNavigationBarItemContent(_currentIndex),
