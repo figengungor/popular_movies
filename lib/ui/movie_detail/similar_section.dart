@@ -81,7 +81,8 @@ class SimilarSection extends StatelessWidget {
 
   void _openMovieDetail(BuildContext context, Movie movie) {
     Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-      return MovieDetailPage(movie,FavoriteRepoProvider.of(context).favoritesRepository);
+      return MovieDetailPage(
+          movie, FavoriteRepoProvider.of(context).favoritesRepository);
     }));
   }
 }

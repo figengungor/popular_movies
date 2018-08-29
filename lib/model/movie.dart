@@ -100,7 +100,7 @@ abstract class Movie implements Built<Movie, MovieBuilder> {
       ..backdropPath = map['backdrop_path']
       ..popularity = map['popularity']
       ..voteCount = map['vote_count']
-      ..video = map['video']== 1 ? true : false
+      ..video = map['video'] == 1 ? true : false
       ..voteAverage = map['vote_average']);
   }
 

@@ -6,7 +6,6 @@ import 'package:popular_movies/model/movie.dart';
 import 'package:rxdart/rxdart.dart';
 
 class FavoritesBloc {
-
   final FavoritesRepository favoritesRepository;
 
   FavoritesBloc(this.favoritesRepository) {
@@ -17,7 +16,6 @@ class FavoritesBloc {
     favoritesRepository.isUpdated.listen((_) {
       _getFavoriteMovies();
     });
-
   }
 
   //Output Streams
@@ -31,7 +29,7 @@ class FavoritesBloc {
   final _moviesSubject = BehaviorSubject<UnmodifiableListView<Movie>>();
   final _updateMoviesController = StreamController<void>();
 
-  void _getFavoriteMovies() async{
+  void _getFavoriteMovies() async {
     List<Movie> movies = await favoritesRepository.getFavoriteMovies();
     _moviesSubject.add(UnmodifiableListView(movies));
   }
@@ -39,5 +37,4 @@ class FavoritesBloc {
   void dispose() {
     _updateMoviesController.close();
   }
-
 }

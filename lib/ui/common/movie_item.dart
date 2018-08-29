@@ -45,7 +45,8 @@ class MovieItem extends StatelessWidget {
 
   void _openMovieDetailPage(BuildContext context, Movie movie) {
     Navigator.push(context, MaterialPageRoute(builder: (_) {
-      return MovieDetailPage(movie, FavoriteRepoProvider.of(context).favoritesRepository);
+      return MovieDetailPage(
+          movie, FavoriteRepoProvider.of(context).favoritesRepository);
     }));
   }
 }

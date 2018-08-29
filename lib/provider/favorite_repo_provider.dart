@@ -2,19 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:popular_movies/bloc/favorite_movies_bloc/favorites_repository.dart';
 
 class FavoriteRepoProvider extends StatelessWidget {
-
   final FavoritesRepository favoritesRepository;
 
   final Widget child;
 
-  FavoriteRepoProvider({
-    @required this.child,
-    this.favoritesRepository
-  });
+  FavoriteRepoProvider({@required this.child, this.favoritesRepository});
 
   static FavoriteRepoProvider of(BuildContext context) {
-    return (context.inheritFromWidgetOfExactType(
-        _InheritedFavoriteRepoProvider) as _InheritedFavoriteRepoProvider).data;
+    return (context.inheritFromWidgetOfExactType(_InheritedFavoriteRepoProvider)
+            as _InheritedFavoriteRepoProvider)
+        .data;
   }
 
   @override
@@ -23,19 +20,15 @@ class FavoriteRepoProvider extends StatelessWidget {
   }
 }
 
-
 class _InheritedFavoriteRepoProvider extends InheritedWidget {
   final FavoriteRepoProvider data;
 
-  _InheritedFavoriteRepoProvider({
-    Key key,
-    @required this.data,
-    @required Widget child
-  }) : super(key: key, child: child);
+  _InheritedFavoriteRepoProvider(
+      {Key key, @required this.data, @required Widget child})
+      : super(key: key, child: child);
 
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) {
     return true;
   }
-
 }

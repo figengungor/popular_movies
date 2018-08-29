@@ -35,7 +35,6 @@ class HomePageState extends State<HomePage> {
     super.initState();
   }
 
-
   @override
   void dispose() {
     _popularBloc.dispose();
@@ -50,7 +49,7 @@ class HomePageState extends State<HomePage> {
       return MoviePage(_popularBloc, key: PageStorageKey('popularKey'));
     } else if (index == 1) {
       return MoviePage(_topRatedBloc, key: PageStorageKey('topRatedKey'));
-    } else if(index==2){
+    } else if (index == 2) {
       return MoviePage(_nowPlayingBloc, key: PageStorageKey('nowPlayingKey'));
     } else {
       return FavoritesPage(_favoritesBloc, key: PageStorageKey('favoritesKey'));

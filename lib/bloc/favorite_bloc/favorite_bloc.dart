@@ -4,25 +4,22 @@ import 'package:popular_movies/model/movie.dart';
 import 'package:rxdart/rxdart.dart';
 
 class FavoriteBloc {
-
   final FavoritesRepository favoritesRepository;
   final Movie movie;
   bool isFavorite;
 
   FavoriteBloc(this.favoritesRepository, this.movie) {
-
     _checkStatusController.stream.listen((_) {
       _checkStatus();
     });
 
-    _updateStatusController.stream.listen((_){
+    _updateStatusController.stream.listen((_) {
       _updateStatus();
     });
 
     favoritesRepository.isUpdated.listen((_) {
       _checkStatus();
     });
-
   }
 
   //Output Streams
@@ -43,8 +40,8 @@ class FavoriteBloc {
     _statusSubject.add(isFavorite);
   }
 
-  void _updateStatus() async{
-    if(isFavorite) {
+  void _updateStatus() async {
+    if (isFavorite) {
       _removeFavorite();
     } else {
       _addFavorite();

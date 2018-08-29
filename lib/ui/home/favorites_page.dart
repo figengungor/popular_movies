@@ -32,13 +32,13 @@ class _FavoritesPageState extends State<FavoritesPage> {
                 AsyncSnapshot<UnmodifiableListView<Movie>> snapshot) {
               if (snapshot.hasData) {
                 print("Snapshot data ${snapshot.data}  FavoritesPage");
-                return snapshot.data.length > 0 ?
-                 FavoriteList(widget.bloc, snapshot.data, key: widget.key):
-                 ConfusedTravoltaErrorView(
-                  errorMessage: 'No favorites found!',
-                   //TODO: Fix the package, enable no button
-                   retryButton: Container(),
-                );
+                return snapshot.data.length > 0
+                    ? FavoriteList(widget.bloc, snapshot.data, key: widget.key)
+                    : ConfusedTravoltaErrorView(
+                        errorMessage: 'No favorites found!',
+                        //TODO: Fix the package, enable no button
+                        retryButton: Container(),
+                      );
               } else if (snapshot.hasError) {
                 return ConfusedTravoltaErrorView(
                   errorMessage:

@@ -5,7 +5,6 @@ import 'package:popular_movies/model/movie.dart';
 import 'package:rxdart/rxdart.dart';
 
 class FavoritesRepository {
-
   final MovieDatabase _movieDatabase;
 
   FavoritesRepository({MovieDatabase movieDatabase})
@@ -31,7 +30,6 @@ class FavoritesRepository {
     return id;
   }
 
-
   ///All FavoritesRepository users should listen to this stream
   ///to be notified when an update happened in favorites
   ///so they can update their UIs
@@ -40,5 +38,4 @@ class FavoritesRepository {
 
   //StreamController
   final _updateSubject = BehaviorSubject<bool>(seedValue: false);
-
 }
