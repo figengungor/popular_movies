@@ -31,6 +31,8 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(Reviews.serializer)
       ..add(Similar.serializer)
       ..add(SpokenLanguages.serializer)
+      ..add(TaggedImage.serializer)
+      ..add(TaggedImages.serializer)
       ..add(Video.serializer)
       ..add(Videos.serializer)
       ..addBuilderFactory(
@@ -65,6 +67,9 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(TaggedImage)]),
+          () => new ListBuilder<TaggedImage>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(Video)]),
           () => new ListBuilder<Video>())

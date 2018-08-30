@@ -5,6 +5,7 @@ import 'package:popular_movies/model/movie_detail.dart';
 import 'package:popular_movies/model/movie_response.dart';
 import 'package:popular_movies/model/movie_type.dart';
 import 'package:popular_movies/model/person_detail.dart';
+import 'package:popular_movies/model/tagged_images.dart';
 import 'api_key.dart' as config;
 import 'api_constants.dart' as apiConstants;
 
@@ -39,6 +40,13 @@ class TmdbApi {
         {'append_to_response': 'external_ids,tagged_images'});
     final response = await _getWithAuthorization(uri);
     final results = PersonDetail.fromJson(response.body);
+    return results;
+  }
+
+  Future<TaggedImages> fetchTaggedImages(int personId) async {
+    Uri uri = Uri.https(_baseUrl, "/3/person/$personId/tagged_images");
+    final response = await _getWithAuthorization(uri);
+    final results = TaggedImages.fromJson(response.body);
     return results;
   }
 

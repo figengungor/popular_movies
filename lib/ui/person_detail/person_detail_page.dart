@@ -4,6 +4,7 @@ import 'package:popular_movies/bloc/person_detail_bloc/person_detail_bloc.dart';
 import 'package:popular_movies/model/external_ids.dart';
 import 'package:popular_movies/model/person_detail.dart';
 import 'package:popular_movies/ui/common/social_icon.dart';
+import 'package:popular_movies/ui/tagged_images/tagged_images_page.dart';
 import 'package:popular_movies/utils/error_utils.dart';
 import 'package:popular_movies/data/api_constants.dart';
 
@@ -79,6 +80,8 @@ class _PersonDetailPageState extends State<PersonDetailPage> {
               _buildVerticalSpace(space: 16.0),
               _buildSocialIcons(personDetail.externalIds),
               _buildVerticalSpace(space: 16.0),
+              _buildTaggedImagesButton(),
+              _buildVerticalSpace(space: 16.0),
               _buildBiography(personDetail.biography)
             ],
           ),
@@ -135,4 +138,23 @@ class _PersonDetailPageState extends State<PersonDetailPage> {
       );
 
   Widget _buildBiography(String biography) => Text(biography);
+
+  Widget _buildTaggedImagesButton() {
+    return RaisedButton(
+      onPressed: () {
+        _openTaggedImagesPage();
+      },
+      child: Text(
+        'Tagged Images',
+        style: TextStyle(color: Colors.white),
+      ),
+      color: Theme.of(context).accentColor,
+    );
+  }
+
+  void _openTaggedImagesPage() {
+    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+      return TaggedImagesPage(widget.personId);
+    }));
+  }
 }

@@ -19,10 +19,9 @@ Home           |  Movie List Error|  Movie Detail
 :-------------------------:|:-------------------------:|:-------------------------:
 ![](art/home.png)  |  ![](art/error_view.png) |  ![](art/movie_detail.png)
 
-Person Detail    |
-:-------------------------:|
-
-![](art/person_detail.png) |
+Person Detail    |  Tagged Images|
+:-------------------------:|:-------------------------:|
+![](art/person_detail.png) | ![](art/tagged_images.png) |
 
 ## To-do
 
@@ -33,7 +32,7 @@ Person Detail    |
 - [x] Movie Detail Page
 - [x] Favorites Feature
 - [x] Person Detail Page
-- [ ] Tagged Images Page
+- [x] Tagged Images Page
 
 
 ## Credits
@@ -47,6 +46,8 @@ Person Detail    |
 [giphy_client](https://github.com/brianegan/giphy_client)
 
 [Infitine Dynamic ListView](https://marcinszalek.pl/flutter/infinite-dynamic-listview/)
+
+[flutter_staggered_grid_view](https://github.com/letsar/flutter_staggered_grid_view)
 
 
 Instagram Icon made by [Freepik](https://www.flaticon.com/authors/freepik) from www.flaticon.com

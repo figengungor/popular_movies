@@ -23,6 +23,8 @@ import 'package:popular_movies/model/review.dart';
 import 'package:popular_movies/model/reviews.dart';
 import 'package:popular_movies/model/similar.dart';
 import 'package:popular_movies/model/spoken_languages.dart';
+import 'package:popular_movies/model/tagged_image.dart';
+import 'package:popular_movies/model/tagged_images.dart';
 import 'package:popular_movies/model/video.dart';
 import 'package:popular_movies/model/videos.dart';
 
@@ -57,7 +59,9 @@ part 'serializers.g.dart';
   Crew,
   Similar,
   PersonDetail,
-  ExternalIds
+  ExternalIds,
+  TaggedImages,
+  TaggedImage
 ])
 Serializers serializers = _$serializers;
 
