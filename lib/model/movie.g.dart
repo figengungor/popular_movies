@@ -48,10 +48,6 @@ class _$MovieSerializer implements StructuredSerializer<Movie> {
       'original_title',
       serializers.serialize(object.originalTitle,
           specifiedType: const FullType(String)),
-      'genre_ids',
-      serializers.serialize(object.genreIds,
-          specifiedType:
-              const FullType(BuiltList, const [const FullType(int)])),
       'adult',
       serializers.serialize(object.adult, specifiedType: const FullType(bool)),
       'overview',
@@ -66,6 +62,13 @@ class _$MovieSerializer implements StructuredSerializer<Movie> {
         ..add('poster_path')
         ..add(serializers.serialize(object.posterPath,
             specifiedType: const FullType(String)));
+    }
+    if (object.genreIds != null) {
+      result
+        ..add('genre_ids')
+        ..add(serializers.serialize(object.genreIds,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(int)])));
     }
     if (object.backdropPath != null) {
       result
@@ -215,8 +218,6 @@ class _$Movie extends Movie {
       throw new BuiltValueNullFieldError('Movie', 'originalLanguage');
     if (originalTitle == null)
       throw new BuiltValueNullFieldError('Movie', 'originalTitle');
-    if (genreIds == null)
-      throw new BuiltValueNullFieldError('Movie', 'genreIds');
     if (adult == null) throw new BuiltValueNullFieldError('Movie', 'adult');
     if (overview == null)
       throw new BuiltValueNullFieldError('Movie', 'overview');
@@ -414,7 +415,7 @@ class MovieBuilder implements Builder<Movie, MovieBuilder> {
               posterPath: posterPath,
               originalLanguage: originalLanguage,
               originalTitle: originalTitle,
-              genreIds: genreIds.build(),
+              genreIds: _genreIds?.build(),
               backdropPath: backdropPath,
               adult: adult,
               overview: overview,
@@ -423,7 +424,7 @@ class MovieBuilder implements Builder<Movie, MovieBuilder> {
       String _$failedField;
       try {
         _$failedField = 'genreIds';
-        genreIds.build();
+        _genreIds?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'Movie', _$failedField, e.toString());
