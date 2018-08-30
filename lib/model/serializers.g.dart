@@ -19,10 +19,12 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(Cast.serializer)
       ..add(Credits.serializer)
       ..add(Crew.serializer)
+      ..add(ExternalIds.serializer)
       ..add(Genres.serializer)
       ..add(Movie.serializer)
       ..add(MovieDetail.serializer)
       ..add(MovieResponse.serializer)
+      ..add(PersonDetail.serializer)
       ..add(ProductionCompanies.serializer)
       ..add(ProductionCountries.serializer)
       ..add(Review.serializer)
@@ -60,6 +62,9 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(Review)]),
           () => new ListBuilder<Review>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(Video)]),
           () => new ListBuilder<Video>())

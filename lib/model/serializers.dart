@@ -11,10 +11,12 @@ import 'package:popular_movies/model/belongs_to_collection.dart';
 import 'package:popular_movies/model/cast.dart';
 import 'package:popular_movies/model/credits.dart';
 import 'package:popular_movies/model/crew.dart';
+import 'package:popular_movies/model/external_ids.dart';
 import 'package:popular_movies/model/genres.dart';
 import 'package:popular_movies/model/movie.dart';
 import 'package:popular_movies/model/movie_detail.dart';
 import 'package:popular_movies/model/movie_response.dart';
+import 'package:popular_movies/model/person_detail.dart';
 import 'package:popular_movies/model/production_companies.dart';
 import 'package:popular_movies/model/production_countries.dart';
 import 'package:popular_movies/model/review.dart';
@@ -54,6 +56,8 @@ part 'serializers.g.dart';
   Cast,
   Crew,
   Similar,
+  PersonDetail,
+  ExternalIds
 ])
 Serializers serializers = _$serializers;
 

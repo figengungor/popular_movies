@@ -19,6 +19,11 @@ Home           |  Movie List Error|  Movie Detail
 :-------------------------:|:-------------------------:|:-------------------------:
 ![](art/home.png)  |  ![](art/error_view.png) |  ![](art/movie_detail.png)
 
+Person Detail    |
+:-------------------------:|
+
+![](art/person_detail.png) |
+
 ## To-do
 
 - [X] InheritedWidget
@@ -27,6 +32,8 @@ Home           |  Movie List Error|  Movie Detail
 - [x] RefreshIndicator(Pull-to-refresh)
 - [x] Movie Detail Page
 - [x] Favorites Feature
+- [x] Person Detail Page
+- [ ] Tagged Images Page
 
 
 ## Credits
@@ -40,6 +47,13 @@ Home           |  Movie List Error|  Movie Detail
 [giphy_client](https://github.com/brianegan/giphy_client)
 
 [Infitine Dynamic ListView](https://marcinszalek.pl/flutter/infinite-dynamic-listview/)
+
+
+Instagram Icon made by [Freepik](https://www.flaticon.com/authors/freepik) from www.flaticon.com
+
+Twitter Icon made by [Pixel perfect](https://www.flaticon.com/authors/pixel-perfect) from www.flaticon.com
+
+Facebook Icon made by [Pixel perfect](https://www.flaticon.com/authors/pixel-perfect) from www.flaticon.com
 
 ## Getting Started
 

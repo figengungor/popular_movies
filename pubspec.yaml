@@ -44,6 +44,11 @@ flutter:
     - assets/images/placeholder_backdrop.png
     - assets/images/error_backdrop.png
 
+    - assets/icons/twitter.png
+    - assets/icons/instagram.png
+    - assets/icons/facebook.png
+
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
 

@@ -5,6 +5,7 @@ import 'package:popular_movies/model/credits.dart';
 import 'package:popular_movies/model/crew.dart';
 import 'package:popular_movies/ui/movie_detail/section_header.dart';
 import 'package:popular_movies/data/api_constants.dart';
+import 'package:popular_movies/ui/person_detail/person_detail_page.dart';
 
 class CastSection extends StatelessWidget {
   final Credits credits;
@@ -31,7 +32,8 @@ class CastSection extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         child: Row(
           children: credits.cast
-              .map((cast) => _buildCastItem(cast, imageWidth, imageHeight))
+              .map((cast) =>
+                  _buildCastItem(context, cast, imageWidth, imageHeight))
               .toList(),
         ),
       );
@@ -43,30 +45,36 @@ class CastSection extends StatelessWidget {
     }
   }
 
-  Widget _buildCastItem(Cast cast, double imageWidth, double imageHeight) {
+  Widget _buildCastItem(
+      BuildContext context, Cast cast, double imageWidth, double imageHeight) {
     String profileUrl = "$imageUrl$pathPosterW342${cast.profilePath}";
-    return Padding(
-      padding: const EdgeInsets.only(right: 8.0),
-      child: Column(
-        children: <Widget>[
-          CachedNetworkImage(
-            imageUrl: profileUrl,
-            width: imageWidth,
-            height: imageHeight,
-            placeholder: Image.asset(
-              'assets/images/placeholder_poster.png',
+    return GestureDetector(
+      onTap: () {
+        _openPersonDetailPage(context, cast);
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(right: 8.0),
+        child: Column(
+          children: <Widget>[
+            CachedNetworkImage(
+              imageUrl: profileUrl,
               width: imageWidth,
               height: imageHeight,
+              placeholder: Image.asset(
+                'assets/images/placeholder_poster.png',
+                width: imageWidth,
+                height: imageHeight,
+              ),
+              errorWidget: Image.asset(
+                'assets/images/error_poster.png',
+                width: imageWidth,
+                height: imageHeight,
+              ),
+              fit: BoxFit.cover,
             ),
-            errorWidget: Image.asset(
-              'assets/images/error_poster.png',
-              width: imageWidth,
-              height: imageHeight,
-            ),
-            fit: BoxFit.cover,
-          ),
-          Text(cast.name)
-        ],
+            Text(cast.name)
+          ],
+        ),
       ),
     );
   }
@@ -97,5 +105,11 @@ class CastSection extends StatelessWidget {
         Text(writers.isEmpty ? '-' : writers.join(", ")),
       ],
     );
+  }
+
+  void _openPersonDetailPage(BuildContext context, Cast cast) {
+    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+      return PersonDetailPage(cast.id, cast.name);
+    }));
   }
 }

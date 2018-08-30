@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:popular_movies/model/movie_detail.dart';
 import 'package:popular_movies/model/movie_response.dart';
 import 'package:popular_movies/model/movie_type.dart';
+import 'package:popular_movies/model/person_detail.dart';
 import 'api_key.dart' as config;
 import 'api_constants.dart' as apiConstants;
 
@@ -30,6 +31,14 @@ class TmdbApi {
         {'append_to_response': 'videos,reviews,credits,similar'});
     final response = await _getWithAuthorization(uri);
     final results = MovieDetail.fromJson(response.body);
+    return results;
+  }
+
+  Future<PersonDetail> fetchPersonDetail(int personId) async {
+    Uri uri = Uri.https(_baseUrl, "/3/person/$personId",
+        {'append_to_response': 'external_ids,tagged_images'});
+    final response = await _getWithAuthorization(uri);
+    final results = PersonDetail.fromJson(response.body);
     return results;
   }
 
