@@ -9,10 +9,14 @@ part of person_detail;
 // ignore_for_file: always_put_control_body_on_new_line
 // ignore_for_file: annotate_overrides
 // ignore_for_file: avoid_annotating_with_dynamic
+// ignore_for_file: avoid_catches_without_on_clauses
 // ignore_for_file: avoid_returning_this
+// ignore_for_file: lines_longer_than_80_chars
 // ignore_for_file: omit_local_variable_types
 // ignore_for_file: prefer_expression_function_bodies
 // ignore_for_file: sort_constructors_first
+// ignore_for_file: unnecessary_const
+// ignore_for_file: unnecessary_new
 
 Serializer<PersonDetail> _$personDetailSerializer =
     new _$PersonDetailSerializer();
@@ -25,7 +29,7 @@ class _$PersonDetailSerializer implements StructuredSerializer<PersonDetail> {
 
   @override
   Iterable serialize(Serializers serializers, PersonDetail object,
-      {FullType specifiedType: FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'known_for_department',
       serializers.serialize(object.knownForDepartment,
@@ -91,7 +95,7 @@ class _$PersonDetailSerializer implements StructuredSerializer<PersonDetail> {
 
   @override
   PersonDetail deserialize(Serializers serializers, Iterable serialized,
-      {FullType specifiedType: FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified}) {
     final result = new PersonDetailBuilder();
 
     final iterator = serialized.iterator;
@@ -250,10 +254,10 @@ class _$PersonDetail extends PersonDetail {
   PersonDetailBuilder toBuilder() => new PersonDetailBuilder()..replace(this);
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    if (other is! PersonDetail) return false;
-    return birthday == other.birthday &&
+    return other is PersonDetail &&
+        birthday == other.birthday &&
         knownForDepartment == other.knownForDepartment &&
         deathday == other.deathday &&
         id == other.id &&

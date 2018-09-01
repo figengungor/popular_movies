@@ -9,10 +9,14 @@ part of tagged_image;
 // ignore_for_file: always_put_control_body_on_new_line
 // ignore_for_file: annotate_overrides
 // ignore_for_file: avoid_annotating_with_dynamic
+// ignore_for_file: avoid_catches_without_on_clauses
 // ignore_for_file: avoid_returning_this
+// ignore_for_file: lines_longer_than_80_chars
 // ignore_for_file: omit_local_variable_types
 // ignore_for_file: prefer_expression_function_bodies
 // ignore_for_file: sort_constructors_first
+// ignore_for_file: unnecessary_const
+// ignore_for_file: unnecessary_new
 
 Serializer<TaggedImage> _$taggedImageSerializer = new _$TaggedImageSerializer();
 
@@ -24,7 +28,7 @@ class _$TaggedImageSerializer implements StructuredSerializer<TaggedImage> {
 
   @override
   Iterable serialize(Serializers serializers, TaggedImage object,
-      {FullType specifiedType: FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'aspect_ratio',
       serializers.serialize(object.aspectRatio,
@@ -61,7 +65,7 @@ class _$TaggedImageSerializer implements StructuredSerializer<TaggedImage> {
 
   @override
   TaggedImage deserialize(Serializers serializers, Iterable serialized,
-      {FullType specifiedType: FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified}) {
     final result = new TaggedImageBuilder();
 
     final iterator = serialized.iterator;
@@ -173,10 +177,10 @@ class _$TaggedImage extends TaggedImage {
   TaggedImageBuilder toBuilder() => new TaggedImageBuilder()..replace(this);
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    if (other is! TaggedImage) return false;
-    return aspectRatio == other.aspectRatio &&
+    return other is TaggedImage &&
+        aspectRatio == other.aspectRatio &&
         filePath == other.filePath &&
         height == other.height &&
         iso6391 == other.iso6391 &&
@@ -227,57 +231,39 @@ class TaggedImageBuilder implements Builder<TaggedImage, TaggedImageBuilder> {
   _$TaggedImage _$v;
 
   double _aspectRatio;
-
   double get aspectRatio => _$this._aspectRatio;
-
   set aspectRatio(double aspectRatio) => _$this._aspectRatio = aspectRatio;
 
   String _filePath;
-
   String get filePath => _$this._filePath;
-
   set filePath(String filePath) => _$this._filePath = filePath;
 
   int _height;
-
   int get height => _$this._height;
-
   set height(int height) => _$this._height = height;
 
   String _iso6391;
-
   String get iso6391 => _$this._iso6391;
-
   set iso6391(String iso6391) => _$this._iso6391 = iso6391;
 
   double _voteAverage;
-
   double get voteAverage => _$this._voteAverage;
-
   set voteAverage(double voteAverage) => _$this._voteAverage = voteAverage;
 
   int _voteCount;
-
   int get voteCount => _$this._voteCount;
-
   set voteCount(int voteCount) => _$this._voteCount = voteCount;
 
   int _width;
-
   int get width => _$this._width;
-
   set width(int width) => _$this._width = width;
 
   JsonObject _media;
-
   JsonObject get media => _$this._media;
-
   set media(JsonObject media) => _$this._media = media;
 
   String _mediaType;
-
   String get mediaType => _$this._mediaType;
-
   set mediaType(String mediaType) => _$this._mediaType = mediaType;
 
   TaggedImageBuilder();

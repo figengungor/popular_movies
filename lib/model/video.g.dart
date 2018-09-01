@@ -9,10 +9,14 @@ part of video;
 // ignore_for_file: always_put_control_body_on_new_line
 // ignore_for_file: annotate_overrides
 // ignore_for_file: avoid_annotating_with_dynamic
+// ignore_for_file: avoid_catches_without_on_clauses
 // ignore_for_file: avoid_returning_this
+// ignore_for_file: lines_longer_than_80_chars
 // ignore_for_file: omit_local_variable_types
 // ignore_for_file: prefer_expression_function_bodies
 // ignore_for_file: sort_constructors_first
+// ignore_for_file: unnecessary_const
+// ignore_for_file: unnecessary_new
 
 Serializer<Video> _$videoSerializer = new _$VideoSerializer();
 
@@ -24,7 +28,7 @@ class _$VideoSerializer implements StructuredSerializer<Video> {
 
   @override
   Iterable serialize(Serializers serializers, Video object,
-      {FullType specifiedType: FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(String)),
@@ -51,7 +55,7 @@ class _$VideoSerializer implements StructuredSerializer<Video> {
 
   @override
   Video deserialize(Serializers serializers, Iterable serialized,
-      {FullType specifiedType: FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified}) {
     final result = new VideoBuilder();
 
     final iterator = serialized.iterator;
@@ -149,10 +153,10 @@ class _$Video extends Video {
   VideoBuilder toBuilder() => new VideoBuilder()..replace(this);
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    if (other is! Video) return false;
-    return id == other.id &&
+    return other is Video &&
+        id == other.id &&
         iso6391 == other.iso6391 &&
         iso31661 == other.iso31661 &&
         key == other.key &&

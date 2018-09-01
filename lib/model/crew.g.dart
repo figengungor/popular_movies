@@ -9,10 +9,14 @@ part of crew;
 // ignore_for_file: always_put_control_body_on_new_line
 // ignore_for_file: annotate_overrides
 // ignore_for_file: avoid_annotating_with_dynamic
+// ignore_for_file: avoid_catches_without_on_clauses
 // ignore_for_file: avoid_returning_this
+// ignore_for_file: lines_longer_than_80_chars
 // ignore_for_file: omit_local_variable_types
 // ignore_for_file: prefer_expression_function_bodies
 // ignore_for_file: sort_constructors_first
+// ignore_for_file: unnecessary_const
+// ignore_for_file: unnecessary_new
 
 Serializer<Crew> _$crewSerializer = new _$CrewSerializer();
 
@@ -24,7 +28,7 @@ class _$CrewSerializer implements StructuredSerializer<Crew> {
 
   @override
   Iterable serialize(Serializers serializers, Crew object,
-      {FullType specifiedType: FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'credit_id',
       serializers.serialize(object.creditId,
@@ -53,7 +57,7 @@ class _$CrewSerializer implements StructuredSerializer<Crew> {
 
   @override
   Crew deserialize(Serializers serializers, Iterable serialized,
-      {FullType specifiedType: FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified}) {
     final result = new CrewBuilder();
 
     final iterator = serialized.iterator;
@@ -143,10 +147,10 @@ class _$Crew extends Crew {
   CrewBuilder toBuilder() => new CrewBuilder()..replace(this);
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    if (other is! Crew) return false;
-    return creditId == other.creditId &&
+    return other is Crew &&
+        creditId == other.creditId &&
         department == other.department &&
         gender == other.gender &&
         id == other.id &&
