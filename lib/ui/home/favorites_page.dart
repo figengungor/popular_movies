@@ -2,6 +2,7 @@ import 'dart:collection';
 import 'package:confused_travolta_error_view/confused_travolta_error_view.dart';
 import 'package:flutter/material.dart';
 import 'package:popular_movies/bloc/favorite_movies_bloc/favorites_bloc.dart';
+import 'package:popular_movies/l10n/localizations.dart';
 import 'package:popular_movies/model/movie.dart';
 import 'package:popular_movies/ui/home/favorite_list.dart';
 import 'package:popular_movies/utils/error_utils.dart';
@@ -35,14 +36,14 @@ class _FavoritesPageState extends State<FavoritesPage> {
                 return snapshot.data.length > 0
                     ? FavoriteList(widget.bloc, snapshot.data, key: widget.key)
                     : ConfusedTravoltaErrorView(
-                        errorMessage: 'No favorites found!',
+                        errorMessage: AppLocalizations.of(context).noFavoritesFound,
                         //TODO: Fix the package, enable no button
                         retryButton: Container(),
                       );
               } else if (snapshot.hasError) {
                 return ConfusedTravoltaErrorView(
-                  errorMessage:
-                      ErrorUtils.getFriendlyNetworkErrorMessage(snapshot.error),
+                  errorMessage: ErrorUtils.getFriendlyNetworkErrorMessage(
+                      context, snapshot.error),
                   onTapRetryButton: _onRetry,
                 );
               } else {

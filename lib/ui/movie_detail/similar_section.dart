@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:popular_movies/l10n/localizations.dart';
 import 'package:popular_movies/provider/favorite_repo_provider.dart';
 import 'package:popular_movies/model/movie.dart';
 import 'package:popular_movies/model/similar.dart';
@@ -17,7 +18,7 @@ class SimilarSection extends StatelessWidget {
     double itemWidth = MediaQuery.of(context).size.width / 4;
     return Column(
       children: <Widget>[
-        SectionHeader('Similar Movies'),
+        SectionHeader(AppLocalizations.of(context).similarMovies),
         _buildSimilarMoviesList(context, itemWidth)
       ],
     );
@@ -74,7 +75,7 @@ class SimilarSection extends StatelessWidget {
     } else {
       return Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Text('No similar movies found'),
+        child: Text(AppLocalizations.of(context).noSimilarMoviesFound),
       );
     }
   }

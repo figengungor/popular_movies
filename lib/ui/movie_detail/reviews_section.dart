@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:popular_movies/l10n/localizations.dart';
 import 'package:popular_movies/model/review.dart';
 import 'package:popular_movies/model/reviews.dart';
 import 'package:popular_movies/ui/movie_detail/review_item.dart';
@@ -14,13 +15,13 @@ class ReviewsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        SectionHeader('Reviews'),
-        _buildReviewList(),
+        SectionHeader(AppLocalizations.of(context).reviewsTitle),
+        _buildReviewList(context),
       ],
     );
   }
 
-  _buildReviewList() {
+  _buildReviewList(BuildContext context) {
     if (reviews != null &&
         reviews.results != null &&
         reviews.results.length > 0) {
@@ -36,7 +37,7 @@ class ReviewsSection extends StatelessWidget {
     } else {
       return Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Text('No reviews found'),
+        child: Text(AppLocalizations.of(context).noReviewsFound),
       );
     }
   }

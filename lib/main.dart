@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:popular_movies/bloc/favorite_movies_bloc/favorites_repository.dart';
+import 'package:popular_movies/l10n/localizations.dart';
 import 'package:popular_movies/provider/favorite_repo_provider.dart';
 import 'package:popular_movies/ui/home/home_page.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
   runApp(
@@ -18,8 +20,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: [
+        AppLocalizationsDelegate(),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: [
+        Locale('en', ''),
+        Locale('tr', ''),
+      ],
       debugShowCheckedModeBanner: false,
-      title: 'Popular Movies',
+      onGenerateTitle: (BuildContext context) =>
+          AppLocalizations.of(context).appTitle,
       theme: ThemeData(
         primarySwatch: Colors.blue,
         accentColor: Colors.pink,

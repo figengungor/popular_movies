@@ -1,6 +1,7 @@
 import 'package:confused_travolta_error_view/confused_travolta_error_view.dart';
 import 'package:flutter/material.dart';
 import 'package:popular_movies/bloc/person_detail_bloc/person_detail_bloc.dart';
+import 'package:popular_movies/l10n/localizations.dart';
 import 'package:popular_movies/model/external_ids.dart';
 import 'package:popular_movies/model/person_detail.dart';
 import 'package:popular_movies/ui/common/social_icon.dart';
@@ -91,7 +92,7 @@ class _PersonDetailPageState extends State<PersonDetailPage> {
   }
 
   Widget _buildError(dynamic error) => ConfusedTravoltaErrorView(
-        errorMessage: ErrorUtils.getFriendlyNetworkErrorMessage(error),
+        errorMessage: ErrorUtils.getFriendlyNetworkErrorMessage(context, error),
       );
 
   Widget _buildVerticalSpace({double space}) => SizedBox(
@@ -145,7 +146,7 @@ class _PersonDetailPageState extends State<PersonDetailPage> {
         _openTaggedImagesPage();
       },
       child: Text(
-        'Tagged Images',
+        AppLocalizations.of(context).taggedImages,
         style: TextStyle(color: Colors.white),
       ),
       color: Theme.of(context).accentColor,

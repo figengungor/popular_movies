@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:popular_movies/bloc/movie_bloc/list_item.dart';
+import 'package:popular_movies/l10n/localizations.dart';
 import 'package:popular_movies/utils/error_utils.dart';
 import 'package:popular_movies/ui/common/movie_item.dart' as ui;
 
@@ -26,12 +27,12 @@ class MovieListItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Text(
-                ErrorUtils.getFriendlyNetworkErrorMessage(item.error),
+                ErrorUtils.getFriendlyNetworkErrorMessage(context, item.error),
                 textAlign: TextAlign.center,
               ),
               FlatButton(
                 onPressed: onRetry,
-                child: Text('RETRY'),
+                child: Text(AppLocalizations.of(context).retry.toUpperCase()),
                 textColor: Theme.of(context).accentColor,
               )
             ],

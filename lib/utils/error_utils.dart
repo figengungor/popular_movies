@@ -1,14 +1,15 @@
 import 'dart:async';
-
 import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:popular_movies/l10n/localizations.dart';
 
 class ErrorUtils {
-  static String getFriendlyNetworkErrorMessage(error) {
+  static String getFriendlyNetworkErrorMessage(BuildContext context, dynamic error) {
     switch (error.runtimeType) {
       case TimeoutException:
-        return "Connection timeout.";
+        return AppLocalizations.of(context).connectionTimeOutError;
       case SocketException:
-        return "You have no Internet connection.";
+        return AppLocalizations.of(context).noInternetError;
       default:
         return error.toString();
     }

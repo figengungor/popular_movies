@@ -33,7 +33,17 @@ Person Detail    |  Tagged Images|
 - [x] Favorites Feature
 - [x] Person Detail Page
 - [x] Tagged Images Page
+- [x] Localization('en', 'tr')
 
+## Do me a favor
+
+```
+flutter pub pub run intl_translation:extract_to_arb --output-dir=lib/l10n lib/l10n/localizations.dart
+```
+
+```
+flutter pub pub run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/l10n/intl_en.arb lib/l10n/intl_tr.arb lib/l10n/localizations.dart
+```
 
 ## Credits
 

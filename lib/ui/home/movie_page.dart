@@ -38,7 +38,7 @@ class _MoviePageState extends State<MoviePage> {
               } else if (snapshot.hasError) {
                 return ConfusedTravoltaErrorView(
                   errorMessage:
-                      ErrorUtils.getFriendlyNetworkErrorMessage(snapshot.error),
+                      ErrorUtils.getFriendlyNetworkErrorMessage(context, snapshot.error),
                   onTapRetryButton: _onRetry,
                 );
               } else {

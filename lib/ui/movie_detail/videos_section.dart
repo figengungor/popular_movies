@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:popular_movies/l10n/localizations.dart';
 import 'package:popular_movies/model/video.dart';
 import 'package:popular_movies/model/videos.dart';
 import 'package:popular_movies/ui/movie_detail/section_header.dart';
@@ -18,13 +19,13 @@ class VideosSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        SectionHeader('Videos'),
-        _buildVideoList(),
+        SectionHeader(AppLocalizations.of(context).videosTitle),
+        _buildVideoList(context),
       ],
     );
   }
 
-  Widget _buildVideoList() {
+  Widget _buildVideoList(BuildContext context) {
     if (videos != null && videos.results != null && videos.results.length > 0) {
       return SingleChildScrollView(
         scrollDirection: Axis.horizontal,
@@ -35,7 +36,7 @@ class VideosSection extends StatelessWidget {
     } else {
       return Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Text('No videos found'),
+        child: Text(AppLocalizations.of(context).noVideosFound),
       );
     }
   }

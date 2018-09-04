@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:popular_movies/l10n/localizations.dart';
 import 'package:popular_movies/model/review.dart';
 
 class ReviewItem extends StatefulWidget {
@@ -35,7 +36,7 @@ class _ReviewItemState extends State<ReviewItem> {
               height: 8.0,
             ),
             Text(
-              "by ${widget.review.author}",
+              AppLocalizations.of(context).byName(widget.review.author),
               textAlign: TextAlign.right,
               style: TextStyle(fontWeight: FontWeight.bold),
             )

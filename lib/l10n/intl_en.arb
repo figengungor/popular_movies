@@ -1,0 +1,125 @@
+{
+  "@@last_modified": "2018-09-04T19:32:59.435256",
+  "appTitle": "Popular Movies",
+  "@appTitle": {
+    "description": "The title of the application",
+    "type": "text",
+    "placeholders": {}
+  },
+  "popularTitle": "Popular",
+  "@popularTitle": {
+    "description": "The bottom bar item title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "topRatedTitle": "Top Rated",
+  "@topRatedTitle": {
+    "description": "The bottom bar item title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "nowPlayingTitle": "Now Playing",
+  "@nowPlayingTitle": {
+    "description": "The bottom bar item title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "favoritesTitle": "Favorites",
+  "@favoritesTitle": {
+    "description": "The bottom bar item title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "videosTitle": "Videos",
+  "@videosTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reviewsTitle": "Reviews",
+  "@reviewsTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "castTitle": "Cast",
+  "@castTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "directorsTitle": "Directors",
+  "@directorsTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "writersTitle": "Writers",
+  "@writersTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "similarMovies": "Similar Movies",
+  "@similarMovies": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "taggedImages": "Tagged Images",
+  "@taggedImages": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "connectionTimeOutError": "Connection timeout.",
+  "@connectionTimeOutError": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noInternetError": "You have no Internet.",
+  "@noInternetError": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noFavoritesFound": "No favorites found!",
+  "@noFavoritesFound": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "retry": "Retry",
+  "@retry": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noCastFound": "No cast found",
+  "@noCastFound": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noReviewsFound": "No reviews found",
+  "@noReviewsFound": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noSimilarMoviesFound": "No similar movies found",
+  "@noSimilarMoviesFound": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noVideosFound": "No videos found",
+  "@noVideosFound": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "movieDetailFetchError": "Movie details couldn't be fetched.\n\n",
+  "@movieDetailFetchError": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "seeMore": "See more",
+  "@seeMore": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "byName": "by {name}",
+  "@byName": {
+    "type": "text",
+    "placeholders": {
+      "name": {}
+    }
+  }
+}

@@ -3,6 +3,7 @@ import 'package:popular_movies/bloc/favorite_movies_bloc/favorites_bloc.dart';
 import 'package:popular_movies/bloc/favorite_movies_bloc/favorites_repository.dart';
 import 'package:popular_movies/bloc/movie_bloc/movie_bloc.dart';
 import 'package:popular_movies/bloc/movie_bloc/movie_repository.dart';
+import 'package:popular_movies/l10n/localizations.dart';
 import 'package:popular_movies/model/movie_type.dart';
 import 'package:popular_movies/ui/home/favorites_page.dart';
 import 'package:popular_movies/ui/home/movie_page.dart';
@@ -60,7 +61,9 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Popular Movies'),
+        title: Text(
+          AppLocalizations.of(context).appTitle,
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
@@ -73,13 +76,21 @@ class HomePageState extends State<HomePage> {
         currentIndex: _currentIndex,
         items: [
           BottomNavigationBarItem(
-              icon: Icon(Icons.trending_up), title: Text('Popular')),
+            icon: Icon(Icons.trending_up),
+            title: Text(AppLocalizations.of(context).popularTitle),
+          ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.star), title: Text('Top Rated')),
+            icon: Icon(Icons.star),
+            title: Text(AppLocalizations.of(context).topRatedTitle),
+          ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.play_arrow), title: Text('Now Playing')),
+            icon: Icon(Icons.play_arrow),
+            title: Text(AppLocalizations.of(context).nowPlayingTitle),
+          ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.favorite), title: Text('Favorites')),
+            icon: Icon(Icons.favorite),
+            title: Text(AppLocalizations.of(context).favoritesTitle),
+          ),
         ],
       ),
       body: _loadBottomNavigationBarItemContent(_currentIndex),

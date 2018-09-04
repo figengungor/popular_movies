@@ -2,6 +2,7 @@ import 'dart:collection';
 import 'package:confused_travolta_error_view/confused_travolta_error_view.dart';
 import 'package:flutter/material.dart';
 import 'package:popular_movies/bloc/tagged_images_bloc/tagged_images_bloc.dart';
+import 'package:popular_movies/l10n/localizations.dart';
 import 'package:popular_movies/model/tagged_image.dart';
 import 'package:popular_movies/utils/error_utils.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -29,7 +30,7 @@ class _TaggedImagesPageState extends State<TaggedImagesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Tagged Images')),
+      appBar: AppBar(title: Text(AppLocalizations.of(context).taggedImages)),
       body: _buildBody(),
     );
   }
@@ -60,7 +61,7 @@ class _TaggedImagesPageState extends State<TaggedImagesPage> {
       );
 
   Widget _buildError(dynamic error) => ConfusedTravoltaErrorView(
-        errorMessage: ErrorUtils.getFriendlyNetworkErrorMessage(error),
+        errorMessage: ErrorUtils.getFriendlyNetworkErrorMessage(context, error),
       );
 
   Widget _buildTaggedImagesList(

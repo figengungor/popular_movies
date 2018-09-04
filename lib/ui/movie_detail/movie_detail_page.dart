@@ -5,6 +5,7 @@ import 'package:popular_movies/bloc/favorite_bloc/favorite_bloc.dart';
 import 'package:popular_movies/bloc/favorite_movies_bloc/favorites_repository.dart';
 import 'package:popular_movies/bloc/movie_detail_bloc/movie_detail_bloc.dart';
 import 'package:popular_movies/bloc/movie_detail_bloc/movie_detail_repository.dart';
+import 'package:popular_movies/l10n/localizations.dart';
 import 'package:popular_movies/model/genres.dart';
 import 'package:popular_movies/model/movie.dart';
 import 'package:popular_movies/data/api_constants.dart';
@@ -114,15 +115,15 @@ class MovieDetailPageState extends State<MovieDetailPage> {
               child: Column(
                 children: <Widget>[
                   Text(
-                    'Movie details couldn\'t be fetched.\n\n'
-                        '${ErrorUtils.getFriendlyNetworkErrorMessage(
+                    '${AppLocalizations.of(context).movieDetailFetchError}'
+                        '${ErrorUtils.getFriendlyNetworkErrorMessage(context,
                         snapshot.error)}',
                     textAlign: TextAlign.center,
                   ),
                   FlatButton(
                     onPressed: _onRetry,
                     textColor: Theme.of(context).accentColor,
-                    child: Text('RETRY'),
+                    child: Text(AppLocalizations.of(context).retry),
                   )
                 ],
               ),

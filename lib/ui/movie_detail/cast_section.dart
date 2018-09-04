@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:popular_movies/l10n/localizations.dart';
 import 'package:popular_movies/model/cast.dart';
 import 'package:popular_movies/model/credits.dart';
 import 'package:popular_movies/model/crew.dart';
@@ -17,9 +18,9 @@ class CastSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        SectionHeader('Cast'),
+        SectionHeader(AppLocalizations.of(context).castTitle),
         _buildCastList(context),
-        _buildDirectorAndWriter(),
+        _buildDirectorAndWriter(context),
       ],
     );
   }
@@ -40,7 +41,7 @@ class CastSection extends StatelessWidget {
     } else {
       return Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Text('No cast found'),
+        child: Text(AppLocalizations.of(context).noCastFound),
       );
     }
   }
@@ -79,7 +80,7 @@ class CastSection extends StatelessWidget {
     );
   }
 
-  _buildDirectorAndWriter() {
+  _buildDirectorAndWriter(BuildContext context) {
     List<String> directors = [];
     List<String> writers = [];
 
@@ -98,10 +99,10 @@ class CastSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         SizedBox(height: 16.0),
-        SectionHeader('Directors'),
+        SectionHeader(AppLocalizations.of(context).directorsTitle),
         Text(directors.isEmpty ? '-' : directors.join(", ")),
         SizedBox(height: 16.0),
-        SectionHeader('Writers'),
+        SectionHeader(AppLocalizations.of(context).writersTitle),
         Text(writers.isEmpty ? '-' : writers.join(", ")),
       ],
     );

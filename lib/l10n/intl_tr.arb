@@ -1,0 +1,126 @@
+{
+  "@@last_modified": "2018-09-04T17:30:02.099165",
+  "appTitle": "Popüler Filmler",
+  "@appTitle": {
+    "description": "The title of the application",
+    "type": "text",
+    "placeholders": {}
+  },
+  "popularTitle": "Popüler",
+  "@popularTitle": {
+    "description": "The bottom bar item title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "topRatedTitle": "En Çok Oy",
+  "@topRatedTitle": {
+    "description": "The bottom bar item title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "nowPlayingTitle": "Vizyondakiler",
+  "@nowPlayingTitle": {
+    "description": "The bottom bar item title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "favoritesTitle": "Favoriler",
+  "@favoritesTitle": {
+    "description": "The bottom bar item title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "videosTitle": "Videolar",
+  "@videosTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reviewsTitle": "Yorumlar",
+  "@reviewsTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "castTitle": "Oyuncu Kadrosu",
+  "@castTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "directorsTitle": "Yönetmenler",
+  "@directorsTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "writersTitle": "Senaristler",
+  "@writersTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "similarMovies": "Benzer Filmler",
+  "@similarMovies": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "taggedImages": "Etiketlenmiş Resimler",
+  "@taggedImages": {
+    "type": "text",
+    "placeholders": {}
+  },
+
+   "connectionTimeOutError": "Bağlantı zaman aşımına uğradı.",
+    "@connectionTimeOutError": {
+      "type": "text",
+      "placeholders": {}
+    },
+    "noInternetError": "Internet bağlantınız yok.",
+    "@noInternetError": {
+      "type": "text",
+      "placeholders": {}
+    },
+    "noFavoritesFound": "Favoriniz bulunmamaktadır!",
+    "@noFavoritesFound": {
+      "type": "text",
+      "placeholders": {}
+    },
+    "retry": "Retry",
+    "@retry": {
+      "type": "text",
+      "placeholders": {}
+    },
+    "noCastFound": "Oyuncu kadrosu bulunmadı.",
+    "@noCastFound": {
+      "type": "text",
+      "placeholders": {}
+    },
+    "noReviewsFound": "Yorumlar bulunamadı.",
+    "@noReviewsFound": {
+      "type": "text",
+      "placeholders": {}
+    },
+    "noSimilarMoviesFound": "Benzer filmler bulunamadı.",
+    "@noSimilarMoviesFound": {
+      "type": "text",
+      "placeholders": {}
+    },
+    "noVideosFound": "Videolar bulunamadı.",
+    "@noVideosFound": {
+      "type": "text",
+      "placeholders": {}
+    },
+    "movieDetailFetchError": "Film detayları çekilemedi.\n\n",
+    "@movieDetailFetchError": {
+      "type": "text",
+      "placeholders": {}
+    },
+    "seeMore": "Daha Fazla Görün",
+    "@seeMore": {
+      "type": "text",
+      "placeholders": {}
+    },
+    "byName": "{name} tarafından",
+    "@byName": {
+      "type": "text",
+      "placeholders": {
+        "name": {}
+      }
+    }
+}

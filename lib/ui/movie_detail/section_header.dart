@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:popular_movies/l10n/localizations.dart';
 
 class SectionHeader extends StatelessWidget {
   final String title;
@@ -22,7 +23,7 @@ class SectionHeader extends StatelessWidget {
             onSeeMorePressed != null
                 ? FlatButton(
                     color: Theme.of(context).accentColor,
-                    child: Text('SEE MORE'),
+                    child: Text(AppLocalizations.of(context).seeMore),
                     onPressed: onSeeMorePressed,
                   )
                 : Container()
