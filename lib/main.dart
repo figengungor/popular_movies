@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: [
         Locale('en', ''),
         Locale('tr', ''),
+        Locale('ar', ''),
       ],
       debugShowCheckedModeBanner: false,
       onGenerateTitle: (BuildContext context) =>

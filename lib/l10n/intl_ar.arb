@@ -1,0 +1,124 @@
+{
+  "appTitle": "أفلام شعبية",
+  "@appTitle": {
+    "description": "The title of the application",
+    "type": "text",
+    "placeholders": {}
+  },
+  "popularTitle": "جمع",
+  "@popularTitle": {
+    "description": "The bottom bar item title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "topRatedTitle": "أعلى التقييمات",
+  "@topRatedTitle": {
+    "description": "The bottom bar item title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "nowPlayingTitle": "الان العب",
+  "@nowPlayingTitle": {
+    "description": "The bottom bar item title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "favoritesTitle": "المفضلة",
+  "@favoritesTitle": {
+    "description": "The bottom bar item title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "videosTitle": "أشرطة فيديو",
+  "@videosTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reviewsTitle": "التعليقات",
+  "@reviewsTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "castTitle": "المصبوب",
+  "@castTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "directorsTitle": "الإدارة",
+  "@directorsTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "writersTitle": "الكتاب",
+  "@writersTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "similarMovies": "أفلام مماثلة",
+  "@similarMovies": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "taggedImages": "الصور ذات العلامات",
+  "@taggedImages": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "connectionTimeOutError": "انتهى وقت محاولة الاتصال.",
+  "@connectionTimeOutError": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noInternetError": "لا يوجد لديك الإنترنت.",
+  "@noInternetError": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noFavoritesFound": "لم يتم العثور على المفضلة!",
+  "@noFavoritesFound": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "retry": "إعادة المحاولة",
+  "@retry": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noCastFound": "لم يتم العثور على طاقم",
+  "@noCastFound": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noReviewsFound": "لم يتم العثور على مراجعات",
+  "@noReviewsFound": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noSimilarMoviesFound": "لم يتم العثور على أفلام مشابهة",
+  "@noSimilarMoviesFound": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noVideosFound": "لا توجد فيديوهات",
+  "@noVideosFound": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "movieDetailFetchError": "لا يمكن سحب تفاصيل الفيلم.\n\n",
+  "@movieDetailFetchError": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "seeMore": "شاهد المزيد",
+  "@seeMore": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "byName": "بواسطة {name}",
+  "@byName": {
+    "type": "text",
+    "placeholders": {
+      "name": {}
+    }
+  }
+}

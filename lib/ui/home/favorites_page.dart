@@ -36,15 +36,16 @@ class _FavoritesPageState extends State<FavoritesPage> {
                 return snapshot.data.length > 0
                     ? FavoriteList(widget.bloc, snapshot.data, key: widget.key)
                     : ConfusedTravoltaErrorView(
-                        errorMessage: AppLocalizations.of(context).noFavoritesFound,
-                        //TODO: Fix the package, enable no button
-                        retryButton: Container(),
+                        errorMessage:
+                            AppLocalizations.of(context).noFavoritesFound,
+                        retryButtonText: AppLocalizations.of(context).retry,
                       );
               } else if (snapshot.hasError) {
                 return ConfusedTravoltaErrorView(
                   errorMessage: ErrorUtils.getFriendlyNetworkErrorMessage(
                       context, snapshot.error),
                   onTapRetryButton: _onRetry,
+                  retryButtonText: AppLocalizations.of(context).retry,
                 );
               } else {
                 return Container();
