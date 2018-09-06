@@ -2,10 +2,14 @@ import 'dart:async';
 import 'dart:collection';
 import 'package:popular_movies/bloc/movie_bloc/list_item.dart';
 import 'package:popular_movies/bloc/movie_bloc/movie_repository.dart';
+import 'package:popular_movies/bloc/settings_bloc/settings_repository.dart';
 import 'package:popular_movies/model/movie_response.dart';
 import 'package:rxdart/rxdart.dart';
 
 class MovieBloc {
+  final MovieRepository _movieRepository;
+  final SettingsRepository _settingsRepository;
+
   //Output Streams
   Stream<UnmodifiableListView<ListItem>> get movies => _moviesSubject.stream;
 
@@ -38,22 +42,27 @@ class MovieBloc {
   int _totalPages;
   bool _isNextLoading = false;
 
-  MovieBloc(MovieRepository movieRepository) {
+  MovieBloc(this._movieRepository, this._settingsRepository) {
     //Listen movieType changes and update movies stream
     _firstPageController.stream.listen((_) {
-      _getFirstPageMovies(movieRepository);
+      _getFirstPageMovies();
     });
 
     _nextPageController.stream.listen((_) {
-      _getNextPageMovies(movieRepository);
+      _getNextPageMovies();
     });
 
     _nextPageRetryController.stream.listen((_) {
-      _retryLoadingNextPage(movieRepository);
+      _retryLoadingNextPage();
     });
 
     _refreshController.stream.listen((completer) {
-      _getFirstPageMovies(movieRepository, refreshCompleter: completer);
+      _getFirstPageMovies(refreshCompleter: completer);
+    });
+
+    _settingsRepository.contentLanguage.listen((String contentLanguage) {
+      _movieRepository.clearCache();
+      _getFirstPageMovies();
     });
   }
 
@@ -74,10 +83,10 @@ class MovieBloc {
   // The refreshCompleter should call complete method to let RefreshIndicator
   // know that we're done with our background work.
 
-  void _getFirstPageMovies(MovieRepository movieRepository,
-      {Completer<Null> refreshCompleter}) async {
+  void _getFirstPageMovies({Completer<Null> refreshCompleter}) async {
+    String language = await _settingsRepository.getContentLanguage();
     if (refreshCompleter != null) {
-      movieRepository.clearCache();
+      _movieRepository.clearCache();
     } else {
       _isLoadingSubject.add(true);
     }
@@ -87,7 +96,8 @@ class MovieBloc {
     _moviesSubject.add(UnmodifiableListView(_listItems));
 
     try {
-      MovieResponse movieResponse = await movieRepository.getMovies(_page);
+      MovieResponse movieResponse =
+          await _movieRepository.getMovies(_page, language);
       _totalPages = movieResponse.totalPages;
       _listItems.addAll(
           movieResponse.movie.toList().map((movie) => MovieItem(movie)));
@@ -110,18 +120,19 @@ class MovieBloc {
   // First, LoadingFailed item is removed from the list.
   // Then _isNextLoading is set to false to retry again.
 
-  void _retryLoadingNextPage(MovieRepository movieRepository) {
+  void _retryLoadingNextPage() {
     _listItems.removeLast();
     _isNextLoading = false;
-    _getNextPageMovies(movieRepository);
+    _getNextPageMovies();
   }
 
   // Check the status of next page loading with _isNextLoading bool
   // To avoid making new requests before this one finishes.
-  void _getNextPageMovies(MovieRepository movieRepository) async {
+  void _getNextPageMovies() async {
     if (!_isNextLoading) {
       _isNextLoading = true;
       if (_totalPages != null && _totalPages >= _page) {
+        String language = await _settingsRepository.getContentLanguage();
         _listItems.add(LoadingItem());
         _moviesSubject.add(UnmodifiableListView(_listItems));
         //Couldn't see the loading so just add some delay
@@ -130,7 +141,8 @@ class MovieBloc {
           return null;
         });*/
         try {
-          MovieResponse movieResponse = await movieRepository.getMovies(_page);
+          MovieResponse movieResponse =
+              await _movieRepository.getMovies(_page, language);
           _listItems.removeLast();
           _listItems.addAll(
               movieResponse.movie.toList().map((movie) => MovieItem(movie)));

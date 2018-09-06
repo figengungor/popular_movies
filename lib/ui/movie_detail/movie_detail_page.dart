@@ -5,6 +5,7 @@ import 'package:popular_movies/bloc/favorite_bloc/favorite_bloc.dart';
 import 'package:popular_movies/bloc/favorite_movies_bloc/favorites_repository.dart';
 import 'package:popular_movies/bloc/movie_detail_bloc/movie_detail_bloc.dart';
 import 'package:popular_movies/bloc/movie_detail_bloc/movie_detail_repository.dart';
+import 'package:popular_movies/bloc/settings_bloc/settings_repository.dart';
 import 'package:popular_movies/l10n/localizations.dart';
 import 'package:popular_movies/model/genres.dart';
 import 'package:popular_movies/model/movie.dart';
@@ -35,8 +36,9 @@ class MovieDetailPageState extends State<MovieDetailPage> {
 
   @override
   void initState() {
-    bloc = MovieDetailBloc(MovieDetailRepository());
-    bloc.movieIdSink.add(widget.movie.id);
+    bloc = MovieDetailBloc(
+        widget.movie.id, MovieDetailRepository(), SettingsRepository());
+    bloc.fetchMovieDetailSink.add(null);
     favoriteBloc = FavoriteBloc(widget.repo, widget.movie);
     favoriteBloc.checkStatusSink.add(null);
 
@@ -116,8 +118,7 @@ class MovieDetailPageState extends State<MovieDetailPage> {
                 children: <Widget>[
                   Text(
                     '${AppLocalizations.of(context).movieDetailFetchError}'
-                        '${ErrorUtils.getFriendlyNetworkErrorMessage(context,
-                        snapshot.error)}',
+                        '${ErrorUtils.getFriendlyNetworkErrorMessage(context, snapshot.error)}',
                     textAlign: TextAlign.center,
                   ),
                   FlatButton(
@@ -248,7 +249,7 @@ class MovieDetailPageState extends State<MovieDetailPage> {
   }
 
   void _onRetry() {
-    bloc.movieIdSink.add(widget.movie.id);
+    bloc.fetchMovieDetailSink.add(null);
   }
 
   _buildFavoriteButton() {

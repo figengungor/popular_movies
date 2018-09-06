@@ -8,8 +8,9 @@ class MovieDetailRepository {
 
   MovieDetailRepository({TmdbApi tmdbApi}) : _tmdbApi = tmdbApi ?? TmdbApi();
 
-  Future<MovieDetail> getMovieDetail(int movieId) async {
-    MovieDetail movieDetail = await _tmdbApi.fetchMovieDetail(movieId);
+  Future<MovieDetail> getMovieDetail(int movieId, String language) async {
+    MovieDetail movieDetail =
+        await _tmdbApi.fetchMovieDetail(movieId, language);
     return movieDetail;
   }
 }

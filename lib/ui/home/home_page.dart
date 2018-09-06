@@ -3,15 +3,20 @@ import 'package:popular_movies/bloc/favorite_movies_bloc/favorites_bloc.dart';
 import 'package:popular_movies/bloc/favorite_movies_bloc/favorites_repository.dart';
 import 'package:popular_movies/bloc/movie_bloc/movie_bloc.dart';
 import 'package:popular_movies/bloc/movie_bloc/movie_repository.dart';
+import 'package:popular_movies/bloc/settings_bloc/settings_bloc.dart';
+import 'package:popular_movies/bloc/settings_bloc/settings_repository.dart';
 import 'package:popular_movies/l10n/localizations.dart';
 import 'package:popular_movies/model/movie_type.dart';
+import 'package:popular_movies/ui/common/language_setting.dart';
 import 'package:popular_movies/ui/home/favorites_page.dart';
 import 'package:popular_movies/ui/home/movie_page.dart';
 
 class HomePage extends StatefulWidget {
   final FavoritesRepository repo;
+  final SettingsRepository settingsRepository;
 
-  const HomePage({Key key, this.repo}) : super(key: key);
+  const HomePage({Key key, this.repo, this.settingsRepository})
+      : super(key: key);
 
   @override
   HomePageState createState() {
@@ -25,14 +30,19 @@ class HomePageState extends State<HomePage> {
   MovieBloc _topRatedBloc;
   MovieBloc _nowPlayingBloc;
   FavoritesBloc _favoritesBloc;
+  SettingsBloc _settingsBloc;
 
   @override
   void initState() {
-    _popularBloc = MovieBloc(MovieRepository(movieType: MovieType.Popular));
-    _topRatedBloc = MovieBloc(MovieRepository(movieType: MovieType.TopRated));
-    _nowPlayingBloc =
-        MovieBloc(MovieRepository(movieType: MovieType.NowPlaying));
+    _popularBloc = MovieBloc(MovieRepository(movieType: MovieType.Popular),
+        widget.settingsRepository);
+    _topRatedBloc = MovieBloc(MovieRepository(movieType: MovieType.TopRated),
+        widget.settingsRepository);
+    _nowPlayingBloc = MovieBloc(
+        MovieRepository(movieType: MovieType.NowPlaying),
+        widget.settingsRepository);
     _favoritesBloc = FavoritesBloc(widget.repo);
+    _settingsBloc = SettingsBloc(widget.settingsRepository);
     super.initState();
   }
 
@@ -64,6 +74,9 @@ class HomePageState extends State<HomePage> {
         title: Text(
           AppLocalizations.of(context).appTitle,
         ),
+        actions: <Widget>[
+          LanguageSetting(_settingsBloc),
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,

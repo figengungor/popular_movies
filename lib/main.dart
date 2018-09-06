@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:popular_movies/bloc/favorite_movies_bloc/favorites_repository.dart';
+import 'package:popular_movies/bloc/settings_bloc/settings_repository.dart';
 import 'package:popular_movies/l10n/localizations.dart';
 import 'package:popular_movies/provider/favorite_repo_provider.dart';
+import 'package:popular_movies/provider/settings_repo_provider.dart';
 import 'package:popular_movies/ui/home/home_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
   runApp(
-    FavoriteRepoProvider(
-      favoritesRepository: FavoritesRepository(),
-      child: MyApp(),
+    SettingsRepoProvider(
+      settingsRepository: SettingsRepository(),
+      child: FavoriteRepoProvider(
+        favoritesRepository: FavoritesRepository(),
+        child: MyApp(),
+      ),
     ),
   );
 }
@@ -40,7 +45,10 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/': (context) => HomePage(
-            repo: FavoriteRepoProvider.of(context).favoritesRepository),
+              repo: FavoriteRepoProvider.of(context).favoritesRepository,
+              settingsRepository:
+                  SettingsRepoProvider.of(context).settingsRepository,
+            ),
       },
     );
   }

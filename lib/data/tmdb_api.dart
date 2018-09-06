@@ -19,17 +19,20 @@ class TmdbApi {
         this._apiKey = apiKey ?? config.apiKey,
         this._client = client ?? http.Client();
 
-  Future<MovieResponse> fetchMovies(MovieType movieType, int page) async {
+  Future<MovieResponse> fetchMovies(
+      MovieType movieType, int page, String language) async {
     Uri uri = Uri.https(_baseUrl, "/3/movie/${getMovieType(movieType)}",
-        {"page": page.toString()});
+        {"page": page.toString(), "language": language});
     final response = await _getWithAuthorization(uri);
     final results = MovieResponse.fromJson(response.body);
     return results;
   }
 
-  Future<MovieDetail> fetchMovieDetail(int movieId) async {
-    Uri uri = Uri.https(_baseUrl, "/3/movie/$movieId",
-        {'append_to_response': 'videos,reviews,credits,similar'});
+  Future<MovieDetail> fetchMovieDetail(int movieId, String language) async {
+    Uri uri = Uri.https(_baseUrl, "/3/movie/$movieId", {
+      "language": language,
+      'append_to_response': 'videos,reviews,credits,similar'
+    });
     final response = await _getWithAuthorization(uri);
     final results = MovieDetail.fromJson(response.body);
     return results;
