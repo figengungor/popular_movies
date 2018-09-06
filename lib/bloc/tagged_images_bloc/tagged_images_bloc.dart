@@ -45,4 +45,8 @@ class TaggedImagesBloc {
       _isLoadingSubject.add(false);
     }
   }
+
+  void dispose() {
+    _personIdController.close();
+  }
 }

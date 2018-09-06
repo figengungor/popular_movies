@@ -28,6 +28,12 @@ class _TaggedImagesPageState extends State<TaggedImagesPage> {
   }
 
   @override
+  void dispose() {
+    _bloc.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(AppLocalizations.of(context).taggedImages)),
