@@ -81,7 +81,7 @@ class _SearchPageState extends State<SearchPage> {
     return Stack(
       children: <Widget>[
         StreamBuilder<UnmodifiableListView<ListItem>>(
-          initialData: UnmodifiableListView([]),
+            initialData: UnmodifiableListView([]),
             stream: _bloc.movies,
             builder: (BuildContext context,
                 AsyncSnapshot<UnmodifiableListView<ListItem>> snapshot) {
@@ -100,13 +100,47 @@ class _SearchPageState extends State<SearchPage> {
               }
             }),
         StreamBuilder(
-            initialData: false,
-            stream: _bloc.isLoading,
-            builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-              return snapshot.data
-                  ? Center(child: CircularProgressIndicator())
-                  : Container();
-            }),
+          initialData: ViewStatus.Empty,
+          stream: _bloc.viewStatus,
+          builder: (BuildContext context, AsyncSnapshot<ViewStatus> snapshot) {
+            if (snapshot.data == ViewStatus.None) {
+              return Container();
+            } else if (snapshot.data == ViewStatus.NotFound) {
+              return ConfusedTravoltaErrorView(
+                  errorMessage:
+                      AppLocalizations.of(context).searchNoDataFoundMessage);
+            } else {
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(
+                      Icons.search,
+                      size: 90.0,
+                      color: Colors.grey,
+                    ),
+                    SizedBox(
+                      height: 16.0,
+                    ),
+                    Text(
+                      AppLocalizations.of(context).searchEmptyViewMessage,
+                      style: TextStyle(fontSize: 18.0),
+                    ),
+                  ],
+                ),
+              );
+            }
+          },
+        ),
+        StreamBuilder(
+          initialData: false,
+          stream: _bloc.isLoading,
+          builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+            return snapshot.data
+                ? Center(child: CircularProgressIndicator())
+                : Container();
+          },
+        ),
       ],
     );
   }

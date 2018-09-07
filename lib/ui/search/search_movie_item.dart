@@ -3,6 +3,7 @@ import 'package:popular_movies/model/movie.dart';
 import 'package:popular_movies/data/api_constants.dart';
 import 'package:popular_movies/provider/favorite_repo_provider.dart';
 import 'package:popular_movies/ui/movie_detail/movie_detail_page.dart';
+import 'package:popular_movies/utils/date_utils.dart';
 
 class SearchMovieItem extends StatelessWidget {
   final Movie movie;
@@ -18,7 +19,7 @@ class SearchMovieItem extends StatelessWidget {
       },
       leading: CircleAvatar(backgroundImage: NetworkImage(url)),
       title: Text(movie.title),
-
+      subtitle: Text(DateUtils.getYear(movie.releaseDate)),
     );
   }
 

@@ -7,6 +7,21 @@ import 'package:popular_movies/model/list_item.dart';
 import 'package:popular_movies/model/movie_response.dart';
 import 'package:rxdart/rxdart.dart';
 
+/// Streams to three StreamBuilders
+///
+/// * One for ListView (if data is fetched and has data, listView is displayed
+/// with data)
+///
+/// * One for Loading (Display progress while fetching data, hide when operation
+/// done)
+///
+/// * One for ViewStatus (If query is empty, display ViewStatus.Empty.
+/// If data is fetched and data is empty, display ViewStatus.NotFound.
+/// If data is fetched and data has data, display ViewStatus.None)
+///
+
+enum ViewStatus { Empty, NotFound, None }
+
 class SearchBloc {
   final SearchRepository _searchRepository;
   final SettingsRepository _settingsRepository;
@@ -15,6 +30,8 @@ class SearchBloc {
   Stream<UnmodifiableListView<ListItem>> get movies => _moviesSubject.stream;
 
   Stream<bool> get isLoading => _isLoadingSubject.stream;
+
+  Stream<ViewStatus> get viewStatus => _viewStatusSubject.stream;
 
   //Input Streams
   Sink<String> get querySink => _querySubject.sink;
@@ -38,6 +55,8 @@ class SearchBloc {
 
   final _isLoadingSubject = BehaviorSubject<bool>();
 
+  final _viewStatusSubject = BehaviorSubject<ViewStatus>();
+
   List<ListItem> _listItems = <ListItem>[];
   int _page = 1;
   int _totalPages;
@@ -45,8 +64,10 @@ class SearchBloc {
   String _query = '';
 
   SearchBloc(this._searchRepository, this._settingsRepository) {
-
-    _querySubject.stream.debounce(Duration(milliseconds: 400)).listen((query) {
+    _querySubject.stream
+        .debounce(Duration(milliseconds: 400))
+        .distinct()
+        .listen((query) {
       _searchMoviesFirstPage(query);
     });
 
@@ -91,11 +112,13 @@ class SearchBloc {
     _isNextLoading = false;
     _listItems.clear();
 
-
     if (query.isEmpty) {
       _moviesSubject.add(UnmodifiableListView(_listItems));
+      _viewStatusSubject.add(ViewStatus.Empty);
       return;
     }
+
+    _viewStatusSubject.add(ViewStatus.None);
 
     String language = await _settingsRepository.getContentLanguage();
     if (refreshCompleter == null) {
@@ -110,6 +133,11 @@ class SearchBloc {
           movieResponse.movie.toList().map((movie) => MovieItem(movie)));
       _page++;
       _moviesSubject.add(UnmodifiableListView(_listItems));
+      if (_listItems.isEmpty) {
+        _viewStatusSubject.add(ViewStatus.NotFound);
+      } else {
+        _viewStatusSubject.add(ViewStatus.None);
+      }
     } catch (error) {
       print("ERROR: ${error.toString()}");
       _moviesSubject.addError(error);

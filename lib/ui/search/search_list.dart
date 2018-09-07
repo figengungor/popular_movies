@@ -44,35 +44,17 @@ class _SearchListState extends State<SearchList> {
   @override
   Widget build(BuildContext context) {
     print("------build: SearchList");
-    return widget.movies.length > 0
-        ? RefreshIndicator(
-            onRefresh: widget.bloc.refresh,
-            child: ListView.builder(
-              key: widget.key,
-              controller: _scrollController,
-              itemCount: widget.movies.length,
-              itemBuilder: (BuildContext context, int index) {
-                return SearchListItem(widget.movies[index], _onRetry);
-              },
-            ),
-          )
-        : widget.bloc.isQueryEmpty()
-            ? Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(
-                      Icons.search,
-                      size: 90.0,
-                    ),
-                    Text(AppLocalizations.of(context).searchEmptyViewMessage),
-                  ],
-                ),
-              )
-            : ConfusedTravoltaErrorView(
-                errorMessage:
-                    AppLocalizations.of(context).searchNoDataFoundMessage,
-              );
+    return RefreshIndicator(
+      onRefresh: widget.bloc.refresh,
+      child: ListView.builder(
+        key: widget.key,
+        controller: _scrollController,
+        itemCount: widget.movies.length,
+        itemBuilder: (BuildContext context, int index) {
+          return SearchListItem(widget.movies[index], _onRetry);
+        },
+      ),
+    );
   }
 
   void _handleNextPageLoading() {
