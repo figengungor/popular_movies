@@ -185,6 +185,27 @@ class AppLocalizations {
         args: [name],
         name: 'byName',
       );
+
+  String get search {
+    return Intl.message(
+      'Search',
+      name: 'search',
+    );
+  }
+
+  String get searchEmptyViewMessage {
+    return Intl.message(
+      'Start typing movies to search.',
+      name: 'searchEmptyViewMessage',
+    );
+  }
+
+  String get searchNoDataFoundMessage {
+    return Intl.message(
+      'No search result found.',
+      name: 'searchEmptyViewMessage',
+    );
+  }
 }
 
 class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

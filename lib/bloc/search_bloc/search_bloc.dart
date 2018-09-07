@@ -1,13 +1,14 @@
 import 'dart:async';
 import 'dart:collection';
-import 'package:popular_movies/model/list_item.dart';
-import 'package:popular_movies/bloc/movie_bloc/movie_repository.dart';
+
+import 'package:popular_movies/bloc/search_bloc/search_repository.dart';
 import 'package:popular_movies/bloc/settings_bloc/settings_repository.dart';
+import 'package:popular_movies/model/list_item.dart';
 import 'package:popular_movies/model/movie_response.dart';
 import 'package:rxdart/rxdart.dart';
 
-class MovieBloc {
-  final MovieRepository _movieRepository;
+class SearchBloc {
+  final SearchRepository _searchRepository;
   final SettingsRepository _settingsRepository;
 
   //Output Streams
@@ -16,7 +17,7 @@ class MovieBloc {
   Stream<bool> get isLoading => _isLoadingSubject.stream;
 
   //Input Streams
-  Sink<void> get firstPageSink => _firstPageController.sink;
+  Sink<String> get querySink => _querySubject.sink;
 
   Sink<void> get nextPageSink => _nextPageController.sink;
 
@@ -25,7 +26,7 @@ class MovieBloc {
   Sink<Completer<Null>> get refreshSink => _refreshController.sink;
 
   //Stream Controllers
-  final _firstPageController = StreamController<void>();
+  final _querySubject = PublishSubject<String>();
 
   final _nextPageController = StreamController<void>();
 
@@ -41,10 +42,12 @@ class MovieBloc {
   int _page = 1;
   int _totalPages;
   bool _isNextLoading = false;
+  String _query = '';
 
-  MovieBloc(this._movieRepository, this._settingsRepository) {
-    _firstPageController.stream.listen((_) {
-      _getFirstPageMovies();
+  SearchBloc(this._searchRepository, this._settingsRepository) {
+
+    _querySubject.stream.debounce(Duration(milliseconds: 400)).listen((query) {
+      _searchMoviesFirstPage(query);
     });
 
     _nextPageController.stream.listen((_) {
@@ -56,18 +59,17 @@ class MovieBloc {
     });
 
     _refreshController.stream.listen((completer) {
-      _getFirstPageMovies(refreshCompleter: completer);
+      _searchMoviesFirstPage(_query, refreshCompleter: completer);
     });
 
     _settingsRepository.contentLanguage.listen((String contentLanguage) {
-      _movieRepository.clearCache();
-      _getFirstPageMovies();
+      if (_query.isNotEmpty) _searchMoviesFirstPage(_query);
     });
   }
 
   //bloc user should call this method when widget is disposed
   dispose() {
-    _firstPageController.close();
+    _querySubject.close();
     _nextPageController.close();
     _nextPageRetryController.close();
     _refreshController.close();
@@ -82,21 +84,27 @@ class MovieBloc {
   // The refreshCompleter should call complete method to let RefreshIndicator
   // know that we're done with our background work.
 
-  void _getFirstPageMovies({Completer<Null> refreshCompleter}) async {
-    String language = await _settingsRepository.getContentLanguage();
-    if (refreshCompleter != null) {
-      _movieRepository.clearCache();
-    } else {
-      _isLoadingSubject.add(true);
-    }
+  void _searchMoviesFirstPage(String query,
+      {Completer<Null> refreshCompleter}) async {
+    _query = query;
     _page = 1;
     _isNextLoading = false;
     _listItems.clear();
-    _moviesSubject.add(UnmodifiableListView(_listItems));
+
+
+    if (query.isEmpty) {
+      _moviesSubject.add(UnmodifiableListView(_listItems));
+      return;
+    }
+
+    String language = await _settingsRepository.getContentLanguage();
+    if (refreshCompleter == null) {
+      _isLoadingSubject.add(true);
+    }
 
     try {
       MovieResponse movieResponse =
-          await _movieRepository.getMovies(_page, language);
+          await _searchRepository.getMovies(query, _page, language);
       _totalPages = movieResponse.totalPages;
       _listItems.addAll(
           movieResponse.movie.toList().map((movie) => MovieItem(movie)));
@@ -134,14 +142,9 @@ class MovieBloc {
         String language = await _settingsRepository.getContentLanguage();
         _listItems.add(LoadingItem());
         _moviesSubject.add(UnmodifiableListView(_listItems));
-        //Couldn't see the loading so just add some delay
-        //to see if it's working as intended
-        /* await Future.delayed(Duration(seconds: 2), () {
-          return null;
-        });*/
         try {
           MovieResponse movieResponse =
-              await _movieRepository.getMovies(_page, language);
+              await _searchRepository.getMovies(_query, _page, language);
           _listItems.removeLast();
           _listItems.addAll(
               movieResponse.movie.toList().map((movie) => MovieItem(movie)));
@@ -169,5 +172,9 @@ class MovieBloc {
 
   bool isListEmpty() {
     return _listItems.isEmpty;
+  }
+
+  bool isQueryEmpty() {
+    return _query.isEmpty;
   }
 }

@@ -8,6 +8,7 @@ import 'package:popular_movies/bloc/settings_bloc/settings_repository.dart';
 import 'package:popular_movies/l10n/localizations.dart';
 import 'package:popular_movies/model/movie_type.dart';
 import 'package:popular_movies/ui/common/language_setting.dart';
+import 'package:popular_movies/ui/common/search_action.dart';
 import 'package:popular_movies/ui/home/favorites_page.dart';
 import 'package:popular_movies/ui/home/movie_page.dart';
 
@@ -52,6 +53,7 @@ class HomePageState extends State<HomePage> {
     _topRatedBloc.dispose();
     _nowPlayingBloc.dispose();
     _favoritesBloc.dispose();
+    _settingsBloc.dispose();
     super.dispose();
   }
 
@@ -75,6 +77,7 @@ class HomePageState extends State<HomePage> {
           AppLocalizations.of(context).appTitle,
         ),
         actions: <Widget>[
+          SearchAction(),
           LanguageSetting(_settingsBloc),
         ],
       ),

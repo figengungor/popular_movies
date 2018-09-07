@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:popular_movies/bloc/movie_bloc/list_item.dart';
+import 'package:popular_movies/model/list_item.dart';
 import 'package:popular_movies/bloc/movie_bloc/movie_bloc.dart';
 import 'package:popular_movies/ui/home/movie_list_item.dart';
 
