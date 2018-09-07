@@ -23,6 +23,10 @@ Person Detail    |  Tagged Images|  Error View
 :-------------------------:|:-------------------------:|:-------------------------:
 ![](art/person_detail.png) | ![](art/tagged_images.png) | ![](art/error_view.png)
 
+Search Empty    |  Search Result
+:-------------------------:|:-------------------------:
+![](art/search_empty.png) | ![](art/search_result.png)
+
 ## To-do
 
 - [X] InheritedWidget
@@ -35,6 +39,7 @@ Person Detail    |  Tagged Images|  Error View
 - [x] Tagged Images Page
 - [x] Localization('en', 'tr')
 - [x] Settings(SharedPreferences)
+- [x] Search Page
 
 ## Do me a favor
 
