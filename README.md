@@ -15,13 +15,13 @@ I'll be very happy to get it.
 
 ## Screenshots
 
-Home           |  Movie List Error|  Movie Detail
+Home           |  Language Settings |  Movie Detail
 :-------------------------:|:-------------------------:|:-------------------------:
-![](art/home.png)  |  ![](art/error_view.png) |  ![](art/movie_detail.png)
+![](art/home.png)  |  ![](art/settings.png) | ![](art/movie_detail.png)
 
-Person Detail    |  Tagged Images|
-:-------------------------:|:-------------------------:|
-![](art/person_detail.png) | ![](art/tagged_images.png) |
+Person Detail    |  Tagged Images|  Error View
+:-------------------------:|:-------------------------:|:-------------------------:
+![](art/person_detail.png) | ![](art/tagged_images.png) | ![](art/error_view.png)
 
 ## To-do
 
@@ -34,6 +34,7 @@ Person Detail    |  Tagged Images|
 - [x] Person Detail Page
 - [x] Tagged Images Page
 - [x] Localization('en', 'tr')
+- [x] Settings(SharedPreferences)
 
 ## Do me a favor
 
