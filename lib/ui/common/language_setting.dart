@@ -11,7 +11,14 @@ class LanguageSetting extends StatefulWidget {
 }
 
 class _LanguageSettingState extends State<LanguageSetting> {
-  final languages = ['tr', 'en', 'fr', 'ar'];
+  final languagesMap = {
+    'tr': 'Türkçe',
+    'en': 'English',
+    'fr': 'Français',
+    'de': 'Deuthch',
+    'ar': 'العربية',
+    'es': 'Español',
+  };
 
   @override
   void initState() {
@@ -40,7 +47,7 @@ class _LanguageSettingState extends State<LanguageSetting> {
       icon: Icon(Icons.language),
       label: Text(language),
       onPressed: () {
-        _showSingleChoiceAlertDialog(languages, language);
+        _showSingleChoiceAlertDialog(languagesMap, language);
       },
     );
   }
@@ -50,11 +57,11 @@ class _LanguageSettingState extends State<LanguageSetting> {
     return Container();
   }
 
-  _showSingleChoiceAlertDialog(List<String> languages, String language) {
+  _showSingleChoiceAlertDialog(Map<String, String> languagesMap, String language) {
     showDialog(
         context: context,
         builder: (context) =>
-            LanguageChoiceDialog(languages, language, _onLanguageChanged));
+            LanguageChoiceDialog(languagesMap, language, _onLanguageChanged));
   }
 
   _onLanguageChanged(String language) {
@@ -63,12 +70,12 @@ class _LanguageSettingState extends State<LanguageSetting> {
 }
 
 class LanguageChoiceDialog extends StatefulWidget {
-  final List<String> languages;
+  final Map<String, String> languagesMap;
   final String initialLanguage;
   final ValueChanged<String> onLanguageChanged;
 
-  LanguageChoiceDialog(
-      this.languages, this.initialLanguage, this.onLanguageChanged);
+  LanguageChoiceDialog(this.languagesMap, this.initialLanguage,
+      this.onLanguageChanged);
 
   @override
   _LanguageChoiceDialogState createState() => _LanguageChoiceDialogState();
@@ -119,19 +126,20 @@ class _LanguageChoiceDialogState extends State<LanguageChoiceDialog> {
         ),
         ListView(
           shrinkWrap: true,
-          children: widget.languages
+          children: widget.languagesMap.keys
               .map(
-                (language) => RadioListTile(
-                      title: Text(language),
-                      value: language,
-                      groupValue: _language,
-                      onChanged: (value) {
-                        setState(() {
-                          _language = value;
-                        });
-                      },
-                    ),
-              )
+                (languageKey) =>
+                RadioListTile(
+                  title: Text(widget.languagesMap[languageKey]),
+                  value: languageKey,
+                  groupValue: _language,
+                  onChanged: (value) {
+                    setState(() {
+                      _language = value;
+                    });
+                  },
+                ),
+          )
               .toList(),
         ),
         Divider(
