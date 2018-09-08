@@ -1,9 +1,11 @@
 import 'package:confused_travolta_error_view/confused_travolta_error_view.dart';
 import 'package:flutter/material.dart';
 import 'package:popular_movies/bloc/person_detail_bloc/person_detail_bloc.dart';
+import 'package:popular_movies/bloc/settings_bloc/settings_repository.dart';
 import 'package:popular_movies/l10n/localizations.dart';
 import 'package:popular_movies/model/external_ids.dart';
 import 'package:popular_movies/model/person_detail.dart';
+import 'package:popular_movies/provider/settings_repo_provider.dart';
 import 'package:popular_movies/ui/common/social_icon.dart';
 import 'package:popular_movies/ui/tagged_images/tagged_images_page.dart';
 import 'package:popular_movies/utils/error_utils.dart';
@@ -12,8 +14,9 @@ import 'package:popular_movies/data/api_constants.dart';
 class PersonDetailPage extends StatefulWidget {
   final int personId;
   final String personName;
+  final SettingsRepository settingsRepository;
 
-  PersonDetailPage(this.personId, this.personName);
+  PersonDetailPage(this.personId, this.personName, this.settingsRepository);
 
   @override
   _PersonDetailPageState createState() => _PersonDetailPageState();
@@ -24,7 +27,7 @@ class _PersonDetailPageState extends State<PersonDetailPage> {
 
   @override
   void initState() {
-    _bloc = PersonDetailBloc();
+    _bloc = PersonDetailBloc(widget.settingsRepository);
     _bloc.personIdSink.add(widget.personId);
     super.initState();
   }
@@ -155,7 +158,7 @@ class _PersonDetailPageState extends State<PersonDetailPage> {
 
   void _openTaggedImagesPage() {
     Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-      return TaggedImagesPage(widget.personId);
+      return TaggedImagesPage(widget.personId, widget.settingsRepository);
     }));
   }
 }

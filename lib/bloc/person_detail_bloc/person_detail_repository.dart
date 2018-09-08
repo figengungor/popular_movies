@@ -8,7 +8,7 @@ class PersonDetailRepository {
 
   PersonDetailRepository({TmdbApi tmdbApi}) : _tmdbApi = tmdbApi ?? TmdbApi();
 
-  Future<PersonDetail> getPersonDetail(int personId) async {
-    return _tmdbApi.fetchPersonDetail(personId);
+  Future<PersonDetail> getPersonDetail(int personId, String language) async {
+    return _tmdbApi.fetchPersonDetail(personId, language);
   }
 }

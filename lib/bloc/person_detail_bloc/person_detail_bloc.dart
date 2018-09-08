@@ -1,13 +1,16 @@
 import 'dart:async';
 
 import 'package:popular_movies/bloc/person_detail_bloc/person_detail_repository.dart';
+import 'package:popular_movies/bloc/settings_bloc/settings_repository.dart';
 import 'package:popular_movies/model/person_detail.dart';
 import 'package:rxdart/rxdart.dart';
 
 class PersonDetailBloc {
   final PersonDetailRepository _personDetailRepository;
+  final SettingsRepository _settingsRepository;
 
-  PersonDetailBloc({PersonDetailRepository personDetailRepository})
+  PersonDetailBloc(this._settingsRepository,
+      {PersonDetailRepository personDetailRepository})
       : _personDetailRepository =
             personDetailRepository ?? PersonDetailRepository() {
     _personIdController.stream.listen((personId) {
@@ -32,8 +35,9 @@ class PersonDetailBloc {
   void getPersonDetail(int personId) async {
     _isLoadingSubject.add(true);
     try {
+      String language = await _settingsRepository.getContentLanguage();
       PersonDetail personDetail =
-          await _personDetailRepository.getPersonDetail(personId);
+          await _personDetailRepository.getPersonDetail(personId, language);
       _personDetailSubject.add(personDetail);
     } catch (error) {
       _personDetailSubject.addError(error);

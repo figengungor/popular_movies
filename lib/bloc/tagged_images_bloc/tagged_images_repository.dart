@@ -8,7 +8,7 @@ class TaggedImagesRepository {
 
   TaggedImagesRepository({TmdbApi tmdbApi}) : _tmdbApi = tmdbApi ?? TmdbApi();
 
-  Future<TaggedImages> getTaggedImages(int personId) async{
-    return _tmdbApi.fetchTaggedImages(personId);
+  Future<TaggedImages> getTaggedImages(int personId, String language) async {
+    return _tmdbApi.fetchTaggedImages(personId, language);
   }
 }

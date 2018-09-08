@@ -4,6 +4,7 @@ import 'package:popular_movies/l10n/localizations.dart';
 import 'package:popular_movies/model/cast.dart';
 import 'package:popular_movies/model/credits.dart';
 import 'package:popular_movies/model/crew.dart';
+import 'package:popular_movies/provider/settings_repo_provider.dart';
 import 'package:popular_movies/ui/movie_detail/section_header.dart';
 import 'package:popular_movies/data/api_constants.dart';
 import 'package:popular_movies/ui/person_detail/person_detail_page.dart';
@@ -110,7 +111,8 @@ class CastSection extends StatelessWidget {
 
   void _openPersonDetailPage(BuildContext context, Cast cast) {
     Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-      return PersonDetailPage(cast.id, cast.name);
+      return PersonDetailPage(cast.id, cast.name,
+          SettingsRepoProvider.of(context).settingsRepository);
     }));
   }
 }

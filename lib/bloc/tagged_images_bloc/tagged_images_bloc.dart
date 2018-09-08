@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:collection';
 
+import 'package:popular_movies/bloc/settings_bloc/settings_repository.dart';
 import 'package:popular_movies/bloc/tagged_images_bloc/tagged_images_repository.dart';
 import 'package:popular_movies/model/tagged_image.dart';
 import 'package:popular_movies/model/tagged_images.dart';
@@ -8,8 +9,10 @@ import 'package:rxdart/rxdart.dart';
 
 class TaggedImagesBloc {
   final TaggedImagesRepository _taggedImagesRepository;
+  final SettingsRepository _settingsRepository;
 
-  TaggedImagesBloc({TaggedImagesRepository taggedImagesRepository})
+  TaggedImagesBloc(this._settingsRepository,
+      {TaggedImagesRepository taggedImagesRepository})
       : _taggedImagesRepository =
             taggedImagesRepository ?? TaggedImagesRepository() {
     _personIdController.stream.listen((personId) {
@@ -36,8 +39,9 @@ class TaggedImagesBloc {
   void getTaggedImages(int personId) async {
     _isLoadingSubject.add(true);
     try {
+      String language = await _settingsRepository.getContentLanguage();
       TaggedImages taggedImages =
-          await _taggedImagesRepository.getTaggedImages(personId);
+          await _taggedImagesRepository.getTaggedImages(personId, language);
       _taggedImagesSubject.add(UnmodifiableListView(taggedImages.results));
     } catch (error) {
       _taggedImagesSubject.addError(error);
