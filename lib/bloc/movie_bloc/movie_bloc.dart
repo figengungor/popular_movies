@@ -83,6 +83,7 @@ class MovieBloc {
   // know that we're done with our background work.
 
   void _getFirstPageMovies({Completer<Null> refreshCompleter}) async {
+    print('getFirstPageMovies is called---------');
     String language = await _settingsRepository.getContentLanguage();
     if (refreshCompleter != null) {
       _movieRepository.clearCache();
@@ -90,7 +91,9 @@ class MovieBloc {
       _isLoadingSubject.add(true);
     }
     _page = 1;
-    _isNextLoading = false;
+    //to stop next page loading when first page is being loaded
+    //only make it false if first page is fetched successfully
+    _isNextLoading = true;
     _listItems.clear();
     _moviesSubject.add(UnmodifiableListView(_listItems));
 
@@ -102,6 +105,7 @@ class MovieBloc {
           movieResponse.movie.toList().map((movie) => MovieItem(movie)));
       _page++;
       _moviesSubject.add(UnmodifiableListView(_listItems));
+      _isNextLoading = false;
     } catch (error) {
       print("ERROR: ${error.toString()}");
       _moviesSubject.addError(error);
@@ -128,6 +132,7 @@ class MovieBloc {
   // Check the status of next page loading with _isNextLoading bool
   // To avoid making new requests before this one finishes.
   void _getNextPageMovies() async {
+    print('getNextPageMovies is called---------');
     if (!_isNextLoading) {
       _isNextLoading = true;
       if (_totalPages != null && _totalPages >= _page) {
