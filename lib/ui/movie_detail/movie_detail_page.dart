@@ -38,6 +38,7 @@ class MovieDetailPageState extends State<MovieDetailPage> {
   void initState() {
     bloc = MovieDetailBloc(
         widget.movie.id, MovieDetailRepository(), SettingsRepository());
+
     bloc.fetchMovieDetailSink.add(null);
     favoriteBloc = FavoriteBloc(widget.repo, widget.movie);
     favoriteBloc.checkStatusSink.add(null);
@@ -130,7 +131,10 @@ class MovieDetailPageState extends State<MovieDetailPage> {
               ),
             );
           } else {
-            return Container();
+            return Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Center(child: CircularProgressIndicator()),
+            );
           }
         });
   }
