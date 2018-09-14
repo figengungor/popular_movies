@@ -16,7 +16,9 @@ import 'package:popular_movies/ui/movie_detail/genre_tag.dart';
 import 'package:popular_movies/ui/movie_detail/reviews_section.dart';
 import 'package:popular_movies/ui/movie_detail/similar_section.dart';
 import 'package:popular_movies/ui/movie_detail/videos_section.dart';
+import 'package:popular_movies/utils/date_utils.dart';
 import 'package:popular_movies/utils/error_utils.dart';
+import 'package:sliver_fab/sliver_fab.dart';
 
 class MovieDetailPage extends StatefulWidget {
   final Movie movie;
@@ -57,7 +59,9 @@ class MovieDetailPageState extends State<MovieDetailPage> {
     String backdropUrl =
         "$imageUrl$pathBackdropW780${widget.movie.backdropPath}";
     return Scaffold(
-      body: CustomScrollView(
+      body: SliverFab(
+        floatingActionButton: _buildFavoriteButton(),
+        expandedHeight: 256.0,
         slivers: <Widget>[
           SliverAppBar(
             expandedHeight: 256.0,
@@ -232,7 +236,7 @@ class MovieDetailPageState extends State<MovieDetailPage> {
                       ),
                       SizedBox(width: 4.0),
                       Text(
-                        widget.movie.releaseDate,
+                        DateUtils.getFormattedDate(widget.movie.releaseDate),
                         style: TextStyle(
                           color: Colors.grey.shade700,
                         ),
@@ -242,7 +246,6 @@ class MovieDetailPageState extends State<MovieDetailPage> {
                   SizedBox(
                     height: 16.0,
                   ),
-                  _buildFavoriteButton(),
                 ],
               ),
             ),

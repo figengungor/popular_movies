@@ -10,4 +10,15 @@ class DateUtils {
       return dateStr;
     }
   }
+
+  static String getFormattedDate(String dateStr) {
+    try {
+      var formatter = new DateFormat('yyyy-MM-dd');
+      DateTime date = formatter.parseStrict(dateStr);
+      var newFormatter = DateFormat('MMM dd, yyyy');
+      return newFormatter.format(date);
+    } catch (error) {
+      return dateStr;
+    }
+  }
 }
