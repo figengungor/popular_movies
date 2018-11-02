@@ -9,7 +9,7 @@ class SocialIcon extends StatelessWidget {
   final String id;
   final double size;
 
-  SocialIcon(
+  const SocialIcon(
       {@required this.iconPath,
       @required this.url,
       @required this.id,
@@ -20,7 +20,7 @@ class SocialIcon extends StatelessWidget {
     return id == null
         ? Container()
         : GestureDetector(
-            onTap: () => _launchInBrowser("$url$id"),
+            onTap: () => _launchInBrowser('$url$id'),
             child: Image.asset(
               iconPath,
               width: size,
@@ -29,7 +29,7 @@ class SocialIcon extends StatelessWidget {
           );
   }
 
-  Future<Null> _launchInBrowser(String url) async {
+  Future<void> _launchInBrowser(String url) async {
     if (await canLaunch(url)) {
       await launch(url, forceSafariVC: false, forceWebView: false);
     } else {

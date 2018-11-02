@@ -39,13 +39,15 @@ class MovieDatabase {
   }
 
   Future<Database> _initDb() async {
-    Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    var path = join(documentsDirectory.path, 'movies.db');
-    var db = await openDatabase(path, version: 1, onCreate: _onCreate);
+    final Directory documentsDirectory =
+        await getApplicationDocumentsDirectory();
+    final String path = join(documentsDirectory.path, 'movies.db');
+    final Database db =
+        await openDatabase(path, version: 1, onCreate: _onCreate);
     return db;
   }
 
-  _onCreate(Database db, int version) {
+  void _onCreate(Database db, int version) {
     db.execute('CREATE TABLE $tableName ($columnId INTEGER PRIMARY KEY,'
         '$columnPosterPath TEXT,'
         '$columnAdult INTEGER,'
@@ -65,53 +67,55 @@ class MovieDatabase {
 
   //Insertion
   Future<int> saveFavorite(Movie item) async {
-    var dbClient = await db;
-    int id = await dbClient.insert(tableName, item.toDbValues());
+    final Database dbClient = await db;
+    final int id = await dbClient.insert(tableName, item.toDbValues());
     return id;
   }
 
   //Get Items
   Future<List<Movie>> getFavorites() async {
-    var dbClient = await db;
-    var list = dbClient.rawQuery("SELECT * FROM $tableName").then(
-        (items) => items.map((item) => Movie.fromDbValues(item)).toList());
+    final Database dbClient = await db;
+    final Future<List<Movie>> list = dbClient
+        .rawQuery('SELECT * FROM $tableName')
+        .then((List<Map<String, dynamic>> items) => items
+            .map((Map<String, dynamic> item) => Movie.fromDbValues(item))
+            .toList());
     return list;
   }
 
   //Get Item
   Future<Movie> getFavoriteById(int id) async {
-    var dbClient = await db;
-    var list = await dbClient
-        .query(tableName, where: '$columnId = ?', whereArgs: [id]);
-    if (list.length == 0) return null;
-    return Movie.fromDbValues(list[0]);
+    final Database dbClient = await db;
+    final List<Map<String, dynamic>> list = await dbClient
+        .query(tableName, where: '$columnId = ?', whereArgs: <int>[id]);
+    return list.isEmpty ? null : Movie.fromDbValues(list[0]);
   }
 
   //Get count
   Future<int> getFavoriteCount() async {
-    var dbClient = await db;
+    final Database dbClient = await db;
     return Sqflite.firstIntValue(await dbClient.query(tableName));
   }
 
   //Delete Item
   Future<int> deleteFavorite(int id) async {
-    var dbClient = await db;
-    int row =
-        await dbClient.delete(tableName, where: '$columnId=?', whereArgs: [id]);
+    final Database dbClient = await db;
+    final int row =
+        await dbClient.delete(tableName, where: '$columnId=?', whereArgs: <int>[id]);
     return row;
   }
 
   //Update Item
   Future<int> updateFavorite(Movie item) async {
-    var dbClient = await db;
-    var row = await dbClient.update(tableName, item.toDbValues(),
-        where: '$columnId=?', whereArgs: [item.id]);
+    final Database dbClient = await db;
+    final int row = await dbClient.update(tableName, item.toDbValues(),
+        where: '$columnId=?', whereArgs: <int>[item.id]);
     return row;
   }
 
   //Close db
-  Future close() async {
-    var dbClient = await db;
+  Future<void> close() async {
+    final Database dbClient = await db;
     return dbClient.close();
   }
 }

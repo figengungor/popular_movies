@@ -32,7 +32,7 @@ class MovieDetailBloc {
     });
   }
 
-  dispose() {
+  void dispose() {
     _fetchMovieDetailController.close();
   }
 

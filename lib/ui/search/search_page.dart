@@ -11,9 +11,8 @@ import 'package:popular_movies/ui/search/search_list.dart';
 import 'package:popular_movies/utils/error_utils.dart';
 
 class SearchPage extends StatefulWidget {
+  const SearchPage(this.settingsRepository);
   final SettingsRepository settingsRepository;
-
-  SearchPage(this.settingsRepository);
 
   @override
   _SearchPageState createState() => _SearchPageState();
@@ -21,7 +20,7 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   bool _isClearButtonVisible = false;
-  TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
   SearchBloc _bloc;
 
   @override
@@ -45,15 +44,15 @@ class _SearchPageState extends State<SearchPage> {
           child: TextField(
             autofocus: true,
             controller: _controller,
-            style: TextStyle(color: Colors.white, fontSize: 17.0),
+            style: const TextStyle(color: Colors.white, fontSize: 17.0),
             cursorColor: Colors.white,
             decoration: InputDecoration(
               hintText: AppLocalizations.of(context).search,
-              hintStyle: TextStyle(color: Colors.white70, fontSize: 17.0),
+              hintStyle: const TextStyle(color: Colors.white70, fontSize: 17.0),
               border: InputBorder.none,
               suffixIcon: _isClearButtonVisible
                   ? IconButton(
-                      icon: Icon(Icons.clear),
+                      icon: const Icon(Icons.clear),
                       onPressed: () {
                         _controller.clear();
                         _bloc.querySink.add('');
@@ -62,10 +61,10 @@ class _SearchPageState extends State<SearchPage> {
                     )
                   : null,
             ),
-            onChanged: (value) {
-              if (value.length > 0 && !_isClearButtonVisible) {
+            onChanged: (String value) {
+              if (value.isNotEmpty && !_isClearButtonVisible) {
                 setState(() => _isClearButtonVisible = true);
-              } else if (value.length == 0) {
+              } else if (value.isEmpty) {
                 setState(() => _isClearButtonVisible = false);
               }
               _bloc.querySink.add(value);
@@ -77,16 +76,16 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
-  _buildBody() {
+  Widget _buildBody() {
     return Stack(
       children: <Widget>[
         StreamBuilder<UnmodifiableListView<ListItem>>(
-            initialData: UnmodifiableListView([]),
+            initialData: UnmodifiableListView<ListItem>(<ListItem>[]),
             stream: _bloc.movies,
             builder: (BuildContext context,
                 AsyncSnapshot<UnmodifiableListView<ListItem>> snapshot) {
               if (snapshot.hasData) {
-                print("Snapshot data ${snapshot.data}  SearchPage");
+                print('Snapshot data ${snapshot.data}  SearchPage');
                 return SearchList(_bloc, snapshot.data);
               } else if (snapshot.hasError) {
                 return ConfusedTravoltaErrorView(
@@ -99,7 +98,7 @@ class _SearchPageState extends State<SearchPage> {
                 return Container();
               }
             }),
-        StreamBuilder(
+        StreamBuilder<ViewStatus>(
           initialData: ViewStatus.Empty,
           stream: _bloc.viewStatus,
           builder: (BuildContext context, AsyncSnapshot<ViewStatus> snapshot) {
@@ -114,17 +113,17 @@ class _SearchPageState extends State<SearchPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Icon(
+                    const Icon(
                       Icons.search,
                       size: 90.0,
                       color: Colors.grey,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 16.0,
                     ),
                     Text(
                       AppLocalizations.of(context).searchEmptyViewMessage,
-                      style: TextStyle(fontSize: 18.0),
+                      style: const TextStyle(fontSize: 18.0),
                     ),
                   ],
                 ),
@@ -132,12 +131,12 @@ class _SearchPageState extends State<SearchPage> {
             }
           },
         ),
-        StreamBuilder(
+        StreamBuilder<bool>(
           initialData: false,
           stream: _bloc.isLoading,
           builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
             return snapshot.data
-                ? Center(child: CircularProgressIndicator())
+                ? const Center(child: CircularProgressIndicator())
                 : Container();
           },
         ),

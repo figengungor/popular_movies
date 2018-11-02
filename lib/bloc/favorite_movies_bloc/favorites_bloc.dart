@@ -26,12 +26,12 @@ class FavoritesBloc {
 
   //StreamControllers
 
-  final _moviesSubject = BehaviorSubject<UnmodifiableListView<Movie>>();
-  final _updateMoviesController = StreamController<void>();
+  final BehaviorSubject<UnmodifiableListView<Movie>> _moviesSubject = BehaviorSubject<UnmodifiableListView<Movie>>();
+  final StreamController<void> _updateMoviesController = StreamController<void>();
 
-  void _getFavoriteMovies() async {
-    List<Movie> movies = await favoritesRepository.getFavoriteMovies();
-    _moviesSubject.add(UnmodifiableListView(movies));
+  Future<void> _getFavoriteMovies() async {
+    final List<Movie> movies = await favoritesRepository.getFavoriteMovies();
+    _moviesSubject.add(UnmodifiableListView<Movie>(movies));
   }
 
   void dispose() {

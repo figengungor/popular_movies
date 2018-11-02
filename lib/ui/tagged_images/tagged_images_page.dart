@@ -10,10 +10,9 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:popular_movies/data/api_constants.dart';
 
 class TaggedImagesPage extends StatefulWidget {
+  const TaggedImagesPage(this.personId, this.settingsRepository);
   final int personId;
   final SettingsRepository settingsRepository;
-
-  TaggedImagesPage(this.personId, this.settingsRepository);
 
   @override
   _TaggedImagesPageState createState() => _TaggedImagesPageState();
@@ -45,7 +44,7 @@ class _TaggedImagesPageState extends State<TaggedImagesPage> {
 
   Widget _buildBody() => Stack(
         children: <Widget>[
-          StreamBuilder(
+          StreamBuilder<UnmodifiableListView<TaggedImage>>(
               stream: _bloc.taggedImages,
               builder: (BuildContext context,
                   AsyncSnapshot<UnmodifiableListView<TaggedImage>> snapshot) {
@@ -57,12 +56,12 @@ class _TaggedImagesPageState extends State<TaggedImagesPage> {
                   return Container();
                 }
               }),
-          StreamBuilder(
+          StreamBuilder<bool>(
               initialData: false,
               stream: _bloc.isLoading,
               builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
                 return snapshot.data
-                    ? Center(child: CircularProgressIndicator())
+                    ? const Center(child: CircularProgressIndicator())
                     : Container();
               }),
         ],
@@ -79,9 +78,9 @@ class _TaggedImagesPageState extends State<TaggedImagesPage> {
       crossAxisCount: 4,
       mainAxisSpacing: 4.0,
       crossAxisSpacing: 4.0,
-      itemBuilder: (context, index) => _buildListItem(taggedImageList[index]),
+      itemBuilder: (_, int index) => _buildListItem(taggedImageList[index]),
       itemCount: taggedImageList.length,
-      staggeredTileBuilder: (index) => StaggeredTile.fit(2),
+      staggeredTileBuilder: (int index) => const StaggeredTile.fit(2),
     );
   }
 
@@ -94,12 +93,12 @@ class _TaggedImagesPageState extends State<TaggedImagesPage> {
     }
     return Column(
       children: <Widget>[
-        Image.network("$imageUrl$pathPosterW342${taggedImage.filePath}"),
+        Image.network('$imageUrl$pathPosterW342${taggedImage.filePath}'),
         Padding(
-          padding: EdgeInsets.all(4.0),
+          padding: const EdgeInsets.all(4.0),
           child: Text(
             name,
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: const TextStyle(fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ),
         )

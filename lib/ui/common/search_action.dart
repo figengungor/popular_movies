@@ -5,13 +5,13 @@ import 'package:popular_movies/ui/search/search_page.dart';
 class SearchAction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return IconButton(icon: Icon(Icons.search), onPressed: () => _openSearchPage(context),);
+    return IconButton(icon: const Icon(Icons.search), onPressed: () => _openSearchPage(context),);
   }
 
   void _openSearchPage(BuildContext context) {
     Navigator.push(
           context,
-          MaterialPageRoute(
+          MaterialPageRoute<void>(
             builder: (BuildContext context) {
               return SearchPage(SettingsRepoProvider.of(context).settingsRepository);
             },

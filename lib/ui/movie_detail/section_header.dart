@@ -5,7 +5,7 @@ class SectionHeader extends StatelessWidget {
   final String title;
   final VoidCallback onSeeMorePressed;
 
-  SectionHeader(this.title, {this.onSeeMorePressed});
+  const SectionHeader(this.title, {this.onSeeMorePressed});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class SectionHeader extends StatelessWidget {
             Expanded(
               child: Text(
                 title,
-                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                style: const TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
               ),
             ),
             onSeeMorePressed != null
@@ -29,7 +29,7 @@ class SectionHeader extends StatelessWidget {
                 : Container()
           ],
         ),
-        Divider(),
+        const Divider(),
       ],
     );
   }

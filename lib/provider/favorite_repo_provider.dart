@@ -6,7 +6,7 @@ class FavoriteRepoProvider extends StatelessWidget {
 
   final Widget child;
 
-  FavoriteRepoProvider({@required this.child, this.favoritesRepository});
+  const FavoriteRepoProvider({@required this.child, this.favoritesRepository});
 
   static FavoriteRepoProvider of(BuildContext context) {
     return (context.inheritFromWidgetOfExactType(_InheritedFavoriteRepoProvider)

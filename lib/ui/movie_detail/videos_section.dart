@@ -10,9 +10,9 @@ import 'package:url_launcher/url_launcher.dart';
 
 class VideosSection extends StatelessWidget {
   final Videos videos;
-  final double _videoHeight = 100.0;
+  static const double _videoHeight = 100.0;
 
-  VideosSection(this.videos);
+  const VideosSection(this.videos);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class VideosSection extends StatelessWidget {
   }
 
   Widget _buildVideoList(BuildContext context) {
-    if (videos != null && videos.results != null && videos.results.length > 0) {
+    if (videos != null && videos.results != null && videos.results.isNotEmpty) {
       return SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
@@ -46,20 +46,20 @@ class VideosSection extends StatelessWidget {
       padding: const EdgeInsets.only(right: 8.0),
       child: InkWell(
         onTap: () =>
-            _launchInBrowser("http://www.youtube.com/watch?v=${video.key}"),
+            _launchInBrowser('http://www.youtube.com/watch?v=${video.key}'),
         child: Stack(
           alignment: Alignment.center,
           children: <Widget>[
             CachedNetworkImage(
               height: _videoHeight,
-              imageUrl: "https://i1.ytimg.com/vi/${video.key}/mqdefault.jpg",
+              imageUrl: 'https://i1.ytimg.com/vi/${video.key}/mqdefault.jpg',
               placeholder: Image.asset(
-                "assets/images/placeholder_backdrop.png",
+                'assets/images/placeholder_backdrop.png',
                 height: _videoHeight,
                 fit: BoxFit.cover,
               ),
               errorWidget: Image.asset(
-                "assets/images/error_backdrop.png",
+                'assets/images/error_backdrop.png',
                 height: _videoHeight,
                 fit: BoxFit.cover,
               ),
@@ -71,7 +71,7 @@ class VideosSection extends StatelessWidget {
                 shape: BoxShape.circle,
                 color: Colors.black.withOpacity(0.4),
               ),
-              child: Icon(
+              child: const Icon(
                 Icons.play_arrow,
                 color: Colors.white,
                 size: 32.0,
@@ -83,7 +83,7 @@ class VideosSection extends StatelessWidget {
     );
   }
 
-  Future<Null> _launchInBrowser(String url) async {
+  Future<void> _launchInBrowser(String url) async {
     if (await canLaunch(url)) {
       await launch(url, forceSafariVC: false, forceWebView: false);
     } else {

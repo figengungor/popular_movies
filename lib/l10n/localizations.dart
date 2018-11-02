@@ -182,7 +182,7 @@ class AppLocalizations {
 
   String byName(String name) => Intl.message(
         'by $name',
-        args: [name],
+        args: <String>[name],
         name: 'byName',
       );
 

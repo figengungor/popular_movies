@@ -66,7 +66,7 @@ class MovieBloc {
   }
 
   //bloc user should call this method when widget is disposed
-  dispose() {
+  void dispose() {
     _firstPageController.close();
     _nextPageController.close();
     _nextPageRetryController.close();

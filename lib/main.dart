@@ -20,17 +20,16 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  MyApp();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      localizationsDelegates: [
+      localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
         AppLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
-      supportedLocales: [
+      supportedLocales: const <Locale>[
         Locale('en', ''),
         Locale('tr', ''),
         Locale('ar', ''),
@@ -44,7 +43,7 @@ class MyApp extends StatelessWidget {
         buttonColor: Colors.pink,
       ),
       routes: {
-        '/': (context) => HomePage(
+        '/': (BuildContext context) => HomePage(
               repo: FavoriteRepoProvider.of(context).favoritesRepository,
               settingsRepository:
                   SettingsRepoProvider.of(context).settingsRepository,

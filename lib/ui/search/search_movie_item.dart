@@ -6,13 +6,12 @@ import 'package:popular_movies/ui/movie_detail/movie_detail_page.dart';
 import 'package:popular_movies/utils/date_utils.dart';
 
 class SearchMovieItem extends StatelessWidget {
-  final Movie movie;
-
   const SearchMovieItem(this.movie);
+  final Movie movie;
 
   @override
   Widget build(BuildContext context) {
-    String url = "$imageUrl$pathPosterW342${movie.posterPath}";
+    final String url = '$imageUrl$pathPosterW342${movie.posterPath}';
     return ListTile(
       onTap: () {
         _openMovieDetailPage(context, movie);
@@ -24,7 +23,7 @@ class SearchMovieItem extends StatelessWidget {
   }
 
   void _openMovieDetailPage(BuildContext context, Movie movie) {
-    Navigator.push(context, MaterialPageRoute(builder: (_) {
+    Navigator.push(context, MaterialPageRoute<void>(builder: (_) {
       return MovieDetailPage(
           movie, FavoriteRepoProvider.of(context).favoritesRepository);
     }));

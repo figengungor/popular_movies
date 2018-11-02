@@ -3,9 +3,8 @@ import 'package:popular_movies/l10n/localizations.dart';
 import 'package:popular_movies/model/review.dart';
 
 class ReviewItem extends StatefulWidget {
+  const ReviewItem(this.review);
   final Review review;
-
-  ReviewItem(this.review);
 
   @override
   _ReviewItemState createState() => _ReviewItemState();
@@ -32,13 +31,13 @@ class _ReviewItemState extends State<ReviewItem> {
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                   ),
-            SizedBox(
+            const SizedBox(
               height: 8.0,
             ),
             Text(
               AppLocalizations.of(context).byName(widget.review.author),
               textAlign: TextAlign.right,
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: const TextStyle(fontWeight: FontWeight.bold),
             )
           ],
         ),

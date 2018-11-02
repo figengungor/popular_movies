@@ -8,9 +8,6 @@ import 'package:popular_movies/model/tagged_images.dart';
 import 'package:rxdart/rxdart.dart';
 
 class TaggedImagesBloc {
-  final TaggedImagesRepository _taggedImagesRepository;
-  final SettingsRepository _settingsRepository;
-
   TaggedImagesBloc(this._settingsRepository,
       {TaggedImagesRepository taggedImagesRepository})
       : _taggedImagesRepository =
@@ -19,6 +16,9 @@ class TaggedImagesBloc {
       getTaggedImages(personId);
     });
   }
+
+  final TaggedImagesRepository _taggedImagesRepository;
+  final SettingsRepository _settingsRepository;
 
   //Output Streams
   Stream<UnmodifiableListView<TaggedImage>> get taggedImages =>

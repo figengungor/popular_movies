@@ -23,6 +23,32 @@ import 'package:rxdart/rxdart.dart';
 enum ViewStatus { Empty, NotFound, None }
 
 class SearchBloc {
+
+  SearchBloc(this._searchRepository, this._settingsRepository) {
+    _querySubject.stream
+        .debounce(Duration(milliseconds: 400))
+        .distinct()
+        .listen((query) {
+      _searchMoviesFirstPage(query);
+    });
+
+    _nextPageController.stream.listen((_) {
+      _getNextPageMovies();
+    });
+
+    _nextPageRetryController.stream.listen((_) {
+      _retryLoadingNextPage();
+    });
+
+    _refreshController.stream.listen((completer) {
+      _searchMoviesFirstPage(_query, refreshCompleter: completer);
+    });
+
+    _settingsRepository.contentLanguage.listen((String contentLanguage) {
+      if (_query.isNotEmpty) _searchMoviesFirstPage(_query);
+    });
+  }
+
   final SearchRepository _searchRepository;
   final SettingsRepository _settingsRepository;
 
@@ -63,33 +89,10 @@ class SearchBloc {
   bool _isNextLoading = false;
   String _query = '';
 
-  SearchBloc(this._searchRepository, this._settingsRepository) {
-    _querySubject.stream
-        .debounce(Duration(milliseconds: 400))
-        .distinct()
-        .listen((query) {
-      _searchMoviesFirstPage(query);
-    });
 
-    _nextPageController.stream.listen((_) {
-      _getNextPageMovies();
-    });
-
-    _nextPageRetryController.stream.listen((_) {
-      _retryLoadingNextPage();
-    });
-
-    _refreshController.stream.listen((completer) {
-      _searchMoviesFirstPage(_query, refreshCompleter: completer);
-    });
-
-    _settingsRepository.contentLanguage.listen((String contentLanguage) {
-      if (_query.isNotEmpty) _searchMoviesFirstPage(_query);
-    });
-  }
 
   //bloc user should call this method when widget is disposed
-  dispose() {
+  void dispose() {
     _querySubject.close();
     _nextPageController.close();
     _nextPageRetryController.close();

@@ -1,29 +1,26 @@
-import 'package:confused_travolta_error_view/confused_travolta_error_view.dart';
 import 'package:flutter/material.dart';
 import 'package:popular_movies/bloc/search_bloc/search_bloc.dart';
-import 'package:popular_movies/l10n/localizations.dart';
 import 'package:popular_movies/model/list_item.dart';
 import 'package:popular_movies/ui/search/search_list_item.dart';
 
 class SearchList extends StatefulWidget {
+  const SearchList(this.bloc, this.movies, {Key key}) : super(key: key);
   final SearchBloc bloc;
   final List<ListItem> movies;
 
-  SearchList(this.bloc, this.movies, {Key key}) : super(key: key);
-
   @override
   _SearchListState createState() {
-    print("------createState: SearchList");
+    debugPrint('------createState: SearchList');
     return _SearchListState();
   }
 }
 
 class _SearchListState extends State<SearchList> {
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
-    print("------initState: SearchList");
+    debugPrint('------initState: SearchList');
     _scrollController.addListener(_handleNextPageLoading);
     super.initState();
   }
@@ -37,13 +34,13 @@ class _SearchListState extends State<SearchList> {
 
   @override
   void didUpdateWidget(SearchList oldWidget) {
-    print("------didUpdateWidget: SearchList");
+    debugPrint('------didUpdateWidget: SearchList');
     super.didUpdateWidget(oldWidget);
   }
 
   @override
   Widget build(BuildContext context) {
-    print("------build: SearchList");
+    debugPrint('------build: SearchList');
     return RefreshIndicator(
       onRefresh: widget.bloc.refresh,
       child: ListView.builder(

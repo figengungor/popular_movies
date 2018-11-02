@@ -21,25 +21,27 @@ import 'package:popular_movies/utils/error_utils.dart';
 import 'package:sliver_fab/sliver_fab.dart';
 
 class MovieDetailPage extends StatefulWidget {
+  const MovieDetailPage(this.movie, this.repo);
   final Movie movie;
   final FavoritesRepository repo;
 
-  MovieDetailPage(this.movie, this.repo);
-
   @override
-  MovieDetailPageState createState() {
-    return new MovieDetailPageState();
+  _MovieDetailPageState createState() {
+    return _MovieDetailPageState();
   }
 }
 
-class MovieDetailPageState extends State<MovieDetailPage> {
+class _MovieDetailPageState extends State<MovieDetailPage> {
   MovieDetailBloc bloc;
   FavoriteBloc favoriteBloc;
 
   @override
   void initState() {
     bloc = MovieDetailBloc(
-        widget.movie.id, MovieDetailRepository(), SettingsRepository());
+      widget.movie.id,
+      MovieDetailRepository(),
+      SettingsRepository(),
+    );
 
     bloc.fetchMovieDetailSink.add(null);
     favoriteBloc = FavoriteBloc(widget.repo, widget.movie);
@@ -56,8 +58,8 @@ class MovieDetailPageState extends State<MovieDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    String backdropUrl =
-        "$imageUrl$pathBackdropW780${widget.movie.backdropPath}";
+    final String backdropUrl =
+        '$imageUrl$pathBackdropW780${widget.movie.backdropPath}';
     return Scaffold(
       body: SliverFab(
         floatingActionButton: _buildFavoriteButton(),
@@ -83,7 +85,7 @@ class MovieDetailPageState extends State<MovieDetailPage> {
             ),
           ),
           SliverList(
-            delegate: SliverChildListDelegate([
+            delegate: SliverChildListDelegate(<Widget>[
               _buildHeader(),
               _buildOverview(),
               _buildDetails(),
@@ -95,7 +97,7 @@ class MovieDetailPageState extends State<MovieDetailPage> {
   }
 
   Widget _buildDetails() {
-    return StreamBuilder(
+    return StreamBuilder<MovieDetail>(
         stream: bloc.movieDetail,
         builder: (BuildContext context, AsyncSnapshot<MovieDetail> snapshot) {
           if (snapshot.hasData) {
@@ -105,13 +107,13 @@ class MovieDetailPageState extends State<MovieDetailPage> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   _buildGenres(snapshot.data.genres),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
                   VideosSection(snapshot.data.videos),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
                   ReviewsSection(snapshot.data.reviews),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
                   CastSection(snapshot.data.credits),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
                   SimilarSection(snapshot.data.similar),
                 ],
               ),
@@ -135,8 +137,8 @@ class MovieDetailPageState extends State<MovieDetailPage> {
               ),
             );
           } else {
-            return Padding(
-              padding: const EdgeInsets.all(16.0),
+            return const Padding(
+              padding: EdgeInsets.all(16.0),
               child: Center(child: CircularProgressIndicator()),
             );
           }
@@ -149,10 +151,10 @@ class MovieDetailPageState extends State<MovieDetailPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: genres
-            .map((genre) => Row(
+            .map((Genres genre) => Row(
                   children: <Widget>[
                     GenreTag(genre.name),
-                    SizedBox(
+                    const SizedBox(
                       width: 16.0,
                     )
                   ],
@@ -167,13 +169,14 @@ class MovieDetailPageState extends State<MovieDetailPage> {
       padding: const EdgeInsets.all(8.0),
       child: Text(
         widget.movie.overview,
-        style: TextStyle(fontSize: 15.0),
+        style: const TextStyle(fontSize: 15.0),
       ),
     );
   }
 
   Widget _buildHeader() {
-    String posterUrl = "$imageUrl$pathPosterW342${widget.movie.posterPath}";
+    final String posterUrl =
+        '$imageUrl$pathPosterW342${widget.movie.posterPath}';
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
@@ -201,15 +204,15 @@ class MovieDetailPageState extends State<MovieDetailPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  SizedBox(
+                  const SizedBox(
                     height: 32.0,
                   ),
                   Text(
                     widget.movie.title,
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 26.0),
+                    style: const TextStyle(fontSize: 26.0),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 16.0,
                   ),
                   RichText(
@@ -218,13 +221,15 @@ class MovieDetailPageState extends State<MovieDetailPage> {
                         style: TextStyle(
                             fontSize: 30.0,
                             color: Theme.of(context).accentColor),
-                        children: [
+                        children: const <TextSpan>[
                           TextSpan(
-                              text: '/10', style: TextStyle(fontSize: 18.0)),
+                            text: '/10',
+                            style: TextStyle(fontSize: 18.0),
+                          ),
                         ]),
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 16.0,
                   ),
                   Row(
@@ -234,7 +239,7 @@ class MovieDetailPageState extends State<MovieDetailPage> {
                         Icons.date_range,
                         color: Colors.grey.shade700,
                       ),
-                      SizedBox(width: 4.0),
+                      const SizedBox(width: 4.0),
                       Text(
                         DateUtils.getFormattedDate(widget.movie.releaseDate),
                         style: TextStyle(
@@ -243,9 +248,7 @@ class MovieDetailPageState extends State<MovieDetailPage> {
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: 16.0,
-                  ),
+                  const SizedBox(height: 16.0),
                 ],
               ),
             ),
@@ -259,8 +262,8 @@ class MovieDetailPageState extends State<MovieDetailPage> {
     bloc.fetchMovieDetailSink.add(null);
   }
 
-  _buildFavoriteButton() {
-    return StreamBuilder(
+  Widget _buildFavoriteButton() {
+    return StreamBuilder<bool>(
         initialData: false,
         stream: favoriteBloc.status,
         builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {

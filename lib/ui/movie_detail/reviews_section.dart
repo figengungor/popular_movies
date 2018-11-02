@@ -5,11 +5,11 @@ import 'package:popular_movies/model/reviews.dart';
 import 'package:popular_movies/ui/movie_detail/review_item.dart';
 import 'package:popular_movies/ui/movie_detail/section_header.dart';
 
+
 class ReviewsSection extends StatelessWidget {
   final Reviews reviews;
-  final int _maxLength = 3;
-
-  ReviewsSection(this.reviews);
+  static const int _maxLength = 3;
+  const ReviewsSection(this.reviews);
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +21,10 @@ class ReviewsSection extends StatelessWidget {
     );
   }
 
-  _buildReviewList(BuildContext context) {
+  Widget _buildReviewList(BuildContext context) {
     if (reviews != null &&
         reviews.results != null &&
-        reviews.results.length > 0) {
+        reviews.results.isNotEmpty) {
       return ListView.builder(
           shrinkWrap: true,
           primary: false,

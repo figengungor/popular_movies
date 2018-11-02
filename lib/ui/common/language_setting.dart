@@ -3,16 +3,14 @@ import 'package:popular_movies/bloc/settings_bloc/settings_bloc.dart';
 import 'package:easy_dialogs/single_choice_confirmation_dialog.dart';
 
 class LanguageSetting extends StatefulWidget {
+  const LanguageSetting(this.bloc);
   final SettingsBloc bloc;
-
-  LanguageSetting(this.bloc);
-
   @override
   _LanguageSettingState createState() => _LanguageSettingState();
 }
 
 class _LanguageSettingState extends State<LanguageSetting> {
-  final languagesMap = {
+  final Map<String, String> languagesMap = {
     'tr': 'Türkçe',
     'en': 'English',
     'fr': 'Français',
@@ -45,7 +43,7 @@ class _LanguageSettingState extends State<LanguageSetting> {
   Widget _buildLanguageSetting(String language) {
     return FlatButton.icon(
       textColor: Colors.white,
-      icon: Icon(Icons.language),
+      icon: const Icon(Icons.language),
       label: Text(language),
       onPressed: () {
         _showSingleChoiceAlertDialog(languagesMap, language);
@@ -58,20 +56,20 @@ class _LanguageSettingState extends State<LanguageSetting> {
     return Container();
   }
 
-  _showSingleChoiceAlertDialog(
+  void _showSingleChoiceAlertDialog(
       Map<String, String> languagesMap, String language) {
-    showDialog(
+    showDialog<void>(
         context: context,
         builder: (context) =>
             SingleChoiceConfirmationDialog<String>(
-              title: Text('Choose a language'),
+              title: const Text('Choose a language'),
                 initialValue:language,
                 items:languagesMap.keys.toList(),
                 itemBuilder: (String key) => Text(languagesMap[key]),
                 onSubmitted: _onLanguageChanged));
   }
 
-  _onLanguageChanged(String language) {
+  void _onLanguageChanged(String language) {
     widget.bloc.contentLanguageSink.add(language);
   }
 }

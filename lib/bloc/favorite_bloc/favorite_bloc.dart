@@ -4,11 +4,8 @@ import 'package:popular_movies/model/movie.dart';
 import 'package:rxdart/rxdart.dart';
 
 class FavoriteBloc {
-  final FavoritesRepository favoritesRepository;
-  final Movie movie;
-  bool isFavorite;
-
   FavoriteBloc(this.favoritesRepository, this.movie) {
+
     _checkStatusController.stream.listen((_) {
       _checkStatus();
     });
@@ -22,6 +19,10 @@ class FavoriteBloc {
     });
   }
 
+  final FavoritesRepository favoritesRepository;
+  final Movie movie;
+  bool isFavorite;
+
   //Output Streams
   Stream<bool> get status => _statusSubject.stream;
 
@@ -30,17 +31,17 @@ class FavoriteBloc {
   Sink<void> get checkStatusSink => _checkStatusController.sink;
 
   //StreamControllers
-  final _statusSubject = BehaviorSubject<bool>(seedValue: false);
-  final _updateStatusController = StreamController<void>();
-  final _checkStatusController = StreamController<void>();
+  final BehaviorSubject<bool> _statusSubject = BehaviorSubject<bool>(seedValue: false);
+  final StreamController<void> _updateStatusController = StreamController<void>();
+  final StreamController<void> _checkStatusController = StreamController<void>();
 
-  void _checkStatus() async {
-    Movie favoriteMovie = await favoritesRepository.getFavorite(movie.id);
+  Future<void> _checkStatus() async {
+    final Movie favoriteMovie = await favoritesRepository.getFavorite(movie.id);
     isFavorite = favoriteMovie == null ? false : true;
     _statusSubject.add(isFavorite);
   }
 
-  void _updateStatus() async {
+  Future<void> _updateStatus() async {
     if (isFavorite) {
       _removeFavorite();
     } else {
@@ -55,11 +56,11 @@ class FavoriteBloc {
     _checkStatusController.close();
   }
 
-  void _removeFavorite() async {
+  Future<void> _removeFavorite() async {
     await favoritesRepository.removeFavorite(movie.id);
   }
 
-  void _addFavorite() async {
+  Future<void> _addFavorite() async {
     await favoritesRepository.addFavorite(movie);
   }
 }

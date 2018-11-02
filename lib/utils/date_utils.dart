@@ -3,8 +3,8 @@ import 'package:intl/intl.dart';
 class DateUtils {
   static String getYear(String dateStr) {
     try {
-      var formatter = new DateFormat('yyyy-MM-dd');
-      DateTime date = formatter.parseStrict(dateStr);
+      final DateFormat formatter = DateFormat('yyyy-MM-dd');
+      final DateTime date = formatter.parseStrict(dateStr);
       return date.year.toString();
     } catch (error) {
       return dateStr;
@@ -13,10 +13,10 @@ class DateUtils {
 
   static String getFormattedDate(String dateStr) {
     try {
-      var formatter = new DateFormat('yyyy-MM-dd');
-      DateTime date = formatter.parseStrict(dateStr);
-      var newFormatter = DateFormat('MMM dd, yyyy');
-      return newFormatter.format(date);
+      DateFormat formatter = DateFormat('yyyy-MM-dd');
+      final DateTime date = formatter.parseStrict(dateStr);
+      formatter = DateFormat('MMM dd, yyyy');
+      return formatter.format(date);
     } catch (error) {
       return dateStr;
     }

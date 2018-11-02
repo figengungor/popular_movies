@@ -4,10 +4,10 @@ import 'package:popular_movies/data/movie_preferences.dart';
 import 'package:rxdart/rxdart.dart';
 
 class SettingsRepository {
-  final MoviePreferences _moviePreferences;
-
   SettingsRepository({MoviePreferences moviePreferences})
       : _moviePreferences = moviePreferences ?? MoviePreferences();
+
+  final MoviePreferences _moviePreferences;
 
   Future<String> getContentLanguage() async {
     String contentLanguage = await _moviePreferences.getContentLanguage();

@@ -5,18 +5,16 @@ import 'package:popular_movies/bloc/settings_bloc/settings_repository.dart';
 import 'package:popular_movies/l10n/localizations.dart';
 import 'package:popular_movies/model/external_ids.dart';
 import 'package:popular_movies/model/person_detail.dart';
-import 'package:popular_movies/provider/settings_repo_provider.dart';
 import 'package:popular_movies/ui/common/social_icon.dart';
 import 'package:popular_movies/ui/tagged_images/tagged_images_page.dart';
 import 'package:popular_movies/utils/error_utils.dart';
 import 'package:popular_movies/data/api_constants.dart';
 
 class PersonDetailPage extends StatefulWidget {
+  const PersonDetailPage(this.personId, this.personName, this.settingsRepository);
   final int personId;
   final String personName;
   final SettingsRepository settingsRepository;
-
-  PersonDetailPage(this.personId, this.personName, this.settingsRepository);
 
   @override
   _PersonDetailPageState createState() => _PersonDetailPageState();
@@ -44,7 +42,7 @@ class _PersonDetailPageState extends State<PersonDetailPage> {
 
   Widget _buildBody() => Stack(
         children: <Widget>[
-          StreamBuilder(
+          StreamBuilder<PersonDetail>(
               stream: _bloc.personDetail,
               builder:
                   (BuildContext context, AsyncSnapshot<PersonDetail> snapshot) {
@@ -56,19 +54,19 @@ class _PersonDetailPageState extends State<PersonDetailPage> {
                   return Container();
                 }
               }),
-          StreamBuilder(
+          StreamBuilder<bool>(
               initialData: false,
               stream: _bloc.isLoading,
               builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
                 return snapshot.data
-                    ? Center(child: CircularProgressIndicator())
+                    ? const Center(child: CircularProgressIndicator())
                     : Container();
               }),
         ],
       );
 
   Widget _buildPersonDetail(PersonDetail personDetail) {
-    print("$imageUrl$pathPosterW342${personDetail.profilePath}");
+    print('$imageUrl$pathPosterW342${personDetail.profilePath}');
     return SingleChildScrollView(
       child: Center(
         child: Padding(
@@ -76,7 +74,7 @@ class _PersonDetailPageState extends State<PersonDetailPage> {
           child: Column(
             children: <Widget>[
               _buildProfilePhoto(
-                  "$imageUrl$pathPosterW342${personDetail.profilePath}"),
+                  '$imageUrl$pathPosterW342${personDetail.profilePath}'),
               _buildVerticalSpace(space: 16.0),
               _buildDates(personDetail.birthday, personDetail.deathday),
               _buildVerticalSpace(),
@@ -118,24 +116,24 @@ class _PersonDetailPageState extends State<PersonDetailPage> {
   Widget _buildBirthPlace(String placeOfBirth) =>
       placeOfBirth == null ? Container() : Text(placeOfBirth);
 
-  Widget _buildSocialIcons(ExternalIds ids, {iconSize = 32.0}) => Row(
+  Widget _buildSocialIcons(ExternalIds ids, {double iconSize = 32.0}) => Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           SocialIcon(
-            iconPath: "assets/icons/twitter.png",
-            url: "https://twitter.com/",
+            iconPath: 'assets/icons/twitter.png',
+            url: 'https://twitter.com/',
             id: ids.twitterId,
           ),
           _buildHorizontalSpace(),
           SocialIcon(
-            iconPath: "assets/icons/facebook.png",
-            url: "https://www.facebook.com/",
+            iconPath: 'assets/icons/facebook.png',
+            url: 'https://www.facebook.com/',
             id: ids.facebookId,
           ),
           _buildHorizontalSpace(),
           SocialIcon(
-            iconPath: "assets/icons/instagram.png",
-            url: "https://www.instagram.com/",
+            iconPath: 'assets/icons/instagram.png',
+            url: 'https://www.instagram.com/',
             id: ids.instagramId,
           ),
         ],
@@ -150,14 +148,14 @@ class _PersonDetailPageState extends State<PersonDetailPage> {
       },
       child: Text(
         AppLocalizations.of(context).taggedImages,
-        style: TextStyle(color: Colors.white),
+        style: const TextStyle(color: Colors.white),
       ),
       color: Theme.of(context).accentColor,
     );
   }
 
   void _openTaggedImagesPage() {
-    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+    Navigator.push(context, MaterialPageRoute<void>(builder: (BuildContext context) {
       return TaggedImagesPage(widget.personId, widget.settingsRepository);
     }));
   }

@@ -11,11 +11,11 @@ import 'package:popular_movies/data/api_constants.dart';
 class SimilarSection extends StatelessWidget {
   final Similar similar;
 
-  SimilarSection(this.similar);
+  const SimilarSection(this.similar);
 
   @override
   Widget build(BuildContext context) {
-    double itemWidth = MediaQuery.of(context).size.width / 4;
+    final double itemWidth = MediaQuery.of(context).size.width / 4;
     return Column(
       children: <Widget>[
         SectionHeader(AppLocalizations.of(context).similarMovies),
@@ -24,7 +24,7 @@ class SimilarSection extends StatelessWidget {
     );
   }
 
-  _buildSimilarMoviesList(BuildContext context, double itemWidth) {
+  Widget _buildSimilarMoviesList(BuildContext context, double itemWidth) {
     if (similar != null &&
         similar.results != null &&
         similar.results.isNotEmpty) {
@@ -45,7 +45,7 @@ class SimilarSection extends StatelessWidget {
                             children: <Widget>[
                               CachedNetworkImage(
                                 imageUrl:
-                                    "$imageUrl$pathPosterW342${movie.posterPath}",
+                                    '$imageUrl$pathPosterW342${movie.posterPath}',
                                 placeholder: Image.asset(
                                   'assets/images/placeholder_poster.png',
                                   fit: BoxFit.cover,
@@ -81,7 +81,7 @@ class SimilarSection extends StatelessWidget {
   }
 
   void _openMovieDetail(BuildContext context, Movie movie) {
-    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+    Navigator.push(context, MaterialPageRoute<void>(builder: (BuildContext context) {
       return MovieDetailPage(
           movie, FavoriteRepoProvider.of(context).favoritesRepository);
     }));

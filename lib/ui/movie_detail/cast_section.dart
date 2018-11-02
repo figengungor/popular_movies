@@ -10,9 +10,8 @@ import 'package:popular_movies/data/api_constants.dart';
 import 'package:popular_movies/ui/person_detail/person_detail_page.dart';
 
 class CastSection extends StatelessWidget {
+  const CastSection(this.credits);
   final Credits credits;
-
-  CastSection(this.credits);
 
   @override
   Widget build(BuildContext context) {
@@ -27,14 +26,14 @@ class CastSection extends StatelessWidget {
   }
 
   Widget _buildCastList(BuildContext context) {
-    if (credits != null && credits.cast != null && credits.cast.length > 0) {
-      double imageWidth = MediaQuery.of(context).size.width / 4;
-      double imageHeight = imageWidth * (3 / 2);
+    if (credits != null && credits.cast != null && credits.cast.isNotEmpty) {
+      final double imageWidth = MediaQuery.of(context).size.width / 4;
+      final double imageHeight = imageWidth * (3 / 2);
       return SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
           children: credits.cast
-              .map((cast) =>
+              .map((Cast cast) =>
                   _buildCastItem(context, cast, imageWidth, imageHeight))
               .toList(),
         ),
@@ -49,7 +48,7 @@ class CastSection extends StatelessWidget {
 
   Widget _buildCastItem(
       BuildContext context, Cast cast, double imageWidth, double imageHeight) {
-    String profileUrl = "$imageUrl$pathPosterW342${cast.profilePath}";
+    final String profileUrl = '$imageUrl$pathPosterW342${cast.profilePath}';
     return GestureDetector(
       onTap: () {
         _openPersonDetailPage(context, cast);
@@ -81,16 +80,16 @@ class CastSection extends StatelessWidget {
     );
   }
 
-  _buildDirectorAndWriter(BuildContext context) {
-    List<String> directors = [];
-    List<String> writers = [];
+  Widget _buildDirectorAndWriter(BuildContext context) {
+    final List<String> directors = <String>[];
+    final List<String> writers = <String>[];
 
     if (credits != null && credits.crew != null && credits.crew.length > 0) {
       for (Crew crew in credits.crew) {
-        if (crew.job == "Director") {
+        if (crew.job == 'Director') {
           directors.add(crew.name);
         }
-        if (crew.job == "Screenplay") {
+        if (crew.job == 'Screenplay') {
           writers.add(crew.name);
         }
       }
@@ -99,18 +98,18 @@ class CastSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        SizedBox(height: 16.0),
+        const SizedBox(height: 16.0),
         SectionHeader(AppLocalizations.of(context).directorsTitle),
-        Text(directors.isEmpty ? '-' : directors.join(", ")),
-        SizedBox(height: 16.0),
+        Text(directors.isEmpty ? '-' : directors.join(', ')),
+        const SizedBox(height: 16.0),
         SectionHeader(AppLocalizations.of(context).writersTitle),
-        Text(writers.isEmpty ? '-' : writers.join(", ")),
+        Text(writers.isEmpty ? '-' : writers.join(', ')),
       ],
     );
   }
 
   void _openPersonDetailPage(BuildContext context, Cast cast) {
-    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+    Navigator.push(context, MaterialPageRoute<void>(builder: (BuildContext context) {
       return PersonDetailPage(cast.id, cast.name,
           SettingsRepoProvider.of(context).settingsRepository);
     }));
