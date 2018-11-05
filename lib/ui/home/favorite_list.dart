@@ -7,11 +7,11 @@ class FavoriteList extends StatefulWidget {
   final FavoritesBloc bloc;
   final List<Movie> movies;
 
-  FavoriteList(this.bloc, this.movies, {Key key}) : super(key: key);
+  const FavoriteList(this.bloc, this.movies, {Key key}) : super(key: key);
 
   @override
   _FavoriteListState createState() {
-    print("------createState: FavoriteList");
+    print('------createState: FavoriteList');
     return _FavoriteListState();
   }
 }
@@ -19,14 +19,14 @@ class FavoriteList extends StatefulWidget {
 class _FavoriteListState extends State<FavoriteList> {
   @override
   Widget build(BuildContext context) {
-    print("------build: FavoriteList");
+    print('------build: FavoriteList');
     return GridView.builder(
       key: widget.key,
       itemCount: widget.movies.length,
       itemBuilder: (BuildContext context, int index) {
         return MovieItem(widget.movies[index]);
       },
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         childAspectRatio: 2 / 3,
       ),

@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:popular_movies/l10n/messages_all.dart';
+import 'package:intl/intl.dart';
 
 class AppLocalizations {
   static Future<AppLocalizations> load(Locale locale) {
@@ -213,7 +213,7 @@ class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
 
   @override
   bool isSupported(Locale locale) {
-    return ['en', 'tr', 'ar'].contains(locale.languageCode);
+    return <String>['en', 'tr', 'ar'].contains(locale.languageCode);
   }
 
   @override

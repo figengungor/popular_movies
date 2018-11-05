@@ -9,7 +9,7 @@ class SearchRepository {
   SearchRepository({TmdbApi tmdbApi}) : _tmdbApi = tmdbApi ?? TmdbApi();
 
   Future<MovieResponse> getMovies(String query, int page, String language) async {
-    MovieResponse movieResponse = await _tmdbApi.searchMovies(query, page, language);
+    final MovieResponse movieResponse = await _tmdbApi.searchMovies(query, page, language);
     return movieResponse;
   }
 }

@@ -10,7 +10,7 @@ class LanguageSetting extends StatefulWidget {
 }
 
 class _LanguageSettingState extends State<LanguageSetting> {
-  final Map<String, String> languagesMap = {
+  final Map<String, String> languagesMap = <String,String>{
     'tr': 'Türkçe',
     'en': 'English',
     'fr': 'Français',
@@ -60,7 +60,7 @@ class _LanguageSettingState extends State<LanguageSetting> {
       Map<String, String> languagesMap, String language) {
     showDialog<void>(
         context: context,
-        builder: (context) =>
+        builder: (_) =>
             SingleChoiceConfirmationDialog<String>(
               title: const Text('Choose a language'),
                 initialValue:language,

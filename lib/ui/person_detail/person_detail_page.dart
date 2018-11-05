@@ -93,7 +93,7 @@ class _PersonDetailPageState extends State<PersonDetailPage> {
   }
 
   Widget _buildError(dynamic error) => ConfusedTravoltaErrorView(
-        errorMessage: ErrorUtils.getFriendlyNetworkErrorMessage(context, error),
+        errorMessage: getFriendlyNetworkErrorMessage(context, error),
       );
 
   Widget _buildVerticalSpace({double space}) => SizedBox(

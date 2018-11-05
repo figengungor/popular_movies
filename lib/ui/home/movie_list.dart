@@ -7,21 +7,21 @@ class MovieList extends StatefulWidget {
   final MovieBloc bloc;
   final List<ListItem> movies;
 
-  MovieList(this.bloc, this.movies, {Key key}) : super(key: key);
+  const MovieList(this.bloc, this.movies, {Key key}) : super(key: key);
 
   @override
   _MovieListState createState() {
-    print("------createState: MovieList");
+    print('------createState: MovieList');
     return _MovieListState();
   }
 }
 
 class _MovieListState extends State<MovieList> {
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
-    print("------initState: MovieList");
+    print('------initState: MovieList');
     _scrollController.addListener(_handleNextPageLoading);
     super.initState();
   }
@@ -35,13 +35,13 @@ class _MovieListState extends State<MovieList> {
 
   @override
   void didUpdateWidget(MovieList oldWidget) {
-    print("------didUpdateWidget: MovieList");
+    print('------didUpdateWidget: MovieList');
     super.didUpdateWidget(oldWidget);
   }
 
   @override
   Widget build(BuildContext context) {
-    print("------build: MovieList");
+    print('------build: MovieList');
     return RefreshIndicator(
       onRefresh: widget.bloc.refresh,
       child: GridView.builder(
@@ -51,7 +51,7 @@ class _MovieListState extends State<MovieList> {
         itemBuilder: (BuildContext context, int index) {
           return MovieListItem(widget.movies[index], _onRetry);
         },
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           childAspectRatio: 2 / 3,
         ),

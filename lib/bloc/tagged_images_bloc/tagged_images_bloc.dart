@@ -12,7 +12,7 @@ class TaggedImagesBloc {
       {TaggedImagesRepository taggedImagesRepository})
       : _taggedImagesRepository =
             taggedImagesRepository ?? TaggedImagesRepository() {
-    _personIdController.stream.listen((personId) {
+    _personIdController.stream.listen((int personId) {
       getTaggedImages(personId);
     });
   }
@@ -30,19 +30,20 @@ class TaggedImagesBloc {
   Sink<int> get personIdSink => _personIdController.sink;
 
   //StreamControllers
-  final _taggedImagesSubject =
+  final BehaviorSubject<UnmodifiableListView<TaggedImage>> _taggedImagesSubject =
       BehaviorSubject<UnmodifiableListView<TaggedImage>>();
-  final _personIdController = StreamController<int>();
 
-  final _isLoadingSubject = BehaviorSubject<bool>();
+  final StreamController<int> _personIdController = StreamController<int>();
 
-  void getTaggedImages(int personId) async {
+  final BehaviorSubject<bool> _isLoadingSubject = BehaviorSubject<bool>();
+
+  Future<void> getTaggedImages(int personId) async {
     _isLoadingSubject.add(true);
     try {
-      String language = await _settingsRepository.getContentLanguage();
-      TaggedImages taggedImages =
+      final String language = await _settingsRepository.getContentLanguage();
+      final TaggedImages taggedImages =
           await _taggedImagesRepository.getTaggedImages(personId, language);
-      _taggedImagesSubject.add(UnmodifiableListView(taggedImages.results));
+      _taggedImagesSubject.add(UnmodifiableListView<TaggedImage>(taggedImages.results));
     } catch (error) {
       _taggedImagesSubject.addError(error);
     } finally {

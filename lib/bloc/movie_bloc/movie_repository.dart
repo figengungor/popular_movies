@@ -17,12 +17,12 @@ class MovieRepository {
 
   Future<MovieResponse> getMovies(int page, String language) async {
     if (_moviesCache.contains(page)) {
-      print("$_movieType coming from cache");
+      print('$_movieType coming from cache');
       return _moviesCache.get(page);
     } else {
-      MovieResponse movieResponse =
+      final MovieResponse movieResponse =
           await _tmdbApi.fetchMovies(_movieType, page, language);
-      print("$_movieType is fetched from api");
+      print('$_movieType is fetched from api');
       _moviesCache.add(page, movieResponse);
       return movieResponse;
     }

@@ -4,6 +4,7 @@ import 'dart:collection';
 import 'package:popular_movies/bloc/search_bloc/search_repository.dart';
 import 'package:popular_movies/bloc/settings_bloc/settings_repository.dart';
 import 'package:popular_movies/model/list_item.dart';
+import 'package:popular_movies/model/movie.dart';
 import 'package:popular_movies/model/movie_response.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -23,12 +24,11 @@ import 'package:rxdart/rxdart.dart';
 enum ViewStatus { Empty, NotFound, None }
 
 class SearchBloc {
-
   SearchBloc(this._searchRepository, this._settingsRepository) {
     _querySubject.stream
         .debounce(Duration(milliseconds: 400))
         .distinct()
-        .listen((query) {
+        .listen((String query) {
       _searchMoviesFirstPage(query);
     });
 
@@ -40,12 +40,14 @@ class SearchBloc {
       _retryLoadingNextPage();
     });
 
-    _refreshController.stream.listen((completer) {
+    _refreshController.stream.listen((Completer<void> completer) {
       _searchMoviesFirstPage(_query, refreshCompleter: completer);
     });
 
     _settingsRepository.contentLanguage.listen((String contentLanguage) {
-      if (_query.isNotEmpty) _searchMoviesFirstPage(_query);
+      if (_query.isNotEmpty) {
+        _searchMoviesFirstPage(_query);
+      }
     });
   }
 
@@ -66,30 +68,32 @@ class SearchBloc {
 
   Sink<void> get nextPageRetrySink => _nextPageRetryController.sink;
 
-  Sink<Completer<Null>> get refreshSink => _refreshController.sink;
+  Sink<Completer<void>> get refreshSink => _refreshController.sink;
 
   //Stream Controllers
-  final _querySubject = PublishSubject<String>();
+  final PublishSubject<String> _querySubject = PublishSubject<String>();
 
-  final _nextPageController = StreamController<void>();
+  final StreamController<void> _nextPageController = StreamController<void>();
 
-  final _nextPageRetryController = StreamController<void>();
+  final StreamController<void> _nextPageRetryController =
+      StreamController<void>();
 
-  final _refreshController = StreamController<Completer<Null>>();
+  final StreamController<Completer<void>> _refreshController =
+      StreamController<Completer<void>>();
 
-  final _moviesSubject = BehaviorSubject<UnmodifiableListView<ListItem>>();
+  final BehaviorSubject<UnmodifiableListView<ListItem>> _moviesSubject =
+      BehaviorSubject<UnmodifiableListView<ListItem>>();
 
-  final _isLoadingSubject = BehaviorSubject<bool>();
+  final BehaviorSubject<bool> _isLoadingSubject = BehaviorSubject<bool>();
 
-  final _viewStatusSubject = BehaviorSubject<ViewStatus>();
+  final BehaviorSubject<ViewStatus> _viewStatusSubject =
+      BehaviorSubject<ViewStatus>();
 
-  List<ListItem> _listItems = <ListItem>[];
+  final List<ListItem> _listItems = <ListItem>[];
   int _page = 1;
   int _totalPages;
   bool _isNextLoading = false;
   String _query = '';
-
-
 
   //bloc user should call this method when widget is disposed
   void dispose() {
@@ -108,41 +112,41 @@ class SearchBloc {
   // The refreshCompleter should call complete method to let RefreshIndicator
   // know that we're done with our background work.
 
-  void _searchMoviesFirstPage(String query,
-      {Completer<Null> refreshCompleter}) async {
+  Future<void> _searchMoviesFirstPage(String query,
+      {Completer<void> refreshCompleter}) async {
     _query = query;
     _page = 1;
     _isNextLoading = false;
     _listItems.clear();
 
     if (query.isEmpty) {
-      _moviesSubject.add(UnmodifiableListView(_listItems));
+      _moviesSubject.add(UnmodifiableListView<ListItem>(_listItems));
       _viewStatusSubject.add(ViewStatus.Empty);
       return;
     }
 
     _viewStatusSubject.add(ViewStatus.None);
 
-    String language = await _settingsRepository.getContentLanguage();
+    final String language = await _settingsRepository.getContentLanguage();
     if (refreshCompleter == null) {
       _isLoadingSubject.add(true);
     }
 
     try {
-      MovieResponse movieResponse =
+      final MovieResponse movieResponse =
           await _searchRepository.getMovies(query, _page, language);
       _totalPages = movieResponse.totalPages;
       _listItems.addAll(
-          movieResponse.movie.toList().map((movie) => MovieItem(movie)));
+          movieResponse.movie.toList().map((Movie movie) => MovieItem(movie)));
       _page++;
-      _moviesSubject.add(UnmodifiableListView(_listItems));
+      _moviesSubject.add(UnmodifiableListView<ListItem>(_listItems));
       if (_listItems.isEmpty) {
         _viewStatusSubject.add(ViewStatus.NotFound);
       } else {
         _viewStatusSubject.add(ViewStatus.None);
       }
     } catch (error) {
-      print("ERROR: ${error.toString()}");
+      print('ERROR: ${error.toString()}');
       _moviesSubject.addError(error);
     } finally {
       if (refreshCompleter != null) {
@@ -166,27 +170,27 @@ class SearchBloc {
 
   // Check the status of next page loading with _isNextLoading bool
   // To avoid making new requests before this one finishes.
-  void _getNextPageMovies() async {
+  Future<void> _getNextPageMovies() async {
     if (!_isNextLoading) {
       _isNextLoading = true;
       if (_totalPages != null && _totalPages >= _page) {
-        String language = await _settingsRepository.getContentLanguage();
+        final String language = await _settingsRepository.getContentLanguage();
         _listItems.add(LoadingItem());
-        _moviesSubject.add(UnmodifiableListView(_listItems));
+        _moviesSubject.add(UnmodifiableListView<ListItem>(_listItems));
         try {
-          MovieResponse movieResponse =
+          final MovieResponse movieResponse =
               await _searchRepository.getMovies(_query, _page, language);
           _listItems.removeLast();
           _listItems.addAll(
-              movieResponse.movie.toList().map((movie) => MovieItem(movie)));
+              movieResponse.movie.toList().map((Movie movie) => MovieItem(movie)));
           _page++;
-          _moviesSubject.add(UnmodifiableListView(_listItems));
+          _moviesSubject.add(UnmodifiableListView<ListItem>(_listItems));
           _isNextLoading = false;
         } catch (error) {
-          print("ERROR: ${error.toString()}");
+          print('ERROR: ${error.toString()}');
           _listItems.removeLast();
           _listItems.add(LoadingFailed(error));
-          _moviesSubject.add(UnmodifiableListView(_listItems));
+          _moviesSubject.add(UnmodifiableListView<ListItem>(_listItems));
         }
       }
     }
@@ -194,9 +198,9 @@ class SearchBloc {
 
   /// RefreshIndicator should pass this function to its onRefresh property
   /// To know about the completion status
-  Future<Null> refresh() {
+  Future<void> refresh() {
     print('Refresh is called');
-    final completer = Completer<Null>();
+    final Completer<void> completer = Completer<void>();
     refreshSink.add(completer);
     return completer.future;
   }

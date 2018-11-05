@@ -89,7 +89,7 @@ class _SearchPageState extends State<SearchPage> {
                 return SearchList(_bloc, snapshot.data);
               } else if (snapshot.hasError) {
                 return ConfusedTravoltaErrorView(
-                  errorMessage: ErrorUtils.getFriendlyNetworkErrorMessage(
+                  errorMessage: getFriendlyNetworkErrorMessage(
                       context, snapshot.error),
                   onTapRetryButton: _onRetry,
                   retryButtonText: AppLocalizations.of(context).retry,

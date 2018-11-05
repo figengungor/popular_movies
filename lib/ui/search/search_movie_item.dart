@@ -18,7 +18,7 @@ class SearchMovieItem extends StatelessWidget {
       },
       leading: CircleAvatar(backgroundImage: NetworkImage(url)),
       title: Text(movie.title),
-      subtitle: Text(DateUtils.getYear(movie.releaseDate)),
+      subtitle: Text(getYear(movie.releaseDate)),
     );
   }
 

@@ -13,7 +13,7 @@ class PersonDetailBloc {
       {PersonDetailRepository personDetailRepository})
       : _personDetailRepository =
             personDetailRepository ?? PersonDetailRepository() {
-    _personIdController.stream.listen((personId) {
+    _personIdController.stream.listen((int personId) {
       getPersonDetail(personId);
     });
   }
@@ -28,15 +28,15 @@ class PersonDetailBloc {
 
   //StreamControllers
 
-  final _personDetailSubject = BehaviorSubject<PersonDetail>();
-  final _personIdController = StreamController<int>();
-  final _isLoadingSubject = BehaviorSubject<bool>();
+  final BehaviorSubject<PersonDetail> _personDetailSubject = BehaviorSubject<PersonDetail>();
+  final StreamController<int> _personIdController = StreamController<int>();
+  final BehaviorSubject<bool> _isLoadingSubject = BehaviorSubject<bool>();
 
-  void getPersonDetail(int personId) async {
+  Future<void> getPersonDetail(int personId) async {
     _isLoadingSubject.add(true);
     try {
-      String language = await _settingsRepository.getContentLanguage();
-      PersonDetail personDetail =
+      final String language = await _settingsRepository.getContentLanguage();
+      final PersonDetail personDetail =
           await _personDetailRepository.getPersonDetail(personId, language);
       _personDetailSubject.add(personDetail);
     } catch (error) {

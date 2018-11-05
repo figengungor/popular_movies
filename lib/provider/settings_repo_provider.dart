@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:popular_movies/bloc/favorite_movies_bloc/favorites_repository.dart';
 import 'package:popular_movies/bloc/settings_bloc/settings_repository.dart';
 
 class SettingsRepoProvider extends StatelessWidget {
@@ -7,7 +6,7 @@ class SettingsRepoProvider extends StatelessWidget {
 
   final Widget child;
 
-  SettingsRepoProvider({@required this.child, this.settingsRepository});
+  const SettingsRepoProvider({@required this.child, this.settingsRepository});
 
   static SettingsRepoProvider of(BuildContext context) {
     return (context.inheritFromWidgetOfExactType(_InheritedSettingsRepoProvider)
@@ -24,7 +23,7 @@ class SettingsRepoProvider extends StatelessWidget {
 class _InheritedSettingsRepoProvider extends InheritedWidget {
   final SettingsRepoProvider data;
 
-  _InheritedSettingsRepoProvider(
+  const _InheritedSettingsRepoProvider(
       {Key key, @required this.data, @required Widget child})
       : super(key: key, child: child);
 

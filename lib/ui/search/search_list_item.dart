@@ -29,7 +29,7 @@ class SearchListItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Text(
-                ErrorUtils.getFriendlyNetworkErrorMessage(context, item.error),
+                getFriendlyNetworkErrorMessage(context, item.error),
                 textAlign: TextAlign.center,
               ),
               FlatButton(

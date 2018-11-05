@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
         accentColor: Colors.pink,
         buttonColor: Colors.pink,
       ),
-      routes: {
+      routes: <String, WidgetBuilder>{
         '/': (BuildContext context) => HomePage(
               repo: FavoriteRepoProvider.of(context).favoritesRepository,
               settingsRepository:

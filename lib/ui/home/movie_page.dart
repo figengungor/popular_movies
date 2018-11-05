@@ -10,7 +10,7 @@ import 'package:popular_movies/utils/error_utils.dart';
 class MoviePage extends StatefulWidget {
   final MovieBloc bloc;
 
-  MoviePage(this.bloc, {Key key}) : super(key: key);
+  const MoviePage(this.bloc, {Key key}) : super(key: key);
 
   @override
   _MoviePageState createState() => _MoviePageState();
@@ -34,12 +34,12 @@ class _MoviePageState extends State<MoviePage> {
             builder: (BuildContext context,
                 AsyncSnapshot<UnmodifiableListView<ListItem>> snapshot) {
               if (snapshot.hasData) {
-                print("Snapshot data ${snapshot.data}  MoviePage");
+                print('Snapshot data ${snapshot.data}  MoviePage');
                 return MovieList(widget.bloc, snapshot.data, key: widget.key);
               } else if (snapshot.hasError) {
                 return ConfusedTravoltaErrorView(
                   errorMessage:
-                      ErrorUtils.getFriendlyNetworkErrorMessage(context, snapshot.error),
+                      getFriendlyNetworkErrorMessage(context, snapshot.error),
                   onTapRetryButton: _onRetry,
                   retryButtonText: AppLocalizations.of(context).retry,
                 );
@@ -47,12 +47,12 @@ class _MoviePageState extends State<MoviePage> {
                 return Container();
               }
             }),
-        StreamBuilder(
+        StreamBuilder<bool>(
             initialData: false,
             stream: widget.bloc.isLoading,
             builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
               return snapshot.data
-                  ? Center(child: CircularProgressIndicator())
+                  ? const Center(child: CircularProgressIndicator())
                   : Container();
             }),
       ],

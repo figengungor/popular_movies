@@ -68,7 +68,7 @@ class _TaggedImagesPageState extends State<TaggedImagesPage> {
       );
 
   Widget _buildError(dynamic error) => ConfusedTravoltaErrorView(
-        errorMessage: ErrorUtils.getFriendlyNetworkErrorMessage(context, error),
+        errorMessage: getFriendlyNetworkErrorMessage(context, error),
       );
 
   Widget _buildTaggedImagesList(

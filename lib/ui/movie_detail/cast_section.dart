@@ -84,7 +84,7 @@ class CastSection extends StatelessWidget {
     final List<String> directors = <String>[];
     final List<String> writers = <String>[];
 
-    if (credits != null && credits.crew != null && credits.crew.length > 0) {
+    if (credits != null && credits.crew != null && credits.crew.isNotEmpty) {
       for (Crew crew in credits.crew) {
         if (crew.job == 'Director') {
           directors.add(crew.name);

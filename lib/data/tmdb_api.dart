@@ -51,14 +51,14 @@ class TmdbApi {
   Future<MovieResponse> searchMovies(
       String query, int page, String language) async {
     final Uri uri = Uri.https(_baseUrl, '/3/search/movie',
-        {'query': query, 'page': page.toString(), 'language': language});
+        <String,String>{'query': query, 'page': page.toString(), 'language': language});
     final http.Response response = await _getWithAuthorization(uri);
     final MovieResponse results = MovieResponse.fromJson(response.body);
     return results;
   }
 
   Future<PersonDetail> fetchPersonDetail(int personId, String language) async {
-    Uri uri = Uri.https(_baseUrl, '/3/person/$personId', {
+    final Uri uri = Uri.https(_baseUrl, '/3/person/$personId', <String, String>{
       'language': language,
       'append_to_response': 'external_ids,tagged_images'
     });
@@ -68,7 +68,7 @@ class TmdbApi {
   }
 
   Future<TaggedImages> fetchTaggedImages(int personId, String language) async {
-    Uri uri = Uri.https(_baseUrl, '/3/person/$personId/tagged_images', {
+    final Uri uri = Uri.https(_baseUrl, '/3/person/$personId/tagged_images', <String,String>{
       'language': language,
     });
     final http.Response response = await _getWithAuthorization(uri);

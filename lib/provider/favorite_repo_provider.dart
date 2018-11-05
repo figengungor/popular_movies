@@ -23,7 +23,7 @@ class FavoriteRepoProvider extends StatelessWidget {
 class _InheritedFavoriteRepoProvider extends InheritedWidget {
   final FavoriteRepoProvider data;
 
-  _InheritedFavoriteRepoProvider(
+  const _InheritedFavoriteRepoProvider(
       {Key key, @required this.data, @required Widget child})
       : super(key: key, child: child);
 

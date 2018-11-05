@@ -6,6 +6,16 @@ import 'package:popular_movies/model/movie_detail.dart';
 import 'package:rxdart/rxdart.dart';
 
 class MovieDetailBloc {
+  MovieDetailBloc(
+      this._movieId, this._movieDetailRepository, this._settingsRepository) {
+    _fetchMovieDetailController.stream.listen((_) {
+      _getMovieDetail();
+    });
+
+    _settingsRepository.contentLanguage.listen((String language) {
+      _getMovieDetail();
+    });
+  }
   MovieDetailRepository _movieDetailRepository;
   SettingsRepository _settingsRepository;
   int _movieId;
@@ -17,29 +27,18 @@ class MovieDetailBloc {
   Sink<void> get fetchMovieDetailSink => _fetchMovieDetailController.sink;
 
   //Stream Controllers
-  final _movieDetailSubject = BehaviorSubject<MovieDetail>();
+  final BehaviorSubject<MovieDetail> _movieDetailSubject = BehaviorSubject<MovieDetail>();
 
-  final _fetchMovieDetailController = StreamController<void>();
-
-  MovieDetailBloc(
-      this._movieId, this._movieDetailRepository, this._settingsRepository) {
-    _fetchMovieDetailController.stream.listen((movieId) {
-      _getMovieDetail();
-    });
-
-    _settingsRepository.contentLanguage.listen((String language) {
-      _getMovieDetail();
-    });
-  }
+  final StreamController<void> _fetchMovieDetailController = StreamController<void>();
 
   void dispose() {
     _fetchMovieDetailController.close();
   }
 
-  void _getMovieDetail() async {
+  Future<void> _getMovieDetail() async {
     try {
-      String language = await _settingsRepository.getContentLanguage();
-      MovieDetail movieDetail =
+      final String language = await _settingsRepository.getContentLanguage();
+      final MovieDetail movieDetail =
           await _movieDetailRepository.getMovieDetail(_movieId, language);
       _movieDetailSubject.add(movieDetail);
     } catch (error) {

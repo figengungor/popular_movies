@@ -4,22 +4,21 @@ import 'package:popular_movies/bloc/settings_bloc/settings_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class SettingsBloc {
-  final SettingsRepository _settingsRepository;
-
   SettingsBloc(SettingsRepository settingsRepository)
       : _settingsRepository = settingsRepository ?? SettingsRepository() {
     _contentLanguageController.stream.listen((String contentLanguage) {
       _updateContentLanguage(contentLanguage);
     });
   }
+  final SettingsRepository _settingsRepository;
 
   Stream<String> get contentLanguage => _contentLanguageSubject.stream;
 
-  final _contentLanguageSubject = BehaviorSubject<String>();
+  final BehaviorSubject<String> _contentLanguageSubject = BehaviorSubject<String>();
 
   Sink<String> get contentLanguageSink => _contentLanguageController.sink;
 
-  final _contentLanguageController = StreamController<String>();
+  final StreamController<String> _contentLanguageController = StreamController<String>();
 
   void _updateContentLanguage(String contentLanguage) {
     _settingsRepository.setContentLanguage(contentLanguage);
@@ -27,7 +26,7 @@ class SettingsBloc {
   }
 
   Future<void> getContentLanguage() async {
-    String contentLanguage = await _settingsRepository.getContentLanguage();
+    final String contentLanguage = await _settingsRepository.getContentLanguage();
     _contentLanguageSubject.add(contentLanguage);
   }
 

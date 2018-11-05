@@ -10,7 +10,7 @@ import 'package:popular_movies/utils/error_utils.dart';
 class FavoritesPage extends StatefulWidget {
   final FavoritesBloc bloc;
 
-  FavoritesPage(this.bloc, {Key key}) : super(key: key);
+  const FavoritesPage(this.bloc, {Key key}) : super(key: key);
 
   @override
   _FavoritesPageState createState() => _FavoritesPageState();
@@ -32,8 +32,8 @@ class _FavoritesPageState extends State<FavoritesPage> {
             builder: (BuildContext context,
                 AsyncSnapshot<UnmodifiableListView<Movie>> snapshot) {
               if (snapshot.hasData) {
-                print("Snapshot data ${snapshot.data}  FavoritesPage");
-                return snapshot.data.length > 0
+                print('Snapshot data ${snapshot.data}  FavoritesPage');
+                return snapshot.data.isNotEmpty
                     ? FavoriteList(widget.bloc, snapshot.data, key: widget.key)
                     : ConfusedTravoltaErrorView(
                         errorMessage:
@@ -42,7 +42,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                       );
               } else if (snapshot.hasError) {
                 return ConfusedTravoltaErrorView(
-                  errorMessage: ErrorUtils.getFriendlyNetworkErrorMessage(
+                  errorMessage: getFriendlyNetworkErrorMessage(
                       context, snapshot.error),
                   onTapRetryButton: _onRetry,
                   retryButtonText: AppLocalizations.of(context).retry,

@@ -20,12 +20,12 @@ class HomePage extends StatefulWidget {
       : super(key: key);
 
   @override
-  HomePageState createState() {
-    return new HomePageState();
+  _HomePageState createState() {
+    return _HomePageState();
   }
 }
 
-class HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
   MovieBloc _popularBloc;
   MovieBloc _topRatedBloc;
@@ -59,13 +59,13 @@ class HomePageState extends State<HomePage> {
 
   Widget _loadBottomNavigationBarItemContent(int index) {
     if (index == 0) {
-      return MoviePage(_popularBloc, key: PageStorageKey('popularKey'));
+      return MoviePage(_popularBloc, key: const PageStorageKey<String>('popularKey'));
     } else if (index == 1) {
-      return MoviePage(_topRatedBloc, key: PageStorageKey('topRatedKey'));
+      return MoviePage(_topRatedBloc, key: const PageStorageKey<String>('topRatedKey'));
     } else if (index == 2) {
-      return MoviePage(_nowPlayingBloc, key: PageStorageKey('nowPlayingKey'));
+      return MoviePage(_nowPlayingBloc, key: const PageStorageKey<String>('nowPlayingKey'));
     } else {
-      return FavoritesPage(_favoritesBloc, key: PageStorageKey('favoritesKey'));
+      return FavoritesPage(_favoritesBloc, key: const PageStorageKey<String>('favoritesKey'));
     }
   }
 
@@ -83,28 +83,28 @@ class HomePageState extends State<HomePage> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        onTap: (index) {
+        onTap: (int index) {
           setState(() {
             _currentIndex = index;
           });
           _loadBottomNavigationBarItemContent(index);
         },
         currentIndex: _currentIndex,
-        items: [
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.trending_up),
+            icon: const Icon(Icons.trending_up),
             title: Text(AppLocalizations.of(context).popularTitle),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.star),
+            icon: const Icon(Icons.star),
             title: Text(AppLocalizations.of(context).topRatedTitle),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.play_arrow),
+            icon: const Icon(Icons.play_arrow),
             title: Text(AppLocalizations.of(context).nowPlayingTitle),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
+            icon: const Icon(Icons.favorite),
             title: Text(AppLocalizations.of(context).favoritesTitle),
           ),
         ],

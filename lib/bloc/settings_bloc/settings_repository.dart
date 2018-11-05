@@ -10,14 +10,16 @@ class SettingsRepository {
   final MoviePreferences _moviePreferences;
 
   Future<String> getContentLanguage() async {
-    String contentLanguage = await _moviePreferences.getContentLanguage();
+    final String contentLanguage = await _moviePreferences.getContentLanguage();
     return contentLanguage;
   }
 
   Future<bool> setContentLanguage(String contentLanguage) async {
-    bool isSuccess =
+    final bool isSuccess =
         await _moviePreferences.setContentLanguage(contentLanguage);
-    if (isSuccess) _contentLanguageSubject.add(contentLanguage);
+    if (isSuccess) {
+      _contentLanguageSubject.add(contentLanguage);
+    }
     return isSuccess;
   }
 
@@ -28,5 +30,5 @@ class SettingsRepository {
   Stream<String> get contentLanguage => _contentLanguageSubject.stream;
 
   //StreamController
-  final _contentLanguageSubject = BehaviorSubject<String>();
+  final BehaviorSubject<String> _contentLanguageSubject = BehaviorSubject<String>();
 }

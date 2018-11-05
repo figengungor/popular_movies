@@ -19,13 +19,13 @@ class FavoritesRepository {
   }
 
   Future<int> removeFavorite(int movieId) async {
-    int row = await _movieDatabase.deleteFavorite(movieId);
+    final int row = await _movieDatabase.deleteFavorite(movieId);
     _updateSubject.add(true);
     return row;
   }
 
   Future<int> addFavorite(Movie movie) async {
-    int id = await _movieDatabase.saveFavorite(movie);
+    final int id = await _movieDatabase.saveFavorite(movie);
     _updateSubject.add(true);
     return id;
   }
@@ -37,5 +37,5 @@ class FavoritesRepository {
   Stream<bool> get isUpdated => _updateSubject.stream;
 
   //StreamController
-  final _updateSubject = BehaviorSubject<bool>(seedValue: false);
+  final BehaviorSubject<bool> _updateSubject = BehaviorSubject<bool>(seedValue: false);
 }

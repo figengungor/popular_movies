@@ -125,7 +125,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                 children: <Widget>[
                   Text(
                     '${AppLocalizations.of(context).movieDetailFetchError}'
-                        '${ErrorUtils.getFriendlyNetworkErrorMessage(context, snapshot.error)}',
+                        '${getFriendlyNetworkErrorMessage(context, snapshot.error)}',
                     textAlign: TextAlign.center,
                   ),
                   FlatButton(
@@ -241,7 +241,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                       ),
                       const SizedBox(width: 4.0),
                       Text(
-                        DateUtils.getFormattedDate(widget.movie.releaseDate),
+                        getFormattedDate(widget.movie.releaseDate),
                         style: TextStyle(
                           color: Colors.grey.shade700,
                         ),

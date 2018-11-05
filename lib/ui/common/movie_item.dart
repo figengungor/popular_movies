@@ -11,7 +11,7 @@ class MovieItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String url = '$imageUrl$pathPosterW342${movie.posterPath}';
+    final String url = '$imageUrl$pathPosterW342${movie.posterPath}';
     final double imageWidth = MediaQuery.of(context).size.width / 2;
     return GestureDetector(
       onTap: () {
