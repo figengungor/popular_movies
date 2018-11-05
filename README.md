@@ -40,6 +40,7 @@ Search Empty    |  Search Result
 - [x] Localization('en', 'tr')
 - [x] Settings(SharedPreferences)
 - [x] Search Page
+- [x] Custom Font
 
 ## Do me a favor
 

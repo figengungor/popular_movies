@@ -41,6 +41,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         accentColor: Colors.pink,
         buttonColor: Colors.pink,
+        fontFamily: 'Abel'
       ),
       routes: <String, WidgetBuilder>{
         '/': (BuildContext context) => HomePage(
