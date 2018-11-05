@@ -66,6 +66,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
         expandedHeight: 256.0,
         slivers: <Widget>[
           SliverAppBar(
+            backgroundColor: Colors.transparent,
             expandedHeight: 256.0,
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
