@@ -19,24 +19,27 @@ class MovieItem extends StatelessWidget {
       },
       child: Tooltip(
         message: movie.title,
-        child: CachedNetworkImage(
-          placeholder: Image.asset('assets/images/placeholder_poster.png'),
-          errorWidget: Stack(
-            children: <Widget>[
-              Image.asset('assets/images/error_poster.png'),
-              Container(
-                padding: const EdgeInsets.all(8.0),
-                alignment: Alignment.bottomCenter,
-                child: Text(
-                  movie.title,
-                  textAlign: TextAlign.center,
-                ),
-              )
-            ],
+        child: Hero(
+          tag: "moviePoster${movie.id}",
+          child: CachedNetworkImage(
+            placeholder: Image.asset('assets/images/placeholder_poster.png'),
+            errorWidget: Stack(
+              children: <Widget>[
+                Image.asset('assets/images/error_poster.png'),
+                Container(
+                  padding: const EdgeInsets.all(8.0),
+                  alignment: Alignment.bottomCenter,
+                  child: Text(
+                    movie.title,
+                    textAlign: TextAlign.center,
+                  ),
+                )
+              ],
+            ),
+            imageUrl: url,
+            width: imageWidth,
+            fit: BoxFit.cover,
           ),
-          imageUrl: url,
-          width: imageWidth,
-          fit: BoxFit.cover,
         ),
       ),
     );
