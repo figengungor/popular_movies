@@ -38,7 +38,11 @@ class MyApp extends StatelessWidget {
       onGenerateTitle: (BuildContext context) =>
           AppLocalizations.of(context).appTitle,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColorBrightness: Brightness.dark,
+        primaryColor: Colors.black,
+        primaryTextTheme: ThemeData.dark().primaryTextTheme.copyWith(
+          title: TextStyle(color: Colors.green)
+        ),
         accentColor: Colors.pink,
         buttonColor: Colors.pink,
         fontFamily: 'Abel'
