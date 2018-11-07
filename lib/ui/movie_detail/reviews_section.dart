@@ -26,6 +26,7 @@ class ReviewsSection extends StatelessWidget {
         reviews.results != null &&
         reviews.results.isNotEmpty) {
       return ListView.builder(
+        padding: EdgeInsets.all(0.0),
           shrinkWrap: true,
           primary: false,
           itemCount: reviews.results.length > _maxLength

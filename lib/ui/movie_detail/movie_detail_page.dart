@@ -261,15 +261,10 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Icon(
-                        Icons.date_range,
-                        color: Colors.grey.shade700,
-                      ),
-                      const SizedBox(width: 4.0),
                       Text(
                         getFormattedDate(widget.movie.releaseDate),
                         style: TextStyle(
-                          color: Colors.grey.shade700,
+                          color: Colors.green,
                         ),
                       ),
                     ],
