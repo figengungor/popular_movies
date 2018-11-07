@@ -11,6 +11,7 @@ import 'package:popular_movies/model/genres.dart';
 import 'package:popular_movies/model/movie.dart';
 import 'package:popular_movies/data/api_constants.dart';
 import 'package:popular_movies/model/movie_detail.dart';
+import 'package:popular_movies/ui/common/cut_corner_clipper.dart';
 import 'package:popular_movies/ui/movie_detail/cast_section.dart';
 import 'package:popular_movies/ui/movie_detail/genre_tag.dart';
 import 'package:popular_movies/ui/movie_detail/reviews_section.dart';
@@ -22,6 +23,7 @@ import 'package:sliver_fab/sliver_fab.dart';
 
 class MovieDetailPage extends StatefulWidget {
   const MovieDetailPage(this.movie, this.repo);
+
   final Movie movie;
   final FavoritesRepository repo;
 
@@ -70,18 +72,35 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
             expandedHeight: 256.0,
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
-              background: CachedNetworkImage(
-                fadeInDuration: Duration(milliseconds: 0),
-                fit: BoxFit.cover,
-                imageUrl: backdropUrl,
-                placeholder: Image.asset(
-                  'assets/images/placeholder_backdrop.png',
-                  fit: BoxFit.cover,
-                ),
-                errorWidget: Image.asset(
-                  'assets/images/error_backdrop.png',
-                  fit: BoxFit.cover,
-                ),
+              //title: Text(widget.movie.title),
+              background: Stack(
+                fit: StackFit.expand,
+                children: <Widget>[
+                  CachedNetworkImage(
+                    fadeInDuration: Duration(milliseconds: 0),
+                    fit: BoxFit.cover,
+                    imageUrl: backdropUrl,
+                    placeholder: Image.asset(
+                      'assets/images/placeholder_backdrop.png',
+                      fit: BoxFit.cover,
+                    ),
+                    errorWidget: Image.asset(
+                      'assets/images/error_backdrop.png',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                 /* DecoratedBox(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          colors: [
+                            Colors.black,
+                            Colors.transparent,
+                          ],
+                          begin: FractionalOffset.bottomCenter,
+                          end: FractionalOffset.topCenter),
+                    ),
+                  )*/
+                ],
               ),
             ),
           ),
@@ -186,20 +205,23 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
         children: <Widget>[
           Hero(
             tag: 'moviePoster${widget.movie.id}',
-            child: CachedNetworkImage(
-              imageUrl: posterUrl,
-              placeholder: Image.asset(
-                'assets/images/placeholder_poster.png',
+            child: ClipPath(
+              clipper: CutCornerClipper(20.0),
+              child: CachedNetworkImage(
+                imageUrl: posterUrl,
+                placeholder: Image.asset(
+                  'assets/images/placeholder_poster.png',
+                  width: 120.0,
+                  fit: BoxFit.cover,
+                ),
+                errorWidget: Image.asset(
+                  'assets/images/error_poster.png',
+                  width: 120.0,
+                  fit: BoxFit.cover,
+                ),
                 width: 120.0,
                 fit: BoxFit.cover,
               ),
-              errorWidget: Image.asset(
-                'assets/images/error_poster.png',
-                width: 120.0,
-                fit: BoxFit.cover,
-              ),
-              width: 120.0,
-              fit: BoxFit.cover,
             ),
           ),
           Expanded(
